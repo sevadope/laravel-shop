@@ -121,24 +121,24 @@ class CategorySeeder extends Seeder
     	DB::table('categories')->insert($categories);
     }
 
-    private function makeCategories(array $categories_names, $cur_id = null)
+    private function makeCategories(array $categories_names, $parent_path = null)
     {
     	$categories = [];
-    	$parent_id = $cur_id;
 
     	foreach ($categories_names as $key => $value) {
     		if (is_array($value)) {
-    			$categories[] = $this->makeCategory($key, ++$cur_id, $parent_id);
+
+                $cur_path = $this->makePath($parent_path, $key);
+    			$categories[] = $this->makeCategory($key, $cur_path);
 
     			$categories = array_merge(
     				$categories,
-    				$this->{__FUNCTION__}($value, $cur_id)
+    				$this->{__FUNCTION__}($value, $cur_path)
     			);
-
-    			$cur_id += count($value, COUNT_RECURSIVE);
     		}
     		else {
-    			$categories[] = $this->makeCategory($value, ++$cur_id, $parent_id);
+                $cur_path = $this->makePath($parent_path, $value);
+    			$categories[] = $this->makeCategory($value, $cur_path);
     		}
     		
     	}
@@ -146,16 +146,25 @@ class CategorySeeder extends Seeder
     	return $categories;
     }
 
-    private function makeCategory($name, $id, $parent_id)
+    private function makeCategory($name, string $cur_path)
     {
+        $slug = Str::slug($name);
+        $created_at = (string) now();
+
     	return [
-    		'id' => $id,
-    		'parent_id' => $parent_id,
+    		'path' => $cur_path,
     		'name' => $name,
-    		'slug' => Str::slug($name),
+    		'slug' => $slug,
     		'description' => str_repeat($name.' - ', 10),
-    		'created_at' => (string) now(), 
-    		'updated_at' => (string) now(),
+    		'created_at' => $created_at, 
+    		'updated_at' => $created_at,
     	];
+    }
+
+    private function makePath($parent_path, $name)
+    {
+        $cur_path = str_replace('-', '_', ucfirst(Str::slug($name)));
+
+        return $parent_path ? $parent_path.'.'.$cur_path : $cur_path;
     }
 }
