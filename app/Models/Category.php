@@ -7,9 +7,49 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     protected $fillable = [
-    	'parent_id',
+    	'path',
     	'name',
     	'slug',
     	'description',
     ];
+
+    public function descendants()
+    {
+        return $this->whereRaw($this->getPathColumn()." <@ '{$this->getPath()}'");
+    }
+
+    public function children()
+    {
+        return $this->whereRaw($this->getPathColumn()." ~ '{$this->getPath()}.*{1}'");
+    }
+
+    public function ancestors()
+    {
+        return $this->whereRaw($this->getPathColumn()." @> '{$this->getPath()}'");
+    }
+
+    public function getAllDescendants()
+    {
+        return $this->descendants()->get();
+    }
+
+    public function getAllAncestors()
+    {
+        return $this->ancestors()->get();
+    }
+
+    public function getAllChildren()
+    {
+        return $this->children()->get();
+    }
+
+    public function getPathColumn()
+    {
+        return 'path';
+    }
+
+    public function getPath()
+    {
+        return $this->{$this->getPathColumn()};
+    }
 }
