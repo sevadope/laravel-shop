@@ -16,13 +16,18 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('category_id');
 
             $table->string('name');
             $table->string('slug');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->jsonb('options');
 
             $table->timestamps();
+
+            $table->foreign('category_id')
+                ->references('id')
+                ->on('categories');
         });
 
         DB::connection()->getPdo()->exec('ALTER TABLE products ADD COLUMN price money;');

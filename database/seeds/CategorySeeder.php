@@ -13,108 +13,107 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
+        $categories_names = [
+            'Men' => [
+                'Clothing' => [
+                    'Activewear' => [
+                        'Shorts',
+                        'Tops',
+                        'Running',
+                        'Gym & Training',   
+                    ],
+                    'Hoodies & Sweatshirts' => [
+                        'Sweatshirts',
+                        'Zip hoodies',
+                        'Hoodies',
+                    ],
+                    'Jackets & Coats' => [
+                        'Leather jackets',
+                        'Trench coats',
+                        'Denim jackets',
+                        'Parkas',
+                    ],
+                    'Jeans' => [
+                        'Skinny jeans',
+                        'Slim jeans',
+                        'Straight jeans',
+                        'Tapered jeans',
+                    ],
+                    'Shorts' => [
+                        'Cargo shorts',
+                        'Chino shorts',
+                        'Denim shorts',
+                        'Tailored shorts',
+                    ],
+                    'Shirts' => [
+                        'Check shirts',
+                        'Denim shirts',
+                        'Short sleeve shirts',
+                        'Printed shirts',
+                    ],
+                ],
 
-    	$categories_names = [
-    		'Men' => [
-    			'Clothing' => [
-    				'Activewear' => [
-    					'Shorts',
-    					'Tops',
-    					'Running',
-    					'Gym & Training',	
-    				],
-    				'Hoodies & Sweatshirts' => [
-    					'Sweatshirts',
-    					'Zip hoodies',
-    					'Hoodies',
-    				],
-    				'Jackets & Coats' => [
-    					'Leather jackets',
-    					'Trench coats',
-    					'Denim jackets',
-    					'Parkas',
-    				],
-    				'Jeans' => [
-    					'Skinny jeans',
-    					'Slim jeans',
-    					'Straight jeans',
-    					'Tapered jeans',
-    				],
-    				'Shorts' => [
-    					'Cargo shorts',
-    					'Chino shorts',
-    					'Denim shorts',
-    					'Tailored shorts',
-    				],
-    				'Shirts' => [
-    					'Check shirts',
-    					'Denim shirts',
-    					'Short sleeve shirts',
-    					'Printed shirts',
-    				],
-    			],
-
-    			'Shoes' => [
-    				'Boots',
-    				'Shoes',
-    				'Sneakers',	
-    			],
-    			'Accessories' => [
-    				'Bags',
-    				'Belts',
-    				'Caps & Hats',
-    				'Gloves',
-    			],
-    		],
-    		'Women' => [
-    			'Clothing' => [
-    				'Coats & Jackets' => [
-    					'Coats',
-    					'Jackets',
-    					'Leather jackets',
-    					'Trench',
-    				],
-    				'Dresses' => [
-    					'Evening dresses',
-    					'Dresses for weddings',
-    					'Maxi dresses',
-    				],
-    				'Hoodies & Sweatshirts' => [
-    					'Hoodies',
-    					'Sweatshirts',
-    				],
-    				'Jeans' => [
-    					'Skinny jeans',
-    					'Boyfriend jeans',
-    					'Slim jeans',
-    					'Jeggings',
-    				],
-    				'Jumpsuits & Rompers' => [
-    					'Boiler suits',
-    					'Jumpsuits',
-    					'Rompers',
-    				],
-    				'Skirts' => [
-    					'Midi skirts',
-    					'Mini skirts',
-    					'Pencil skirts',
-    					'Denim skirts',
-    				],
-    			],
-    			'Shoes' => [
-    				'Boots',
-    				'Flat sandals',
-    				'Flat shoes',
-    				'Heels',
-    			],
-    			'Accessories' => [
-    				'Bags',
-    				'Belts',
-    				'Hair accessories',
-    				'Hats',
-    			],
-    		],
-    	];
+                'Shoes' => [
+                    'Boots',
+                    'Shoes',
+                    'Sneakers', 
+                ],
+                'Accessories' => [
+                    'Bags',
+                    'Belts',
+                    'Caps & Hats',
+                    'Gloves',
+                ],
+            ],
+            'Women' => [
+                'Clothing' => [
+                    'Coats & Jackets' => [
+                        'Coats',
+                        'Jackets',
+                        'Leather jackets',
+                        'Trench',
+                    ],
+                    'Dresses' => [
+                        'Evening dresses',
+                        'Dresses for weddings',
+                        'Maxi dresses',
+                    ],
+                    'Hoodies & Sweatshirts' => [
+                        'Hoodies',
+                        'Sweatshirts',
+                    ],
+                    'Jeans' => [
+                        'Skinny jeans',
+                        'Boyfriend jeans',
+                        'Slim jeans',
+                        'Jeggings',
+                    ],
+                    'Jumpsuits & Rompers' => [
+                        'Boiler suits',
+                        'Jumpsuits',
+                        'Rompers',
+                    ],
+                    'Skirts' => [
+                        'Midi skirts',
+                        'Mini skirts',
+                        'Pencil skirts',
+                        'Denim skirts',
+                    ],
+                ],
+                'Shoes' => [
+                    'Boots',
+                    'Flat sandals',
+                    'Flat shoes',
+                    'Heels',
+                ],
+                'Accessories' => [
+                    'Bags',
+                    'Belts',
+                    'Hair accessories',
+                    'Hats',
+                ],
+            ],
+        ];
 
     	$categories = $this->makeCategories($categories_names);
     	info($categories);
