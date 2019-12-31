@@ -14,37 +14,43 @@ class ProductsOptionSeeder extends Seeder
     {
         $options  = [
         	[
-        		'type_id' => 1,
-        		'data_type' => 'string',
-        		'name' => 'color',
+        		1,
+        		'string',
+        		'color',
         	],
             [
-                'type_id' => 1,
-                'data_type' => 'string',
-                'name' => 'material',
+                1,
+                'string',
+                'material',
             ],
         	[
-        		'type_id' => 2,
-        		'data_type' => 'string',
-        		'name' => 'body_size',
+        		2,
+        		'string',
+        		'body_size',
         	],
         	[
-        		'type_id' => 3,
-        		'data_type' => 'string',
-        		'name' => 'legs_size',
+        		3,
+        		'string',
+        		'legs_size',
         	],
         	[
-        		'type_id' => 4,
-        		'data_type' => 'string',
-        		'name' => 'feet_size',
+        		4,
+        		'string',
+        		'feet_size',
         	],
             [
-                'type_id' => 5,
-                'data_type' => 'string',
-                'name' => 'outerwear_size',
+                5,
+                'string',
+                'outerwear_size',
             ],
         ];
 
-        DB::table('products_options')->insert($options);
+        DB::table('products_options')->insert(array_map(function ($option) {
+            return [
+                'set_id' => $option[0],
+                'data_type' => $option[1],
+                'name' => $option[2],
+            ];
+        }, $options));
     }
 }

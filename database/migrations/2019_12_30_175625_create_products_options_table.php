@@ -15,14 +15,14 @@ class CreateProductsOptionsTable extends Migration
     {
         Schema::create('products_options', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('type_id')->nullable();
+            $table->bigInteger('set_id')->nullable();
 
             $table->string('data_type');
             $table->string('name');
 
-            $table->foreign('type_id')
+            $table->foreign('set_id')
                 ->references('id')
-                ->on('options_types');
+                ->on('products_options_sets');
         });
     }
 

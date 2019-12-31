@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class OptionsTypeSeeder extends Seeder
+class ProductsOptionsSetSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,7 +12,7 @@ class OptionsTypeSeeder extends Seeder
      */
     public function run()
     {
-    	$types_names = [
+    	$sets_names = [
             'Default',
     		'Body',
     		'Legs',
@@ -20,19 +20,19 @@ class OptionsTypeSeeder extends Seeder
             'Outerwear',
     	];
 
-    	DB::table('options_types')->insert($this->makeTypes($types_names));
+    	DB::table('products_options_sets')->insert($this->makeSets($sets_names));
     }
 
-    private function makeTypes(array $types_names)
+    private function makeSets(array $sets_names)
     {
     	$now = now();
 
-    	return array_map(function ($type_name) use ($now) {
+    	return array_map(function ($set_name) use ($now) {
     		return [
-    			'name' => $type_name,
+    			'name' => $set_name,
     			'created_at' => $now,
     			'updated_at' => $now,
     		];
-    	}, $types_names);
+    	}, $sets_names);
     }
 }
