@@ -19,7 +19,6 @@ class CreateProductsOptionsTable extends Migration
 
             $table->string('data_type');
             $table->string('name');
-            $table->boolean('is_default')->default(false);
 
             $table->foreign('type_id')
                 ->references('id')

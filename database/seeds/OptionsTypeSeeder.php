@@ -13,9 +13,11 @@ class OptionsTypeSeeder extends Seeder
     public function run()
     {
     	$types_names = [
+            'Default',
     		'Body',
     		'Legs',
     		'Feet',
+            'Outerwear',
     	];
 
     	DB::table('options_types')->insert($this->makeTypes($types_names));
