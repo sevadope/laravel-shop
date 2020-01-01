@@ -1,9 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
-class ProductsOptionsSetSeeder extends Seeder
+class ProductsPresetSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,7 +11,7 @@ class ProductsOptionsSetSeeder extends Seeder
      */
     public function run()
     {
-    	$sets_names = [
+    	$presets_names = [
             'Default',
     		'Body',
     		'Legs',
@@ -20,19 +19,19 @@ class ProductsOptionsSetSeeder extends Seeder
             'Outerwear',
     	];
 
-    	DB::table('products_options_sets')->insert($this->makeSets($sets_names));
+    	DB::table('products_presets')->insert($this->makePresets($presets_names));
     }
 
-    private function makeSets(array $sets_names)
+    private function makePresets(array $presets_names)
     {
     	$now = now();
 
-    	return array_map(function ($set_name) use ($now) {
+    	return array_map(function ($preset_name) use ($now) {
     		return [
-    			'name' => $set_name,
+    			'name' => $preset_name,
     			'created_at' => $now,
     			'updated_at' => $now,
     		];
-    	}, $sets_names);
+    	}, $presets_names);
     }
 }

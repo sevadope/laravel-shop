@@ -4,6 +4,7 @@ namespace App\Models\Product;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Product\Option;
+use App\Models\Product\Attribute;
 
 class Preset extends Model
 {
@@ -20,6 +21,11 @@ class Preset extends Model
     public function options()
     {
     	return $this->hasMany(Option::class, 'preset_id');
+    }
+
+    public function attributes()
+    {
+        return $this->hasMany(Attribute::class, 'preset_id');
     }
 
     /*|==========| Scopes |==========|*/

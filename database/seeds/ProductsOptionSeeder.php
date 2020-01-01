@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class ProductsOptionSeeder extends Seeder
 {
@@ -18,11 +17,6 @@ class ProductsOptionSeeder extends Seeder
         		'string',
         		'color',
         	],
-            [
-                1,
-                'string',
-                'material',
-            ],
         	[
         		2,
         		'string',
@@ -47,7 +41,7 @@ class ProductsOptionSeeder extends Seeder
 
         DB::table('products_options')->insert(array_map(function ($option) {
             return [
-                'set_id' => $option[0],
+                'preset_id' => $option[0],
                 'data_type' => $option[1],
                 'name' => $option[2],
             ];

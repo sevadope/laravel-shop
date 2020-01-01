@@ -1,8 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use App\Models\ProductsOption;
+use App\Models\Product\Option;
 
 class ProductsOptionValueSeeder extends Seeder
 {
@@ -13,19 +12,9 @@ class ProductsOptionValueSeeder extends Seeder
      */
     public function run()
     {
-    	$options = ProductsOption::all();
+    	$options = Option::all();
 
     	$values = [
-    		2 => [	//material
-    			'95% cotton 5% elasthane',
-    			'100% cotton',
-    			'80% cotton 20% elasthane',
-    			"top fabric: 100% nylon \n
-    			lining: 100% polyamide",
-    			'98% cotton 2% elasthane',
-    			"Upper: Synthetic Leather/Mesh;\n
-    			Outsole: Molding EVA/RB",
-    		],
     		1 => [	//color
     			'black',
     			'white',
@@ -35,13 +24,13 @@ class ProductsOptionValueSeeder extends Seeder
     			'brown',
     			'green',
     		],
-    		3 => [	//body_size
+    		2 => [	//body_size
     			'S',
     			'M',
     			'L',
     			'XL'
     		],
-    		6 => [ //outerwear_size
+    		5 => [ //outerwear_size
     			'170-175',
     			'175-180',
     			'180-185',
@@ -49,7 +38,7 @@ class ProductsOptionValueSeeder extends Seeder
     			'190-195',
     			'195-200',
     		],
-    		4 => [	//legs_size
+    		3 => [	//legs_size
     			'170',
     			'175',
     			'180',
@@ -58,7 +47,7 @@ class ProductsOptionValueSeeder extends Seeder
     			'195',
     			'200',
     		],
-    		5 => [	//feet_size
+    		4 => [	//feet_size
     			'7',
     			'7.5',
     			'8',

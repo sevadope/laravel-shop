@@ -21,7 +21,9 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->string('slug');
             $table->text('description')->nullable();
+
             $table->jsonb('options');
+            $table->jsonb('attributes');
 
             $table->timestamps();
 
@@ -30,7 +32,10 @@ class CreateProductsTable extends Migration
                 ->on('categories');
         });
 
-        DB::connection()->getPdo()->exec('ALTER TABLE products ADD COLUMN price money;');
+        DB::connection()->getPdo()->exec(
+            'ALTER TABLE products 
+                ADD COLUMN price money;'
+        );
     }
 
     /**
