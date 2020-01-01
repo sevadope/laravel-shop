@@ -5,11 +5,11 @@ namespace App\Models\Product;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Product\Option;
 
-class OptionsSet extends Model
+class Preset extends Model
 {
 	private const DEFAULT_ID = 1;
 
-    protected $table = 'products_options_sets';
+    protected $table = 'products_presets';
 
     protected $fillable = [
     	'name',
@@ -19,7 +19,7 @@ class OptionsSet extends Model
 
     public function options()
     {
-    	return $this->hasMany(Option::class, 'set_id');
+    	return $this->hasMany(Option::class, 'preset_id');
     }
 
     /*|==========| Scopes |==========|*/
