@@ -22,8 +22,7 @@ class CreateProductsTable extends Migration
             $table->string('slug');
             $table->text('description')->nullable();
 
-            $table->jsonb('options');
-            $table->jsonb('attributes');
+            $table->jsonb('attributes')->nullable();
 
             $table->timestamps();
 
