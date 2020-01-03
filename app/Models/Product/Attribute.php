@@ -9,6 +9,9 @@ class Attribute extends Model
     protected $table = 'products_attributes';
 
     protected $fillable = [
+    	'data_type',
+    	'product_id',
     	'name',
+    	'value',
     ];
 }

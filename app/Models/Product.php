@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Product\OptionValue;
 use App\Models\Product\Option;
+use App\Models\Product\AttributeValue;
+use App\Models\Product\Attribute;
 
 class Product extends Model
 {
@@ -39,5 +41,20 @@ class Product extends Model
 					$key
 				);
 		}]);	
+	}
+
+	public function rel_attributes()
+	{
+		return $this->hasMany(
+			Attribute::class,
+			'product_id'
+		);
+	}
+
+	public function loadDetails()
+	{
+		$this->loadOptionsValues();
+		$this->rel_attributes;
+		return $this;
 	}
 }
