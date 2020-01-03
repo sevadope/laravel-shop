@@ -10,7 +10,7 @@ class Option extends Model
 	protected $table = 'products_options';
 
     protected $fillable = [
-        'set_id',
+        'preset_id',
     	'data_type',
     	'name',
     ];
@@ -20,5 +20,15 @@ class Option extends Model
     public function values()
     {
     	return $this->hasMany(OptionValue::class, 'option_id');
+    }
+
+    public function used_values()
+    {
+        return $this->belongsToMany(
+            OptionValue::class,
+            'products_to_options_values_rel',
+            'option_id',
+            'value_id',
+        );
     }
 }

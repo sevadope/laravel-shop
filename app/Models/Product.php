@@ -18,13 +18,26 @@ class Product extends Model
 
 	/*|==========| Relationships |==========|*/
 
-	public function options_values()
+	public function options()
 	{
 		return $this->belongsToMany(
-			OptionValue::class,
+			Option::class,
 			'products_to_options_values_rel',
 			'product_id',
-			'value_id',
+			'option_id'
 		);
+	}
+
+	public function loadOptionsValues()
+	{
+		$key = $this->getKey();
+
+		$this->options
+			->load(['used_values' => function ($query) use ($key) {
+				$query->wherePivot(
+					'product_id',
+					$key
+				);
+		}]);	
 	}
 }
