@@ -45,16 +45,26 @@ class Product extends Model
 
 	public function rel_attributes()
 	{
-		return $this->hasMany(
+		return $this->belongsToMany(
 			Attribute::class,
-			'product_id'
-		);
+			'products_attributes_values',
+			'product_id',
+			'attribute_id'
+		)->withPivot(['value']);
+	}
+
+	public function loadAttributesValues()
+	{
+		$key = $this->getKey();
+
+		$this->rel_attributes;
 	}
 
 	public function loadDetails()
 	{
 		$this->loadOptionsValues();
-		$this->rel_attributes;
+		$this->loadAttributesValues();
+		
 		return $this;
 	}
 }

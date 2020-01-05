@@ -10,7 +10,6 @@ class Option extends Model
 	protected $table = 'products_options';
 
     protected $fillable = [
-        'preset_id',
     	'data_type',
     	'name',
     ];

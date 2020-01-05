@@ -20,12 +20,20 @@ class Preset extends Model
 
     public function options()
     {
-    	return $this->hasMany(Option::class, 'preset_id');
+    	return $this->belongsToMany(
+            Option::class,
+            'products_presets_to_options_rel',
+            'preset_id',
+            'option_id'
+        );
     }
 
     public function attributes()
     {
-        return $this->hasMany(Attribute::class, 'preset_id');
+        return $this->belongsToMany(
+            Attribute::class,
+            'preset_id'
+        );
     }
 
     /*|==========| Scopes |==========|*/

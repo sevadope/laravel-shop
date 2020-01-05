@@ -13,27 +13,26 @@ class ProductsOptionSeeder extends Seeder
     {
         $options  = [
         	[
-        		1,
         		'string',
         		'color',
         	],
         	[
-        		2,
+
         		'string',
         		'body_size',
         	],
         	[
-        		3,
+
         		'string',
         		'legs_size',
         	],
         	[
-        		4,
+
         		'string',
         		'feet_size',
         	],
             [
-                5,
+
                 'string',
                 'outerwear_size',
             ],
@@ -41,9 +40,8 @@ class ProductsOptionSeeder extends Seeder
 
         DB::table('products_options')->insert(array_map(function ($option) {
             return [
-                'preset_id' => $option[0],
-                'data_type' => $option[1],
-                'name' => $option[2],
+                'data_type' => $option[0],
+                'name' => $option[1],
             ];
         }, $options));
     }

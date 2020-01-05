@@ -15,15 +15,7 @@ class CreateProductsAttributesTable extends Migration
     {
         Schema::create('products_attributes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('product_id');
-
-            $table->string('data_type')->default('string');
             $table->string('name');
-            $table->string('value');
-
-            $table->foreign('product_id')
-                ->references('id')
-                ->on('products');
         });
     }
 
