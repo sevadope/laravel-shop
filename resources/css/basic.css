@@ -1,0 +1,26 @@
+.filter-box-title {
+	font-weight: bold;
+}
+
+.filter-box-label {
+}
+
+.filter-box-wrapper {
+	margin: 1em;
+
+	flex-direction: column;
+}
+
+main {
+	display: flex;
+	
+}
+
+.main {
+	flex-grow: 3;
+	background-color: #f0f9fa;
+}
+
+.filter-box-list {
+	margin-bottom: 0.5em;
+}

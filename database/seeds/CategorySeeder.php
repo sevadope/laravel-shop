@@ -14,104 +14,53 @@ class CategorySeeder extends Seeder
     public function run()
     {
         $categories_names = [
-            'Men' => [
-                'Clothing' => [
-                    'Activewear' => [
-                        'Shorts',
-                        'Tops',
-                        'Running',
-                        'Gym & Training',   
-                    ],
-                    'Hoodies & Sweatshirts' => [
-                        'Sweatshirts',
-                        'Zip hoodies',
-                        'Hoodies',
-                    ],
-                    'Jackets & Coats' => [
-                        'Leather jackets',
-                        'Trench coats',
-                        'Denim jackets',
-                        'Parkas',
-                    ],
-                    'Jeans' => [
-                        'Skinny jeans',
-                        'Slim jeans',
-                        'Straight jeans',
-                        'Tapered jeans',
-                    ],
-                    'Shorts' => [
-                        'Cargo shorts',
-                        'Chino shorts',
-                        'Denim shorts',
-                        'Tailored shorts',
-                    ],
-                    'Shirts' => [
-                        'Check shirts',
-                        'Denim shirts',
-                        'Short sleeve shirts',
-                        'Printed shirts',
-                    ],
+            'Mobile Phones' => [
+                'Cell Phones',
+                'Batteries, Power Banks & Chargers' => [
+                    'Cell Phone Batteries',
+                    'Power Banks',
+                    'Standard Batteries & Chargers',
+                    'USB Chargers',
                 ],
+                'Headsets & Accessories' => [
+                    'Bluetooth Headsets & Accessories',
+                    'Wired Headsets & Accessories',
+                ],
+                'Cases & Covers',
+                'Chargers & Cables',
+                'Mounts & Holders',
+            ],
 
-                'Shoes' => [
-                    'Boots',
-                    'Shoes',
-                    'Sneakers', 
+            'Tablets' => [
+                'Android Tablets',
+                'Window Tablets',
+                'iPad',
+            ],
+            'TV & Home Theater' => [
+                'TV & Video',
+                'Home Audio & Home Theater',
+                'Home Video Accessories',
+                'Audio / Video Cables',
+                'HDMI Cables',
+                'TV Mounts',
+            ],
+            'Portable Electronics' => [
+                'Headphones & Accessories' => [
+                    'Headphones',
+                    'Headphone Accessories'
                 ],
-                'Accessories' => [
-                    'Bags',
-                    'Belts',
-                    'Caps & Hats',
-                    'Gloves',
+                'Portable Speakers',
+                'Gadgets & Wearables',
+                'Portable Electronic Devices',
+                'Digital Cameras & Accessories' => [
+                    'Digital Cameras',
+                    'Digital Camera Accessories',
                 ],
             ],
-            'Women' => [
-                'Clothing' => [
-                    'Coats & Jackets' => [
-                        'Coats',
-                        'Jackets',
-                        'Leather jackets',
-                        'Trench',
-                    ],
-                    'Dresses' => [
-                        'Evening dresses',
-                        'Dresses for weddings',
-                        'Maxi dresses',
-                    ],
-                    'Hoodies & Sweatshirts' => [
-                        'Hoodies',
-                        'Sweatshirts',
-                    ],
-                    'Jeans' => [
-                        'Skinny jeans',
-                        'Boyfriend jeans',
-                        'Slim jeans',
-                        'Jeggings',
-                    ],
-                    'Jumpsuits & Rompers' => [
-                        'Boiler suits',
-                        'Jumpsuits',
-                        'Rompers',
-                    ],
-                    'Skirts' => [
-                        'Midi skirts',
-                        'Mini skirts',
-                        'Pencil skirts',
-                        'Denim skirts',
-                    ],
-                ],
-                'Shoes' => [
-                    'Boots',
-                    'Flat sandals',
-                    'Flat shoes',
-                    'Heels',
-                ],
-                'Accessories' => [
-                    'Bags',
-                    'Belts',
-                    'Hair accessories',
-                    'Hats',
-                ],
+            'Speciality Electronics' => [
+                'Drones',
+                'Musical Instruments',
+                'Alternative Energy',
             ],
         ];
 
