@@ -18,9 +18,21 @@ main {
 
 .main {
 	flex-grow: 3;
-	background-color: #f0f9fa;
+	background-color: #d4f3ff;
+	flex-direction: row;
 }
 
 .filter-box-list {
-	margin-bottom: 0.5em;
+	margin-bottom: 0.5rem;
+	flex-direction: column;
+}
+
+.item {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	width: 10rem;
+	height: 10rem;
+
 }

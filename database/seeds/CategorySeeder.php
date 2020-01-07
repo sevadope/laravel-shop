@@ -104,6 +104,7 @@ class CategorySeeder extends Seeder
     		'name' => $name,
     		'slug' => $slug,
     		'description' => str_repeat($name.' - ', 10),
+            'popularity' => random_int(1, 100),
     		'created_at' => $created_at, 
     		'updated_at' => $created_at,
     	];

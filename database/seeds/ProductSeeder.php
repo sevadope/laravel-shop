@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 
 class ProductSeeder extends Seeder
 {
-	public const PRODUCTS_COUNT = 100;
+	public const PRODUCTS_COUNT = 1000;
 
 
 	private $options;
@@ -51,27 +51,18 @@ class ProductSeeder extends Seeder
     		'name' => $name,
     		'slug' => Str::slug($name),
     		'description' => str_repeat($name, 10),
+            'popularity' => random_int(1, 1000),
     	];
     }
 
     private function getLastCategoriesIDs()
     {
     	return [ 
-    		4, 5, 6, 7,
-    		9, 10, 11, 
-    		13, 14, 15, 16,
-    		18, 19, 20, 21,
-    		23, 24, 25, 26,
-    		28, 29, 30, 31,
-    		33, 34, 35,
-
-    		44, 45, 46, 47,
-    		49, 50, 51,
-    		53, 54,
-    		56, 57, 58, 59,
-    		61, 62, 63,
-    		65, 66, 67, 68,
-    		70, 71, 72, 73,
+    		2, 4, 5, 6, 7, 9, 10,
+            11, 12, 13, 15,16, 17,
+            19, 20, 21, 22, 23, 24,
+            27, 28, 29, 30, 31, 33,
+            34, 36, 37, 38,
     	];
     }
 

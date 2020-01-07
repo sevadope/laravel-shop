@@ -16,6 +16,7 @@ class Product extends Model
 		'slug',
 		'options',
 		'description',
+		'popularity',
 	];
 
 	/*|==========| Relationships |==========|*/
@@ -66,5 +67,26 @@ class Product extends Model
 		$this->loadAttributesValues();
 		
 		return $this;
+	}
+
+	public function scopeOrderByPopularity($query)
+	{
+		return $query->orderBy('popularity');
+	}
+
+	public function scopeWhereCategory($query, $id)
+	{
+		return $query->where('category_id', $id);	
+	}
+
+	public function scopeWhereCategoryIn($query,  $keys)
+	{
+		#dd($keys);
+		return $query->whereIn('category_id', $keys);
+	}
+
+	public function scopeGetForList($query)
+	{
+		return $query->get(['id', 'name', 'slug']);
 	}
 }

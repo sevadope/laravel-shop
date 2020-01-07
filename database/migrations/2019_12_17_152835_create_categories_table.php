@@ -20,6 +20,7 @@ class CreateCategoriesTable extends Migration
             $table->string('name');
             $table->string('slug');
             $table->text('description')->nullable();
+            $table->integer('popularity')->default(0);
 
             $table->timestamps();
         });

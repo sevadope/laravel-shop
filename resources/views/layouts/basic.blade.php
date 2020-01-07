@@ -44,41 +44,7 @@
 	</nav>
 	<main>
 		<div class="filter-box-wrapper">
-			<ul class="nav flex-column filter-box-list">
-				<span class="filter-box-title">Cell Phones</span>
-			 	<li class="nav-item">
-			    	<a class="nav-link active" href="#">Active</a>
-			  	</li>
-			  	<li class="nav-item">
-			    	<a class="nav-link" href="#">Link</a>
-			  	</li>
-			  	<li class="nav-item">
-			    	<a class="nav-link" href="#">Link</a>
-			  	</li>
-			  	<li class="nav-item">
-			    	<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">
-			    		Disabled
-			    	</a>
-			  </li>
-			</ul>
-
-			<ul class="nav flex-column filter-box-list">
-				<span class="filter-box-title">Tablets</span>
-			 	<li class="nav-item">
-			    	<a class="nav-link active" href="#">Active</a>
-			  	</li>
-			  	<li class="nav-item">
-			    	<a class="nav-link" href="#">Link</a>
-			  	</li>
-			  	<li class="nav-item">
-			    	<a class="nav-link" href="#">Link</a>
-			  	</li>
-			  	<li class="nav-item">
-			    	<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">
-			    		Disabled
-			    	</a>
-			  </li>
-			</ul>			
+			@yield('filter-box')	
 		</div>		
 
 		<div class="main">

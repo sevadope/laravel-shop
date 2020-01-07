@@ -11,7 +11,13 @@ class Category extends Model
     	'name',
     	'slug',
     	'description',
+        'popularity',
     ];
+
+    public function scopeOrderByPopularity($query)
+    {
+        return $query->orderBy('popularity');
+    }
 
     public function descendants()
     {
@@ -51,5 +57,10 @@ class Category extends Model
     public function getPath()
     {
         return $this->{$this->getPathColumn()};
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }
