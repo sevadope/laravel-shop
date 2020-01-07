@@ -79,7 +79,7 @@ class Product extends Model
 		return $query->where('category_id', $id);	
 	}
 
-	public function scopeWhereCategoryIn($query,  $keys)
+	public function scopeWhereCategoriesIn($query,  $keys)
 	{
 		#dd($keys);
 		return $query->whereIn('category_id', $keys);

@@ -16,26 +16,6 @@ class ProductsOptionSeeder extends Seeder
         		'string',
         		'color',
         	],
-        	[
-
-        		'string',
-        		'body_size',
-        	],
-        	[
-
-        		'string',
-        		'legs_size',
-        	],
-        	[
-
-        		'string',
-        		'feet_size',
-        	],
-            [
-
-                'string',
-                'outerwear_size',
-            ],
         ];
 
         DB::table('products_options')->insert(array_map(function ($option) {

@@ -6,6 +6,7 @@ use Illuminate\Support\Str;
 
 class CategorySeeder extends Seeder
 {
+    protected $side_values = [];
     /**
      * Run the database seeds.
      *
@@ -64,56 +65,91 @@ class CategorySeeder extends Seeder
             ],
         ];
 
+        $this->side_values = $this->makeSideValues($categories_names);
     	$categories = $this->makeCategories($categories_names);
-    	info($categories);
+
     	DB::table('categories')->insert($categories);
     }
 
-    private function makeCategories(array $categories_names, $parent_path = null)
+    private function makeCategories(array $categories_names, $parent_id = null, $level = 0)
     {
     	$categories = [];
+
+        $cur_id = $parent_id;
+        $child_level = $level + 1;
 
     	foreach ($categories_names as $key => $value) {
     		if (is_array($value)) {
 
-                $cur_path = $this->makePath($parent_path, $key);
-    			$categories[] = $this->makeCategory($key, $cur_path);
+    			$categories[] = $this->makeCategory(++$cur_id, $key, $parent_id, $level);
 
     			$categories = array_merge(
     				$categories,
-    				$this->{__FUNCTION__}($value, $cur_path)
+    				$this->{__FUNCTION__}($value, $cur_id, $child_level)
     			);
+
+                $cur_id+= count($value, 1);
     		}
     		else {
-                $cur_path = $this->makePath($parent_path, $value);
-    			$categories[] = $this->makeCategory($value, $cur_path);
+    			$categories[] = $this->makeCategory(++$cur_id, $value, $parent_id, $level);
     		}
-    		
     	}
-
+       
     	return $categories;
     }
 
-    private function makeCategory($name, string $cur_path)
+    private function makeCategory($id, $name, $parent_id, $level)
     {
         $slug = Str::slug($name);
         $created_at = (string) now();
 
+        $side_values = $this->side_values[$name];
+
     	return [
-    		'path' => $cur_path,
+            'id' => $id,
     		'name' => $name,
     		'slug' => $slug,
     		'description' => str_repeat($name.' - ', 10),
             'popularity' => random_int(1, 100),
+
+            'tree_left_key' => $side_values['left'],
+            'tree_right_key' => $side_values['right'],
+            'tree_depth' => $side_values['depth'],
+
     		'created_at' => $created_at, 
     		'updated_at' => $created_at,
     	];
     }
 
-    private function makePath($parent_path, $name)
+    private function makeSideValues(array $categories, $left = 1, $depth = 0)
     {
-        $cur_path = str_replace('-', '_', ucfirst(Str::slug($name)));
+        $paths = [];
 
-        return $parent_path ? $parent_path.'.'.$cur_path : $cur_path;
+        foreach ($categories as $key => $value) {
+            if (is_array($value)) {
+                $right = ($left + (2 * count($value, 1)) + 1);
+
+                $paths[$key] = $this->makePath($left, $right, $depth);
+
+                $paths = array_merge($paths, $this->{__FUNCTION__}($value, ++$left, $depth + 1));
+
+                $left = $right + 1;
+
+            } else {
+                $paths[$value] = $this->makePath($left, ++$left, $depth);
+                $left++;
+            }
+        }
+
+        return $paths;
+    }
+
+    private function makePath($left, $right, $depth)
+    {
+        return [
+            'left' => $left,
+            'right' => $right,
+            'depth' => $depth,
+        ];
     }
 }

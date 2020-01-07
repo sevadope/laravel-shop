@@ -18,14 +18,16 @@ class CreateCategoriesTable extends Migration
             $table->bigIncrements('id');
 
             $table->string('name');
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->text('description')->nullable();
             $table->integer('popularity')->default(0);
 
+            $table->integer('tree_left_key');
+            $table->integer('tree_right_key');
+            $table->integer('tree_depth');
+
             $table->timestamps();
         });
-
-        DB::connection()->getPdo()->exec('ALTER TABLE categories ADD COLUMN path ltree;');
     }
 
     /**

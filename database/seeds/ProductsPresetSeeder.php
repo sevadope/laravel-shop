@@ -12,11 +12,10 @@ class ProductsPresetSeeder extends Seeder
     public function run()
     {
     	$presets_names = [
-            'Default',
-    		'Body',
-    		'Legs',
-    		'Feet',
-            'Outerwear',
+            'Cell Phone',
+    		'Tablet',
+    		'Drones',
+    		'Headphones',
     	];
 
     	DB::table('products_presets')->insert($this->makePresets($presets_names));

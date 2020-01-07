@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    private const LIST_SIZE = 10;
+    private const LIST_SIZE = 30;
     private const PRODUCTS_LIST_SIZE = 10;
 
     /**
@@ -31,16 +31,18 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show($slug)
     {
-        if ($category->children()->count() === 0) {
-            $products = Product::whereCategory($category->id);   
-        } else {
-            $products = Product::whereCategoryIn(
-                $category->getAllChildren()
+        $category = Category::whereSlug($slug)->first();
+
+        if ($category->hasChildren()) {
+            $products = Product::whereCategoriesIn(
+                $category->descendants
                     ->pluck($category->getKeyName())
                     ->toArray()
             );
+        } else {
+            $products = Product::whereCategory($category->id);   
         }
 
         $products = $products->orderByPopularity()

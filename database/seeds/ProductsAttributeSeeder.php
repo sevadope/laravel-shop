@@ -19,7 +19,6 @@ class ProductsAttributeSeeder extends Seeder
         $this->products = Product::get();
 
         $attributes = [
-            'material',
             'color',
         ];
 

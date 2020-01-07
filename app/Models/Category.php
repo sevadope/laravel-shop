@@ -3,60 +3,75 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Relations\HasDescendants;
+use App\Relations\HasChildren;
+use App\Relations\HasAncestors;
 
 class Category extends Model
 {
     protected $fillable = [
-    	'path',
     	'name',
     	'slug',
     	'description',
         'popularity',
+        'left',
+        'right',
     ];
+
+    /*|==========| Relationships |==========|*/
+
+    public function descendants()
+    {
+        return new HasDescendants($this->newQuery(), $this);
+    }
+
+    public function children()
+    {
+        return new HasChildren($this->newQuery(), $this);
+    }
+
+    public function ancestors()
+    {
+        return new HasAncestors($this->newQuery(), $this);
+    }
+
+    /*|==========| Scopes |==========|*/
 
     public function scopeOrderByPopularity($query)
     {
         return $query->orderBy('popularity');
     }
-
-    public function descendants()
+    
+    public function scopeWhereSlug($query, string $slug)
     {
-        return $this->whereRaw($this->getPathColumn()." <@ '{$this->getPath()}'");
+        return $query->where('slug', $slug);
     }
 
-    public function children()
+    /*|====================|*/
+
+    public function hasChildren()
     {
-        return $this->whereRaw($this->getPathColumn()." ~ '{$this->getPath()}.*{1}'");
+        return $this->getTreeRightKey() - $this->getTreeLeftKey() !== 1;
     }
 
-    public function ancestors()
+    public function hasNoChildren()
     {
-        return $this->whereRaw($this->getPathColumn()." @> '{$this->getPath()}'");
+        return $this->getTreeRightKey() - $this->getTreeLeftKey === 1;
     }
 
-    public function getAllDescendants()
+    public function getTreeLeftKey()
     {
-        return $this->descendants()->get();
+        return $this->tree_left_key;
     }
 
-    public function getAllAncestors()
+    public function getTreeRightKey()
     {
-        return $this->ancestors()->get();
+        return $this->tree_right_key;
     }
 
-    public function getAllChildren()
+    public function getTreeDepth()
     {
-        return $this->children()->get();
-    }
-
-    public function getPathColumn()
-    {
-        return 'path';
-    }
-
-    public function getPath()
-    {
-        return $this->{$this->getPathColumn()};
+        return $this->tree_depth;
     }
 
     public function getRouteKeyName()

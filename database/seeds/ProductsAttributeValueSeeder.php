@@ -20,16 +20,6 @@ class ProductsAttributeValueSeeder extends Seeder
 
         $this->attributes = [
             1 => [
-                   '95% cotton 5% elasthane',
-                   '100% cotton',
-                   '80% cotton 20% elasthane',
-                   "top fabric: 100% nylon \n
-                   lining: 100% polyamide",
-                   '98% cotton 2% elasthane',
-                   "Upper: Synthetic Leather/Mesh;\n
-                   Outsole: Molding EVA/RB",                
-            ],
-            2 => [
                 'black',
                 'white',
                 'orange',
