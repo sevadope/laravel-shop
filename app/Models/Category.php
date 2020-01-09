@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use App\Relations\HasDescendants;
 use App\Relations\HasChildren;
 use App\Relations\HasAncestors;
+use App\Contracts\NestedSetNode;
 
-class Category extends Model
+class Category extends Model implements NestedSetNode
 {
     protected $fillable = [
     	'name',

@@ -4,8 +4,8 @@ namespace App\Relations;
 
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Collection;
+use App\Contracts\NestedSetNode;
 
 abstract class NestedSetRelation extends Relation
 {
@@ -15,7 +15,7 @@ abstract class NestedSetRelation extends Relation
 
 	public function __construct(
 		Builder $query,
-		Model $parent,
+		NestedSetNode $parent,
 		string $left_key = 'tree_left_key', 
 		string $right_key = 'tree_right_key',
 		string $depth = 'tree_depth'
