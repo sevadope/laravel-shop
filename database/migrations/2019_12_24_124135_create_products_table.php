@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration
             $table->bigInteger('category_id');
 
             $table->string('name');
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->text('description')->nullable();
             $table->integer('popularity')->default(0);
             $table->jsonb('attributes')->nullable();

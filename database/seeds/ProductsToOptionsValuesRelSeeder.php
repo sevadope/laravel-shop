@@ -7,7 +7,7 @@ use App\Models\Product\OptionValue;
 
 class ProductsToOptionsValuesRelSeeder extends Seeder
 {
-	private const RELATIONS_COUNT = 600;
+	private const RELATIONS_COUNT = 2000;
 
     /**
      * Run the database seeds.

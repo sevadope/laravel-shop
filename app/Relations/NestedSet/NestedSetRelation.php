@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Relations;
+namespace App\Relations\NestedSet;
 
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\Builder;
