@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Product\OptionValue;
 use App\Models\Product\Option;
-use App\Models\Product\AttributeValue;
-use App\Models\Product\Attribute;
+use App\Models\Product\SpecificationValue;
+use App\Models\Product\Specification;
+use App\Relations\HasSpecifications;
 
 class Product extends Model
 {
@@ -52,7 +53,17 @@ class Product extends Model
 			'option_id'
 		);
 	}
-	
+
+	public function specifications()
+	{
+		return new HasSpecifications(
+			(new Specification)->newQuery(),
+			$this,
+			Specification::class,
+			SpecificationValue::class,
+			'product_id'
+		);
+	}
 	/*|====================|*/
 
 	public function getRouteKeyName()
