@@ -18,4 +18,12 @@ class Specification extends Model
     {
     	return $this->hasMany(SpecificationValue::Class, 'specification_id');
     }
+
+	/*|==========| Accessors |==========|*/
+
+	public function getValueAttribute()
+	{
+		return $this->pivot->value;
+	}
+
 }

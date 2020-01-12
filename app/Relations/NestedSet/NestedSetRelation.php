@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use App\Contracts\NestedSetNode;
 
+/**
+ * Relation which implements Nested Set model
+ *
+ **/
 abstract class NestedSetRelation extends Relation
 {
 	protected $left_key;

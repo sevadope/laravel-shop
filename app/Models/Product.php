@@ -7,7 +7,6 @@ use App\Models\Product\OptionValue;
 use App\Models\Product\Option;
 use App\Models\Product\SpecificationValue;
 use App\Models\Product\Specification;
-use App\Relations\HasSpecifications;
 
 class Product extends Model
 {
@@ -56,14 +55,14 @@ class Product extends Model
 
 	public function specifications()
 	{
-		return new HasSpecifications(
-			(new Specification)->newQuery(),
-			$this,
+		return $this->belongsToMany(
 			Specification::class,
-			SpecificationValue::class,
-			'product_id'
-		);
+			'products_specifications_values',
+			'product_id',
+			'specification_id'
+		)->withPivot('value');
 	}
+
 	/*|====================|*/
 
 	public function getRouteKeyName()
