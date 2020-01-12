@@ -16,7 +16,7 @@ class CreateProductsOptionsValuesTable extends Migration
         Schema::create('products_options_values', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('option_id');
-            $table->string('name');
+            $table->string('value');
 
             $table->foreign('option_id')
                 ->references('id')

@@ -16,6 +16,10 @@ class ProductsOptionSeeder extends Seeder
         		'string',
         		'color',
         	],
+            [
+                'string',
+                'total_storage_capacity',
+            ],
         ];
 
         DB::table('products_options')->insert(array_map(function ($option) {

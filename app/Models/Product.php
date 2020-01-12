@@ -7,6 +7,7 @@ use App\Models\Product\OptionValue;
 use App\Models\Product\Option;
 use App\Models\Product\SpecificationValue;
 use App\Models\Product\Specification;
+use App\Relations\HasOptions;
 
 class Product extends Model
 {
@@ -45,11 +46,11 @@ class Product extends Model
 
 	public function options()
 	{
-		return $this->belongsToMany(
+		return new HasOptions(
+			OptionValue::query(),
+			$this,
 			Option::class,
-			'products_to_options_values_rel',
-			'product_id',
-			'option_id'
+			'products_to_options_values_rel'
 		);
 	}
 

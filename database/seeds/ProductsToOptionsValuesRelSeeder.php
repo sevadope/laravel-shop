@@ -7,7 +7,7 @@ use App\Models\Product\OptionValue;
 
 class ProductsToOptionsValuesRelSeeder extends Seeder
 {
-	private const RELATIONS_COUNT = 2000;
+	private const RELATIONS_COUNT = 3000;
 
     /**
      * Run the database seeds.
@@ -28,7 +28,6 @@ class ProductsToOptionsValuesRelSeeder extends Seeder
 
        		$relations[] = [
        			'product_id' => random_int(1, $products_count),
-       			'option_id' => $cur_option->getKey(),
        			'value_id' => $cur_option->values->random()->getKey(),
        		];
         }

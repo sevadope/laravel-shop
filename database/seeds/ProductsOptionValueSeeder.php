@@ -24,13 +24,20 @@ class ProductsOptionValueSeeder extends Seeder
     			'brown',
     			'green',
     		],
+            2 => [  //capacity
+                '6 gigabytes',
+                '16 gigabytes',
+                '32 gigabytes',
+                '64 gigabytes',
+                '128 gigabytes',
+            ]
     	];
 
     	foreach ($values as $option_id => $option) {
     		DB::table('products_options_values')
     			->insert(array_map(function ($value) use ($option_id) {
     				return [
-    					'name' => $value,
+    					'value' => $value,
     					'option_id' => $option_id
     				];
     			}, $option)

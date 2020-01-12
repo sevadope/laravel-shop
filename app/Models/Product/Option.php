@@ -21,13 +21,4 @@ class Option extends Model
     	return $this->hasMany(OptionValue::class, 'option_id');
     }
 
-    public function used_values()
-    {
-        return $this->belongsToMany(
-            OptionValue::class,
-            'products_to_options_values_rel',
-            'option_id',
-            'value_id',
-        );
-    }
 }

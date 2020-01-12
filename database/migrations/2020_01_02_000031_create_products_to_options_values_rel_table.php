@@ -15,16 +15,11 @@ class CreateProductsToOptionsValuesRelTable extends Migration
     {
         Schema::create('products_to_options_values_rel', function (Blueprint $table) {
             $table->bigInteger('product_id');
-            $table->bigInteger('option_id');
             $table->bigInteger('value_id');
 
             $table->foreign('product_id')
                 ->references('id')
                 ->on('products');
-
-            $table->foreign('option_id')
-                ->references('id')
-                ->on('products_options');
 
             $table->foreign('value_id')
                 ->references('id')

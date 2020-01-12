@@ -10,7 +10,7 @@ class OptionValue extends Model
 	protected $table = 'products_options_values';
 	
     protected $fillable = [
-    	'name',
+    	'value',
         'option_id'
     ];
 
