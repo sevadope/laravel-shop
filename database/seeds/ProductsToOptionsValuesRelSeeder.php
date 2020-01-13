@@ -1,4 +1,4 @@
-<?php
+zz<?php
 
 use Illuminate\Database\Seeder;
 use App\Models\Product\Option;
@@ -7,8 +7,8 @@ use App\Models\Product\OptionValue;
 
 class ProductsToOptionsValuesRelSeeder extends Seeder
 {
-	private const RELATIONS_COUNT = 3000;
-
+    private const OPTIONS_PER_PRODUCT_RANGE = [1, 2];
+    private const VALUES_PER_OPTION_RANGE = [2, 5];
     /**
      * Run the database seeds.
      *
@@ -17,21 +17,48 @@ class ProductsToOptionsValuesRelSeeder extends Seeder
     public function run()
     {
     	$products_count = Product::count();
-
     	$options = Option::with('values')->withCount('values')->get();
 
     	$relations = [];
 
-        for ($i=0; $i < self::RELATIONS_COUNT; $i++) { 
+        for ($product_id = 1; $product_id <= $products_count; $product_id++) {
 
-        	$cur_option = $options->random();
+            $options_count = $this->getRandomOptionsCount();
 
-       		$relations[] = [
-       			'product_id' => random_int(1, $products_count),
-       			'value_id' => $cur_option->values->random()->getKey(),
-       		];
+            foreach ($options->random($options_count) as $option) {     
+                $values_count = $this->getRandomValuesCount();
+
+                foreach ($option->values->random($values_count) as $value) {
+                    $relations[] = $this->makeRow($value->id, $product_id);
+                }
+            }
         }
 
         DB::table('products_to_options_values_rel')->insert($relations);
+    }
+
+    private function getRandomOptionsCount()
+    {
+        return random_int(
+            self::OPTIONS_PER_PRODUCT_RANGE[0],
+            self::OPTIONS_PER_PRODUCT_RANGE[1]
+        );
+    }
+
+    private function getRandomValuesCount()
+    {
+        return random_int(
+            self::VALUES_PER_OPTION_RANGE[0],
+            self::VALUES_PER_OPTION_RANGE[1]
+        );
+    }   
+
+
+    private function makeRow(int $value_id, int $product_id)
+    {
+        return [
+            'value_id' => $value_id,
+            'product_id' => $product_id,
+        ];
     }
 }
