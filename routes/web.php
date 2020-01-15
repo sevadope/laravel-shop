@@ -15,4 +15,15 @@ Route::group(
 	}
 );
 
+/*|==========| Products |==========|*/
+Route::group(
+	[
+		'as' => 'products.',
+		'prefix' => 'products',
+	],
+	function () {
+		Route::get('{product}', 'ProductController@show')->name('show');
+	}
+);
+
 
