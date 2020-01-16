@@ -6,6 +6,7 @@
 	    	<h5 class="card-title">{{ $product->name }}</h5>
 	    	<h6 class="card-subtitle mb-2 text-muted">{{ $product->getKey() }}</h6>
 	    	<p class="card-text">{{ $product->description }}</p>
+	    	<h2>{{ $product->price }}</h2>
 	  	</div>
 
 	  	@foreach($product->options as $option)

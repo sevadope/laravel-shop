@@ -52,6 +52,9 @@ class ProductSeeder extends Seeder
     		'slug' => Str::slug($name),
     		'description' => str_repeat($name, 10),
             'popularity' => random_int(1, 1000),
+            'price' => random_int(1, 4) == 4 ?
+                random_int(999, 4999) 
+                : random_int(9, 999),
     	];
     }
 
