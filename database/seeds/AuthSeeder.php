@@ -5,7 +5,7 @@ use Illuminate\Database\Seeder;
 class AuthSeeder extends Seeder
 {
     public const ROLES = [
-        'public',
+        'public',   //default
         'moderator',
         'admin',
         'super_admin'
