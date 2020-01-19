@@ -16,15 +16,23 @@ use Illuminate\Support\Str;
 |
 */
 
-$factory->define(User::class, function (Faker $faker) {
-    return [
-    	'role_id' => 1,
-    	'first_name'  => $faker->firstName,
-    	'last_name' => $faker->lastName,
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'email_verified_at' => now(),
-        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        'remember_token' => Str::random(10),
-    ];
-});
+$func = function ($role_id) {
+    return function (Faker $faker) use ($role_id) {
+            return [
+            'role_id' => $role_id,
+            'first_name'  => $faker->firstName,
+            'last_name' => $faker->lastName,
+            'name' => $faker->name,
+            'email' => $faker->unique()->safeEmail,
+            'email_verified_at' => now(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'remember_token' => Str::random(10),
+        ];
+    };
+};
+
+$factory->define(User::class, $func(1), 'public');
+$factory->define(User::class, $func(2), 'moderator');
+$factory->define(User::class, $func(3), 'admin');
+$factory->define(User::class, $func(4), 'super_admin');
+
