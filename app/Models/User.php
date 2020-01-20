@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Auth\Role;
+use App\Models\Auth\Permission;
 
 class User extends Authenticatable
 {
@@ -41,4 +43,29 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /*|==========| Relationships |==========|*/
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id');
+    }
+
+    public function permissions()
+    {
+        return $this->belongsToMany(
+            Permission::class,
+            'role_permission',
+            'role_id',
+            'perm_id',
+            'role_id'
+        );
+    }
+
+    /*|====================|*/
+
+    public function hasPermissionTo(string $action)
+    {
+        return $this->permissions()->where('action', $action)->exists();
+    }
 }

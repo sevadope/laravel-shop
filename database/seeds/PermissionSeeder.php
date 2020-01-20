@@ -25,7 +25,7 @@ class PermissionSeeder extends Seeder
     private function makeRow(string $verb, string $alias)
     {
     	return [
-    		'can' => AuthSeeder::makeAction($verb, $alias),
+    		'action' => AuthSeeder::makeAction($verb, $alias),
     	];
     }
 

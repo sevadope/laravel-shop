@@ -39,7 +39,7 @@ class RolePermissionSeeder extends Seeder
     		foreach ($verbs as $verb) {
 
     			$perm_id = $this->getPermissions()->where(
-    				'can',
+    				'action',
     				AuthSeeder::makeAction($verb, $entity)
     			)->first()->id;
 
