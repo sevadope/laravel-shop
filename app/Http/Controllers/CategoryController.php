@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Http\Requests\FilterBoxRequest;
 
 class CategoryController extends Controller
 {
     private const LIST_SIZE = 30;
-    private const PRODUCTS_LIST_SIZE = 10;
+    private const PRODUCTS_LIST_SIZE = 50;
 
     /**
      * Display a listing of the resource.
@@ -31,10 +32,8 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show(Category $category, FilterBoxRequest $request)
     {
-        $category = Category::whereSlug($slug)->first();
-
         if ($category->hasChildren()) {
             $products = Product::whereCategoriesIn(
                 $category->descendants
@@ -45,10 +44,39 @@ class CategoryController extends Controller
             $products = Product::whereCategory($category->id);   
         }
 
+        $products = $this->filterQuery($products, $request->validated());
+
         $products = $products->orderByPopularity()
             ->limit(self::PRODUCTS_LIST_SIZE)
             ->getForList();
 
         return view('public.categories.show', compact('category', 'products'));
+    }
+
+    protected function filterQuery($query, $data)
+    {
+        $data = array_filter($data, function ($item) {
+            return !is_null($item);
+        });
+
+        $callbacks = $this->filterQueryCallbacks();
+
+        foreach ($data as $key => $value) {
+            $query = $callbacks[$key]($query, $value);
+        }
+
+        return $query;
+    }
+
+    protected function filterQueryCallbacks()
+    {
+        return [
+            'min_price'=> function ($query, $value) {
+                return $query->where('price', '>', $value);
+            },
+            'max_price'=> function ($query, $value) {
+                return $query->where('price', '<', $value);
+            },            
+        ];
     }
 }

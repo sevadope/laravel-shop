@@ -4,7 +4,7 @@
 	@foreach($categories as $category)
 		<li class="nav-item">
 			<a class="nav-link" 
-			href="{{ route('categories.show', $category->slug) }}">
+			href="{{ route('categories.show', $category->getRouteKey()) }}">
 				{{ $category->name }}
 			</a>
 		</li>

@@ -25,7 +25,7 @@ class HasAncestors extends NestedSetRelation
 			$wheres[] = [$this->right_key, '>', $model->getTreeRightKey(), 'and'];
 		});
 
-		return $wheres;
+		$this->query->where($wheres);
 	}
 
 	public function match(array $models, Collection $results, $relation)

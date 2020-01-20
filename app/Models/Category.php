@@ -15,8 +15,9 @@ class Category extends Model implements NestedSetNode
     	'slug',
     	'description',
         'popularity',
-        'left',
-        'right',
+        'tree_depth',
+        'tree_left_key',
+        'tree_right_key',
     ];
 
     /*|==========| Relationships |==========|*/
@@ -49,6 +50,11 @@ class Category extends Model implements NestedSetNode
     }
 
     /*|====================|*/
+
+    public function getSlug()
+    {
+        return $this->getAttribute('slug');
+    }
 
     public function hasChildren()
     {

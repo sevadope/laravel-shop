@@ -25,12 +25,15 @@
 			@slot('categories', $category->children)
 		@endcomponent
 	@endif
+	@component('public.categories.components.filter_box_form')
+		@slot('category', $category)
+	@endcomponent
 @endsection
 
 @section('breadcrumb')
-	@foreach($category->ancestors as $ansestor)
+	@foreach($category->ancestors->reverse() as $ansestor)
 		<li class="breadcrumb-item">
-			<a href="{{ route('categories.show', $ansestor->slug) }}">
+			<a href="{{ route('categories.show', $ansestor->getRouteKey()) }}">
 				{{ $ansestor->name }}
 			</a>
 		</li>
