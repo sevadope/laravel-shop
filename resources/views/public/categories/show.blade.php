@@ -19,7 +19,7 @@
 @endsection
 
 @section('filter-box')
-	@if($category->hasChildren())
+	@if($category->hasDescendants())
 		@component('public.categories.components.filter_box_list')
 			@slot('title', $category->name)
 			@slot('categories', $category->children)

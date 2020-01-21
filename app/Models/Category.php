@@ -56,12 +56,12 @@ class Category extends Model implements NestedSetNode
         return $this->getAttribute('slug');
     }
 
-    public function hasChildren()
+    public function hasDescendants()
     {
         return $this->getTreeRightKey() - $this->getTreeLeftKey() !== 1;
     }
 
-    public function hasNoChildren()
+    public function hasNoDescendants()
     {
         return $this->getTreeRightKey() - $this->getTreeLeftKey === 1;
     }

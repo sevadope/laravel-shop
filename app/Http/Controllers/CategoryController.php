@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Requests\FilterBoxRequest;
+use App\Services\ProductService;
 
 class CategoryController extends Controller
 {
@@ -32,29 +33,26 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category, FilterBoxRequest $request)
+    public function show(Category $category, FilterBoxRequest $request, ProductService $p_service)
     {
-        if ($category->hasChildren()) {
-            $products = Product::whereCategoriesIn(
-                $category->descendants
-                    ->pluck($category->getKeyName())
-                    ->toArray()
-            );
-        } else {
-            $products = Product::whereCategory($category->id);   
-        }
+        $products_query = $p_service->getQueryForCategoryDescendants($category);
 
-        $products = $this->filterQuery($products, $request->validated());
+        $this->filterQuery($products_query, $request->validated());
 
-        $products = $products->orderByPopularity()
+        $products = $products_query
+            ->orderByPopularity()
             ->limit(self::PRODUCTS_LIST_SIZE)
             ->getForList();
 
         return view('public.categories.show', compact('category', 'products'));
     }
 
-    protected function filterQuery($query, $data)
+    protected function filterQuery(&$query, $data)
     {
+        if (empty($data)) {
+            return $query;
+        }
+
         $data = array_filter($data, function ($item) {
             return !is_null($item);
         });
