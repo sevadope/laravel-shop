@@ -6,8 +6,8 @@
 }
 
 .filter-box-wrapper {
-	margin: 1em;
-
+	margin: 1rem;
+	min-width: 15vw;
 	flex-direction: column;
 }
 

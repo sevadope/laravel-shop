@@ -24,8 +24,8 @@ class FilterBoxRequest extends FormRequest
     public function rules()
     {          
         return [
-            'min_price' => 'integer|min:0|nullable',
-            'max_price' => 'integer|min:0|nullable',       
+            'min_price' => 'integer|min:0',
+            'max_price' => 'integer|min:0',       
         ];
     }
 }

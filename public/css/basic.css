@@ -6,8 +6,8 @@
 }
 
 .filter-box-wrapper {
-	margin: 1em;
-
+	margin: 1rem;
+	min-width: 15vw;
 	flex-direction: column;
 }
 
@@ -24,7 +24,6 @@ main {
 
 .filter-box-list {
 	margin-bottom: 0.5rem;
-	flex-direction: column;
 }
 
 .item {
