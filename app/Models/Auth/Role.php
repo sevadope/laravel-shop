@@ -7,6 +7,8 @@ use App\Models\Auth\Permission;
 
 class Role extends Model
 {
+    public const DEFAULT = 1;
+
     protected $table = 'roles';
 
     protected $fillable = [

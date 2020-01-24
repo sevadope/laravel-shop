@@ -1,5 +1,5 @@
 <template>
-    <div class="card">
+    <div class="card filter-box-form">
         <form @submit="onSubmit">
             <div class="card-body">
                     <div class="form-group row">
