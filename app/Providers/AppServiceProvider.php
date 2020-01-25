@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Contracts\CartManagerInterface;
-use App\Managers\RedisCartManager;
+use App\Managers\Cart\RedisCartManager;
 
 class AppServiceProvider extends ServiceProvider
 {
