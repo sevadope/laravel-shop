@@ -62,10 +62,18 @@ class User extends Authenticatable
         );
     }
 
+    /*|==========| Accessors |==========|*/
+
+    public function getFullNameAttribute()
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
+    
     /*|====================|*/
 
     public function hasPermissionTo(string $action)
     {
         return $this->permissions()->where('action', $action)->exists();
     }
+
 }
