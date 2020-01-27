@@ -18,6 +18,7 @@ class Product extends Model
 		'options',
 		'description',
 		'popularity',
+		'image',
 	];
 
 	/*|==========| Scopes |==========|*/

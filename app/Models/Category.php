@@ -18,6 +18,7 @@ class Category extends Model implements NestedSetNode
         'tree_depth',
         'tree_left_key',
         'tree_right_key',
+        'image',
     ];
 
     /*|==========| Relationships |==========|*/

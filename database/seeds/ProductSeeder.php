@@ -10,7 +10,7 @@ use Illuminate\Support\Collection;
 class ProductSeeder extends Seeder
 {
 	public const PRODUCTS_COUNT = 1000;
-
+    private const IMAGES_PATH = 'products/images';
 
 	private $options;
 	private $categories;
@@ -55,6 +55,7 @@ class ProductSeeder extends Seeder
             'price' => random_int(1, 4) == 4 ?
                 random_int(999, 4999) 
                 : random_int(9, 999),
+            'image' => $this->getRandImgPath(),
     	];
     }
 
@@ -85,5 +86,12 @@ class ProductSeeder extends Seeder
     	$name .= ' ' . random_int(1, 1000000);
 
     	return $name; 
+    }
+
+    private function getRandImgPath()
+    {
+        $imgs = $this->imgs ?? $this->imgs = Storage::files(self::IMAGES_PATH);
+
+        return $imgs[array_rand($imgs)];
     }
 }

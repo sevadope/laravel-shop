@@ -6,7 +6,10 @@ use Illuminate\Support\Str;
 
 class CategorySeeder extends Seeder
 {
-    protected $side_values = [];
+    private const IMAGES_PATH = 'categories/images';
+
+    private $side_values = [];
+    
     /**
      * Run the database seeds.
      *
@@ -111,6 +114,7 @@ class CategorySeeder extends Seeder
     		'slug' => $slug,
     		'description' => str_repeat($name.' - ', 10),
             'popularity' => random_int(1, 100),
+            'image' => $this->getRandImgPath(),
 
             'tree_left_key' => $side_values['left'],
             'tree_right_key' => $side_values['right'],
@@ -151,5 +155,12 @@ class CategorySeeder extends Seeder
             'right' => $right,
             'depth' => $depth,
         ];
+    }
+
+    private function getRandImgPath()
+    {
+        $imgs = $this->imgs ?? $this->imgs = Storage::files(self::IMAGES_PATH);
+
+        return $imgs[array_rand($imgs)];
     }
 }

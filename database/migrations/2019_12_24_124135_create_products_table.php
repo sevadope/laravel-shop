@@ -22,8 +22,8 @@ class CreateProductsTable extends Migration
             $table->string('slug')->unique();
             $table->text('description')->nullable();
             $table->integer('popularity')->default(0);
-            $table->jsonb('attributes')->nullable();
-
+            $table->string('image');
+            
             $table->timestamps();
 
             $table->foreign('category_id')

@@ -21,7 +21,8 @@ class CreateCategoriesTable extends Migration
             $table->string('slug')->unique();
             $table->text('description')->nullable();
             $table->integer('popularity')->default(0);
-
+            $table->string('image');
+            
             $table->integer('tree_left_key');
             $table->integer('tree_right_key');
             $table->integer('tree_depth');
