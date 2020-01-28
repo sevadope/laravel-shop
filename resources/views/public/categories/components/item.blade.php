@@ -1,5 +1,7 @@
 <div class="item">
 	<a href="{{ route('categories.show', $category->getRouteKey()) }}">
-		{{ $category->name }}	
+		<img class="category-image" src="{{ asset('storage/'.$category->image) }}">
+
+		<div>{{ $category->name }}</div>
 	</a>				
 </div>

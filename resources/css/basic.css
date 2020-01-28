@@ -36,5 +36,14 @@ main {
 	text-align: center;
 	width: 10rem;
 	height: 10rem;
+	margin: 1rem;
 
+}
+
+.category-image {
+	display: flex;			
+	border: 2px solid #343a40;
+	border-radius: 10%;
+	width: 10rem;
+	height: 10rem;
 }
