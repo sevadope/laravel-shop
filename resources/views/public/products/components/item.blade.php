@@ -1,7 +1,11 @@
 <div class="item">
 	<a href="{{ route('products.show', $product->getRouteKey()) }}">
-		{{ $product->name }}
+		<img class="product-image-sm" src="{{ asset('storage/'.$product->image) }}">	
+			
+		<div class="product-name-sm">{{ $product->name }}</div>
 
-		<strong> {{ $product->price }} </strong>	
+		<div class="product-price-sm">
+			{{ $product->price }}
+		</div>
 	</a>				
 </div>

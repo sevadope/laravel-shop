@@ -34,9 +34,9 @@ main {
 	justify-content: center;
 	align-items: center;
 	text-align: center;
-	width: 10rem;
-	height: 10rem;
-	margin: 1rem;
+	width: 12rem;
+	height: 12rem;
+	margin: 1.5rem 1rem;
 
 }
 
@@ -46,4 +46,42 @@ main {
 	border-radius: 10%;
 	width: 10rem;
 	height: 10rem;
+}
+
+.product-image-sm {
+	display: flex;
+	border: 2px solid #343a40;
+	border-radius: 10%;
+	width: 10rem;
+	height: 10rem;
+}
+
+.product-name-sm {
+	display: flex;
+}
+
+.product-price-sm {
+	justify-content: center;
+	font-weight: bolder;
+	display: flex;
+}
+
+.product-view {
+	display: flex;
+}
+
+.product-img-lg {
+	border: 2px solid #343a40;
+	margin: 1rem;
+	display: flex;
+	width: 25rem;
+}
+
+.product-desc {
+	display: flex;
+	flex-direction: column;
+}
+
+.items-list {
+	margin: 1rem;
 }

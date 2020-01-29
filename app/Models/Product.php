@@ -40,7 +40,7 @@ class Product extends Model
 
 	public function scopeGetForList($query)
 	{
-		return $query->get(['id', 'name', 'slug', 'price']);
+		return $query->get(['id', 'name', 'slug', 'price', 'image',]);
 	}
 
 	/*|==========| Relationships |==========|*/

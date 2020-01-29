@@ -10,11 +10,13 @@
 		</div>
 	</div>
 
-	@foreach($products as $product)
-		@component('public.products.components.item')
-			@slot('product', $product)
-		@endcomponent
-	@endforeach
+	<div class="items-list">
+		@foreach($products as $product)
+			@component('public.products.components.item')
+				@slot('product', $product)
+			@endcomponent
+		@endforeach
+	</div>
 	
 @endsection
 
