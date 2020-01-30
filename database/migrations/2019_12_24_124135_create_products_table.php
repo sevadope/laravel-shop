@@ -23,18 +23,13 @@ class CreateProductsTable extends Migration
             $table->text('description')->nullable();
             $table->integer('popularity')->default(0);
             $table->string('image');
-            
+            $table->decimal('price', 9, 2);
             $table->timestamps();
 
             $table->foreign('category_id')
                 ->references('id')
                 ->on('categories');
         });
-
-        DB::connection()->getPdo()->exec(
-            'ALTER TABLE products 
-                ADD COLUMN price money;'
-        );
     }
 
     /**

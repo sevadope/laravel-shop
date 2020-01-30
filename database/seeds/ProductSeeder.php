@@ -52,9 +52,7 @@ class ProductSeeder extends Seeder
     		'slug' => Str::slug($name),
     		'description' => str_repeat($name, 10),
             'popularity' => random_int(1, 1000),
-            'price' => random_int(1, 4) == 4 ?
-                random_int(999, 4999) 
-                : random_int(9, 999),
+            'price' => $this->getRandPrice(),
             'image' => $this->getRandImgPath(),
     	];
     }
@@ -93,5 +91,14 @@ class ProductSeeder extends Seeder
         $imgs = $this->imgs ?? $this->imgs = Storage::files(self::IMAGES_PATH);
 
         return $imgs[array_rand($imgs)];
+    }
+
+    private function getRandPrice($precision = 2)
+    {
+        $mul = pow(10, $precision);
+        $range = random_int(1, 4) == 4 ?
+            [1000, 5000] : [10, 1000];
+
+        return random_int($range[0] * $mul, $range[1] * $mul) / $mul;
     }
 }
