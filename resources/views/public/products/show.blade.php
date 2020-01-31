@@ -3,7 +3,7 @@
 @section('content')
 	
 	<div class="product-view">
-		<img src="{{ asset('storage/'.$product->image) }}" alt="" class="product-img-lg">
+		<img src="{{ $product->getImageUrl() }}" alt="" class="product-img-lg">
 		<div class="product-desc">
 			<h3>{{ $product->name }}</h3>
 

@@ -1,10 +1,10 @@
 <div class="item">
 	<a href="{{ route('products.show', $product->getRouteKey()) }}">
-		<img class="product-image-sm" src="{{ asset('storage/'.$product->image) }}">	
+		<img class="product-image-sm" src="{{ $product->getImageUrl() }}">	
 			
-		<div class="product-name-sm">{{ $product->name }}</div>
+		<div>{{ $product->name }}</div>
 
-		<div class="product-price-sm">
+		<div class="price">
 			{{ $product->price }}
 		</div>
 	</a>				

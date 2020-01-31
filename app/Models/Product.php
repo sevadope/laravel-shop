@@ -12,6 +12,7 @@ use App\Relations\HasOptions;
 class Product extends Model
 {
 	protected $fillable = [
+		'id',	
 		'price',
 		'name',
 		'slug',
@@ -70,5 +71,10 @@ class Product extends Model
 	public function getRouteKeyName()
 	{
 		return 'slug';
+	}
+
+	public function getImageUrl()
+	{
+		return asset('storage/'.$this->image);
 	}
 }

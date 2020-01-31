@@ -40,6 +40,10 @@ main {
 
 }
 
+.item > div {
+	display: flex;
+}
+
 .category-image {
 	display: flex;			
 	border: 2px solid #343a40;
@@ -49,25 +53,10 @@ main {
 }
 
 .product-image-sm {
-	display: flex;
 	border: 2px solid #343a40;
 	border-radius: 10%;
 	width: 10rem;
 	height: 10rem;
-}
-
-.product-name-sm {
-	display: flex;
-}
-
-.product-price-sm {
-	justify-content: center;
-	font-weight: bolder;
-	display: flex;
-}
-
-.product-view {
-	display: flex;
 }
 
 .product-img-lg {
@@ -84,4 +73,28 @@ main {
 
 .items-list {
 	margin: 1rem;
+}
+
+.cart-item td {
+	vertical-align: top;
+	padding: 0rem 1rem;
+}
+
+.price {
+	font-weight: bolder;
+}
+
+.price::before {
+	content: "$";
+}
+
+.content-title {
+	display: flex;
+	text-align: center;
+	margin: 1rem;
+}
+
+.cart-actions-panel {
+	display: flex;
+	justify-content: center;
 }

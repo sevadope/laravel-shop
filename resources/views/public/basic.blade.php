@@ -12,7 +12,12 @@
 	  	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 	   		<ul class="navbar-nav mr-auto">
 
-	   			@auth   				
+	   			@auth   
+	   				<li class="nav-item active">
+	   					<a href="{{ route('users.cart.show') }}" class="nav-link">
+	   						My Cart
+	   					</a>
+	   				</li>				
 	   			@else
 	     			<li class="nav-item active">
 		        		<a class="nav-link" href="{{ route('login') }}">

@@ -37,4 +37,19 @@ class CartItem
 
 		return $item;
 	}
+
+	public function getProduct()
+	{
+		return $this->product;
+	}
+
+	public function getCount()
+	{
+		return $this->count;
+	}
+
+	public function getTotalPrice()
+	{
+		return $this->product->price * $this->count;
+	}
 }

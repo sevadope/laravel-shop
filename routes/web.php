@@ -26,4 +26,15 @@ Route::group(
 	}
 );
 
+/*|==========| Users |==========|*/
+
+Route::group(
+	[
+		'as' => 'users.',
+		'prefix' => 'my',
+	],
+	function () {
+		Route::get('cart', 'CartController@show')->name('cart.show');
+	}
+);
 
