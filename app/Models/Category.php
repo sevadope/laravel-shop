@@ -11,6 +11,7 @@ use App\Contracts\NestedSetNode;
 class Category extends Model implements NestedSetNode
 {
     protected $fillable = [
+        'id',
     	'name',
     	'slug',
     	'description',

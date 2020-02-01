@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Contracts\CartManagerInterface;
+use App\Cache\CacheManager;
 use App\Models\CartItem;
 
 class Cart 
@@ -50,17 +50,17 @@ class Cart
 	protected $items;
 
 	/**
-	 * Cart manager implements App\Contracts\CartManagerInterface
+	 * Cart manager implements App\Cache\CacheManager  
 	 *
 	 * @var obj
 	 **/
-	protected $manager;
+	public $cache;
 
 
-	function __construct($key = null)
+	function __construct(CacheManager $cache, $key)
 	{
 		$this->pk = $key;
-		$this->manager = app()->make(CartManagerInterface::class);
+		$this->cache = $cache;
 		$this->refresh($key);
 	}
 
@@ -75,7 +75,7 @@ class Cart
 			return;
 		}
 
-		return (new static)->manager->getPlain(static::LIST_NAME, $key);
+		return (new static)->cache->getArrayValue(static::LIST_NAME, $key);
 	}
 
 	public function getItems()
@@ -102,7 +102,9 @@ class Cart
 	{
 		// refresh pk
 		$key = $key ?? $this->pk;
-		$this->items = $this->manager->get(static::LIST_NAME, $key);
+		
+		$response = $this->cache->getArrayValue(static::LIST_NAME, $key);
+		$this->items = $this->parseCart($response);
 
 		// refresh size and total price
 		$size = 0;
@@ -116,4 +118,15 @@ class Cart
 		$this->size = $size;
 		$this->total_price = $total_price;
 	}
+	
+	protected function parseCart($plain)
+	{
+		$arr = json_decode($plain, true);
+		
+		$items = array_map(function ($item) {
+			return CartItem::makeFromArray($item);
+		}, $arr);
+
+		return $items;
+	}	
 }

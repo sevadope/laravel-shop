@@ -3,10 +3,12 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Contracts\CartManagerInterface;
-use App\Managers\Cart\RedisCartManager;
+use Illuminate\Contracts\Support\DeferrableProvider;
+use App\Cache\CacheManager;
+use App\Cache\RedisStore;
+use App\Models\Cart;
 
-class AppServiceProvider extends ServiceProvider
+class AppServiceProvider extends ServiceProvider implements DeferrableProvider
 {
     /**
      * Register any application services.
@@ -15,7 +17,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(CartManagerInterface::class, RedisCartManager::class);
+        $this->app->singleton(CacheManager::class, function ($app) {
+            return new CacheManager($app);
+        });
+
+        $this->app->bind(Cart::class, function ($app) {
+            return new Cart($app->make(CacheManager::class), $app->make('auth')->id());
+        });
     }
 
     /**
@@ -26,5 +34,15 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+    }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return [Repository::class, Cart::class];
     }
 }
