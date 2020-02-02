@@ -4,8 +4,9 @@ namespace App\Models;
 
 use App\Cache\CacheManager;
 use App\Models\CartItem;
+use App\Contracts\Cache\Cacheable;
 
-class Cart 
+class Cart implements Cacheable
 {
 	/**
 	 * cart items count
@@ -36,7 +37,7 @@ class Cart
 	protected $pk;
 
 	/**
-	 * Name of carts list from DB
+	 * Name of carts list from cache
 	 *
 	 * @var string
 	 **/
@@ -71,11 +72,12 @@ class Cart
 
 	public static function getPlain($key)
 	{
-		if (is_null($key)) {
-			return;
-		}
+		return (new static)->cache->getArrayValue(static::getCacheListName(), $key);
+	}
 
-		return (new static)->cache->getArrayValue(static::LIST_NAME, $key);
+	public static function getCacheListName()
+	{
+		return static::LIST_NAME;
 	}
 
 	public function getItems()
@@ -103,7 +105,7 @@ class Cart
 		// refresh pk
 		$key = $key ?? $this->pk;
 		
-		$response = $this->cache->getArrayValue(static::LIST_NAME, $key);
+		$response = $this->cache->getPlain($key);
 		$this->items = $this->parseCart($response);
 
 		// refresh size and total price
@@ -118,7 +120,7 @@ class Cart
 		$this->size = $size;
 		$this->total_price = $total_price;
 	}
-	
+
 	protected function parseCart($plain)
 	{
 		$arr = json_decode($plain, true);

@@ -8,8 +8,9 @@ use App\Models\Product\Option;
 use App\Models\Product\SpecificationValue;
 use App\Models\Product\Specification;
 use App\Relations\HasOptions;
+use App\Contracts\Cache\Cacheable;
 
-class Product extends Model
+class Product extends Model implements Cacheable
 {
 	protected $fillable = [
 		'id',	
@@ -71,6 +72,11 @@ class Product extends Model
 	public function getRouteKeyName()
 	{
 		return 'slug';
+	}
+
+	public static function getCacheListName()
+	{
+		return 'products';
 	}
 
 	public function getImageUrl()

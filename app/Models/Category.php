@@ -7,8 +7,9 @@ use App\Relations\NestedSet\HasDescendants;
 use App\Relations\NestedSet\HasChildren;
 use App\Relations\NestedSet\HasAncestors;
 use App\Contracts\NestedSetNode;
+use App\Contracts\Cache\Cacheable;
 
-class Category extends Model implements NestedSetNode
+class Category extends Model implements NestedSetNode, Cacheable
 {
     protected $fillable = [
         'id',
@@ -86,5 +87,10 @@ class Category extends Model implements NestedSetNode
     public function getRouteKeyName()
     {
         return 'slug';
+    }
+
+    public static function getCacheListName()
+    {
+        return 'categories';
     }
 }
