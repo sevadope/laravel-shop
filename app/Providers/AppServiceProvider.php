@@ -43,6 +43,6 @@ class AppServiceProvider extends ServiceProvider implements DeferrableProvider
      */
     public function provides()
     {
-        return [Repository::class, Cart::class];
+        return [CacheManager::class, Cart::class];
     }
 }

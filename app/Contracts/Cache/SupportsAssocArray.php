@@ -10,7 +10,32 @@ interface SupportsAssocArray
 	public function getArrayValue($name, $key);
 	
 	/**
-	 * Put key with value to associative array
+	 * Get many values from associative array
 	 **/
-	public function putArrayKey($name, $key, $value);
-}
+	public function getArrayValues($name, array $keys);
+
+	/**
+	 * Put value to associative array
+	 **/
+	public function putArrayValue($name, $key, $value);
+
+	/**
+	 * Put many values to associative array
+	 **/
+	public function putArrayValues($name, array $values);
+
+	/**
+	 * Get array length
+	 **/
+	public function getArrayLength($name);
+
+	/**
+	 * Check if array contains value by key
+	 **/
+	public function arrayValueExists($name, $key);
+
+	/**
+	 * Check if key exists
+	 **/
+	public function exists($key);
+}	
