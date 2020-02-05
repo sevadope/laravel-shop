@@ -77,7 +77,8 @@ class HasOptions extends Relation
 		$local_key = 'id',
 		$option_key = null,
 		$option_foreign_key = 'option_id',
-		$options_to_values_relation = 'values'
+		$options_to_values_relation = 'values',
+		$product_to_options_relation = 'options'
 	)
 	{
 		$this->option = new $option;
@@ -90,6 +91,7 @@ class HasOptions extends Relation
 		$this->option_key = $option_key ?? $this->option->getKeyName();
 		$this->option_foreign_key = $option_foreign_key;
 		$this->options_to_values_relation = $options_to_values_relation;
+		$this->product_to_options_relation = $product_to_options_relation;
 
 		parent::__construct($query, $parent);
 	}
@@ -147,17 +149,63 @@ class HasOptions extends Relation
 
 	public function addEagerConstraints(array $models)
 	{
-		throw new \Exception('Eager loading does not expected for this relations!');
+		$keys = [];
+
+		foreach ($models as $model) {
+			$keys[] = $model->getKey();
+		}
+
+		$this->query->whereIn($this->getFullPivotProductForeignKeyName(), $keys);
 	}
 	
-    public function initRelation(array $models, $relation)
-    {
-    	
-    }
+	public function initRelation(array $models, $relation)
+	{
+		foreach ($models as $model) {
+			$model->setRelation($relation, $this->related->newCollection());
+		}
+
+		return $models;
+	}
 	
+	public function getEager()
+	{
+		return $this->get([
+			$this->getFullPivotProductForeignKeyName(),
+			$this->getFullOptionForeignKeyName(),
+			$this->related->getTable().'.*',
+		]);
+	}
+
 	public function match(array $models, Collection $results, $relation)
 	{
+		$op_fk = $this->option_foreign_key;
+		$vals_rel = $this->options_to_values_relation;
 
+		// Get all used options
+		$values = $results->pluck($op_fk);
+		$opts = $this->option::whereIn($this->option_key, $values->toArray())->get();
+
+		// Group values for products
+		$p_values = $results
+			->groupBy($this->pivot_product_key)
+			->map(function ($coll) use ($opts, $op_fk, $vals_rel) {
+				// Group values for every option
+				return $coll
+					->groupBy($op_fk)
+					->map(function ($coll, $key) use ($opts, $vals_rel) {
+						// Set values to their option
+						return (clone $opts->find($key))->setRelation($vals_rel, $coll);
+				});
+		});
+
+		foreach ($models as $model) {
+			$model->setRelation(
+				$this->product_to_options_relation,
+				$p_values[$model->getKey()]
+			);
+		}
+
+		return $models;
 	}
 
 	protected function getFullOptionKeyName()
