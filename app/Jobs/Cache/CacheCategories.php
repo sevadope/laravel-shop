@@ -33,14 +33,14 @@ class CacheCategories implements ShouldQueue
     public function handle(CacheManager $cache)
     {
         $categories = Category::with('descendants', 'ancestors')->get();
-        $json_categories = [];
         $list_name = Category::getCacheListName();
 
-        $categories->each(function ($category) use (&$json_categories) {
+        $json_categories = [];
+        foreach ($categories as $category) {
             $json_categories[$category->getKey()] = json_encode(
                 new CategoryResource($category)
             );
-        });
+        }
         
         $cache->forget($list_name);
         $cache->putArrayValues($list_name, $json_categories);

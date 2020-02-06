@@ -182,8 +182,8 @@ class HasOptions extends Relation
 		$vals_rel = $this->options_to_values_relation;
 
 		// Get all used options
-		$values = $results->pluck($op_fk);
-		$opts = $this->option::whereIn($this->option_key, $values->toArray())->get();
+		$opt_ids = array_unique($results->pluck($op_fk)->toArray());
+		$opts = $this->option::whereIn($this->option_key, $opt_ids)->get();
 
 		// Group values for products
 		$p_values = $results
