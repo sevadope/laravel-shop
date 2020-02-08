@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs\Cache;
+namespace App\Jobs\Cache\Category;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;

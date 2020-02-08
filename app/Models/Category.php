@@ -11,6 +11,8 @@ use App\Contracts\Cache\Cacheable;
 
 class Category extends Model implements NestedSetNode, Cacheable
 {
+    public const POPULARITY_CACHE_NAME = 'categories:popularity';
+
     protected $fillable = [
         'id',
     	'name',
