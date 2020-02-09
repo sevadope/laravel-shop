@@ -82,6 +82,24 @@ class RedisStore extends Store implements SupportsAssocArray, SupportsScores
 				->zrangebyscore($name, $min, $max);
 	}
 
+	public function getScoreRankRange($name, int $min, int $max, bool $reverse = false)
+	{
+		$name = $this->prefix.$name;
+
+		return $reverse ? 
+			$this
+				->connection()
+				->zrevrange($name, $min, $max)
+			: $this
+				->connection()
+				->zrange($name, $min, $max);
+	}
+
+	public function getFirstScoreValues($name, int $amount, bool $reverse = false)
+	{
+		return $this->getScoreRankRange($name, 0, --$amount, $reverse);
+	}
+
 	public function getAllScoreValues($name)	
 	{
 		return $this

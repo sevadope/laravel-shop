@@ -33,6 +33,16 @@ interface SupportsScores
 	public function getScoreRange($name, int $min, int $max, bool $reverse = false);
 
 	/**
+	 * Get values by positions range
+	 **/
+	public function getScoreRankRange($name, int $min, int $max, bool $reverse = false);
+
+	/**
+	 * Get values from the top of score
+	 **/
+	public function getFirstScoreValues($name, int $amount);
+
+	/**
 	 * Get all values
 	 **/
 	public function getAllScoreValues($name);

@@ -3,23 +3,23 @@
 namespace App\Console\Commands\Cache\Category;
 
 use Illuminate\Console\Command;
-use App\Jobs\Cache\Category\CachePopularity as Job;
+use App\Jobs\Cache\Category\CacheList as Job;
 
-class CachePopularity extends Command
+class CacheList extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'cache:categories:popularity';
+    protected $signature = 'cache:categories:list';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Cache categories popularity';
+    protected $description = 'Cache categories list';
 
     /**
      * Create a new command instance.

@@ -10,9 +10,15 @@ use Illuminate\Queue\SerializesModels;
 use App\Models\Category;
 use App\Cache\CacheManager;
 
-class CachePopularity implements ShouldQueue
+class CacheList implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
+    private $cache_key = 'popularity';
+
+    private $cache_fields = [
+        'id', 'name', 'slug', 'image',
+    ];
 
     /**
      * Create a new job instance.
@@ -31,18 +37,23 @@ class CachePopularity implements ShouldQueue
      */
     public function handle(CacheManager $cache)
     {
-        $categories = Category::toBase()->get(['id', 'popularity']);
-        $name = Category::POPULARITY_CACHE_NAME;
-        #dd($categories);
+        $categories = Category::get();
+        $name = Category::CACHED_LIST_NAME;
 
-        $popularity = [];
+        $list = [];
+
         foreach ($categories as $category) {
-            $popularity[$category->id] = $category->popularity;
+            // set json as key and cache key as value
+            $list[json_encode(
+                array_intersect_key(
+                    $category->getAttributes(),
+                    array_flip($this->cache_fields)
+            ))] = $category->{$this->cache_key};
         }
 
         $cache->forget($name);
-        $cache->putScoreValues($name, $popularity);
+        $cache->putScoreValues($name, $list);
 
-        info('Categories popularity list successfully cached');
+        info('Categories list successfully cached');
     }
 }

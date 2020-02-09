@@ -7,6 +7,9 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Requests\FilterBoxRequest;
 use App\Services\ProductService;
+use App\Jobs\Cache\Category\CacheList;
+use App\Cache\CacheManager;
+use App\Services\CategoryService as Service;
 
 class CategoryController extends Controller
 {
@@ -18,12 +21,10 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Service $service)
     {
-        $categories = Category::orderByPopularity()
-            ->limit(self::LIST_SIZE)
-            ->get();
-
+        $categories = $service->getList(self::LIST_SIZE);
+        #dd($categories);
         return view('public.categories.index', compact('categories'));
     }
 
