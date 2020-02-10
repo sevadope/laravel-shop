@@ -3,6 +3,7 @@
 namespace App\Relations\NestedSet;
 
 use Illuminate\Database\Eloquent\Collection;
+
 class HasDescendants extends NestedSetRelation
 {
 	public function addConstraints()

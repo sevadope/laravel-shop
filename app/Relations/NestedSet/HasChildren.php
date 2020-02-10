@@ -36,7 +36,7 @@ class HasChildren extends NestedSetRelation
 	public function match(array $models, Collection $results, $relation)
 	{
 		foreach ($models as $model) {
-			$model->setRelation($results, $models->filter(function ($result) use ($model) {
+			$model->setRelation($relation, $results->filter(function ($result) use ($model) {
 				return 
 					$result->getTreeLeftKey() > $model->getTreeLeftKey()
 						&&

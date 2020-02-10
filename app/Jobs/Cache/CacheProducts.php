@@ -9,7 +9,6 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Models\Product;
 use App\Cache\CacheManager;
-use App\Http\Resources\ProductResource;
 
 class CacheProducts implements ShouldQueue
 {
@@ -37,9 +36,7 @@ class CacheProducts implements ShouldQueue
 
         $res_products = [];
         foreach ($products as $product) {
-            $res_products[$product->getKey()] = json_encode(
-                new ProductResource($product)
-            ); 
+            $res_products[$product->getKey()] = serialize($product); 
         }
 
         $cache->forget($name);

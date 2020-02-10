@@ -8,12 +8,13 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Models\Category;
-use App\Http\Resources\CategoryResource;
 use App\Cache\CacheManager;
 
 class CacheCategories implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
+    private $key = 'slug';
 
     /**
      * Create a new job instance.
@@ -37,9 +38,7 @@ class CacheCategories implements ShouldQueue
 
         $json_categories = [];
         foreach ($categories as $category) {
-            $json_categories[$category->getKey()] = json_encode(
-                new CategoryResource($category)
-            );
+            $json_categories[$category->{$this->key}] = serialize($category);
         }
         
         $cache->forget($list_name);

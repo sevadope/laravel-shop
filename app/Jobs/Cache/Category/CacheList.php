@@ -44,7 +44,7 @@ class CacheList implements ShouldQueue
 
         foreach ($categories as $category) {
             // set json as key and cache key as value
-            $list[json_encode(
+            $list[serialize(
                 array_intersect_key(
                     $category->getAttributes(),
                     array_flip($this->cache_fields)
