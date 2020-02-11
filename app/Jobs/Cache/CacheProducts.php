@@ -34,13 +34,13 @@ class CacheProducts implements ShouldQueue
         $products = Product::with('specifications', 'options')->get();
         $name = Product::getCacheListName();
 
-        $res_products = [];
+        $strings = [];
         foreach ($products as $product) {
-            $res_products[$product->getKey()] = serialize($product); 
+            $strings[$product->getKey()] = serialize($product); 
         }
 
         $cache->forget($name);
-        $cache->putArrayValues($name, $res_products);
+        $cache->putArrayValues($name, $strings);
 
         info('Products successfully cached!');
     }

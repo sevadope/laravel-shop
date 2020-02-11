@@ -17,7 +17,7 @@ class CacheList implements ShouldQueue
     private $cache_key = 'popularity';
 
     private $cache_fields = [
-        'id', 'name', 'slug', 'image',
+        'id', 'name', 'slug', 'image', 'popularity',
     ];
 
     /**
@@ -37,18 +37,14 @@ class CacheList implements ShouldQueue
      */
     public function handle(CacheManager $cache)
     {
-        $categories = Category::get();
+        $categories = Category::get($this->cache_fields);
         $name = Category::CACHED_LIST_NAME;
 
         $list = [];
 
         foreach ($categories as $category) {
             // set json as key and cache key as value
-            $list[serialize(
-                array_intersect_key(
-                    $category->getAttributes(),
-                    array_flip($this->cache_fields)
-            ))] = $category->{$this->cache_key};
+            $list[serialize($category)] = $category->{$this->cache_key};
         }
 
         $cache->forget($name);

@@ -37,12 +37,12 @@ class CategoryService
 
 			$cache = $this->app->make(CacheManager::class);
 
-			$jsons = $cache->getFirstScoreValues(Category::CACHED_LIST_NAME, $list_size);
+			$plain = $cache->getFirstScoreValues(Category::CACHED_LIST_NAME, $list_size);
 
-			$categories = Category::hydrate(array_map(function ($json) {
-				return json_decode($json, true);
-			}, $jsons));
-			
+			$categories = array_map(function ($item) {
+				return unserialize($item);
+			}, $plain);
+
 			return $categories;
 
 		} else {

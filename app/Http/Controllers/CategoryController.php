@@ -24,7 +24,7 @@ class CategoryController extends Controller
     public function index(Service $service)
     {
         $categories = $service->getList(self::LIST_SIZE);
-        #dd($categories);
+
         return view('public.categories.index', compact('categories'));
     }
 

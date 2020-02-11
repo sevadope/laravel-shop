@@ -9,8 +9,9 @@ use App\Models\Product\SpecificationValue;
 use App\Models\Product\Specification;
 use App\Relations\HasOptions;
 use App\Contracts\Cache\Cacheable;
+use \Serializable;
 
-class Product extends Model implements Cacheable
+class Product extends Model implements Cacheable, Serializable
 {
 	protected $fillable = [
 		'id',	
@@ -82,5 +83,25 @@ class Product extends Model implements Cacheable
 	public function getImageUrl()
 	{
 		return asset('storage/'.$this->image);
+	}
+
+	/*|==========| Serialization |==========|*/
+
+	public function serialize()
+	{
+		$data = [
+			'attributes' => $this->getAttributes(),
+			'relations' => $this->getRelations(),
+		];
+
+		return serialize($data);
+	}
+
+	public function unserialize($data)
+	{
+		$data = unserialize($data);
+
+		$this->setRawAttributes($data['attributes']);
+		$this->setRelations($data['relations']);
 	}
 }

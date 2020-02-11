@@ -8,8 +8,9 @@ use App\Relations\NestedSet\HasChildren;
 use App\Relations\NestedSet\HasAncestors;
 use App\Contracts\NestedSetNode;
 use App\Contracts\Cache\Cacheable;
+use Serializable;
 
-class Category extends Model implements NestedSetNode, Cacheable
+class Category extends Model implements NestedSetNode, Cacheable, Serializable
 {
     public const CACHED_LIST_NAME = 'categories:list';
 
@@ -94,5 +95,25 @@ class Category extends Model implements NestedSetNode, Cacheable
     public static function getCacheListName()
     {
         return 'categories';
+    }
+
+    /*|==========| Serialization |==========|*/
+
+    public function serialize()
+    {
+        $data = [
+            'attributes' => $this->getAttributes(),
+            'relations' => $this->relations,
+        ];
+
+        return serialize($data);
+    }
+
+    public function unserialize($data)
+    {
+        $data = unserialize($data);
+
+        $this->setRawAttributes($data['attributes']);
+        $this->setRelations($data['relations']);
     }
 }
