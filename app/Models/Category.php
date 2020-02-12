@@ -12,6 +12,7 @@ use Serializable;
 
 class Category extends Model implements NestedSetNode, Cacheable, Serializable
 {
+    public const CACHED_SCORE_NAME = 'categories:score';
     public const CACHED_LIST_NAME = 'categories:list';
 
     protected $fillable = [
@@ -98,7 +99,7 @@ class Category extends Model implements NestedSetNode, Cacheable, Serializable
     }
 
     /*|==========| Serialization |==========|*/
-
+    
     public function serialize()
     {
         $data = [

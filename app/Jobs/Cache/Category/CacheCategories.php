@@ -14,8 +14,6 @@ class CacheCategories implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private $key = 'slug';
-
     /**
      * Create a new job instance.
      *
@@ -34,16 +32,35 @@ class CacheCategories implements ShouldQueue
     public function handle(CacheManager $cache)
     {
         $categories = Category::with('descendants', 'ancestors')->get();
-        $list_name = Category::getCacheListName();
+        $key = $categories->first()->getRouteKeyName();
 
-        $json_categories = [];
+        $keys = [];
+        $arrs = [];
         foreach ($categories as $category) {
-            $json_categories[$category->{$this->key}] = serialize($category);
+            $arrs[$keys[] = 'category:'.$category->{$key}] = array_merge(
+                $category->getAttributes(),
+                ['relations' => serialize(
+                    $this->relationsToKeysArray($category->getRelations())
+                )]
+           );
         }
         
-        $cache->forget($list_name);
-        $cache->putArrayValues($list_name, $json_categories);
+        foreach ($arrs as $name => $fields) {
+            $cache->forget($name);
+            $cache->putArrayValues($name, $fields);
+        }
 
         info('Categories successfully cached');
+    }
+
+    public function relationsToKeysArray($relations)
+    {
+        return array_map(  
+            function ($rel) {
+                return $rel->isEmpty() ? []
+                    : $rel->pluck($rel->first()->getRouteKeyName())->toArray();
+            },  
+            $relations
+        );
     }
 }

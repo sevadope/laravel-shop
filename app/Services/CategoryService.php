@@ -16,7 +16,6 @@ class CategoryService
 	 **/
 	private const CACHED_ACTIONS = [
 		'getList',
-		'getWithDetails',
 	];
 
 	/**
@@ -53,10 +52,10 @@ class CategoryService
 		
 	}
 
-	public function getWithDetails()
+	public function get()
 	{
 		if ($this->cached(__FUNCTION__)) {
-			$cache = $this->app->make(CacheManager::class);
+
 		} else {
 
 		}

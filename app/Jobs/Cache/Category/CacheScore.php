@@ -10,14 +10,11 @@ use Illuminate\Queue\SerializesModels;
 use App\Models\Category;
 use App\Cache\CacheManager;
 
-class CacheList implements ShouldQueue
+class CacheScore implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private $cache_fields = [
-        'id', 'name', 'slug', 'image', 'popularity',
-    ];
-
+    private $score_field = 'popularity';
     /**
      * Create a new job instance.
      *
@@ -35,19 +32,17 @@ class CacheList implements ShouldQueue
      */
     public function handle(CacheManager $cache)
     {
-        $categories = Category::get($this->cache_fields);
-        $key = $categories->first()->getRouteKeyName();
-        $name = Category::CACHED_LIST_NAME;
+        $value = (new Category)->getRouteKeyName();
+        $categories = Category::get([$this->score_field, $value]);
+        $score_name = Category::CACHED_SCORE_NAME;
 
         $list = [];
         foreach ($categories as $category) {
-            $list[$category->{$key}] = serialize($category);
+            $list[$category->{$value}] = $category->{$this->score_field};
         }
-        
-        $cache->forget($name);
-        $cache->putArrayValues($name, $list);
 
-        return $cache->getAllArrayValues($name);
+        $cache->forget($score_name);
+        $cache->putScoreValues($score_name, $list);
 
         info('Categories list successfully cached');
     }

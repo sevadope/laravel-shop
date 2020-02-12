@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\Cache\Category\CacheList::class,
+        Commands\Cache\Category\CacheScore::class,
     ];
 
     /**
@@ -24,7 +24,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('cache:categories:list')->hourly();
+        $schedule->command('cache:categories:score')->hourly();
     }
 
     /**
