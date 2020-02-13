@@ -37,7 +37,7 @@ class CacheCategories implements ShouldQueue
         $keys = [];
         $arrs = [];
         foreach ($categories as $category) {
-            $arrs[$keys[] = 'category:'.$category->{$key}] = array_merge(
+            $arrs[$keys[] = Category::getCachePrefix().$category->{$key}] = array_merge(
                 $category->getAttributes(),
                 ['relations' => serialize(
                     $this->relationsToKeysArray($category->getRelations())

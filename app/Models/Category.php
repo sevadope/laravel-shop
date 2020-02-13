@@ -51,9 +51,9 @@ class Category extends Model implements NestedSetNode, Cacheable, Serializable
         return $query->orderBy('popularity');
     }
     
-    public function scopeWhereSlug($query, string $slug)
+    public function scopeWhereRouteKey($query, $key)
     {
-        return $query->where('slug', $slug);
+        return $query->where($this->getRouteKeyName(), $key);
     }
 
     /*|====================|*/
@@ -93,9 +93,9 @@ class Category extends Model implements NestedSetNode, Cacheable, Serializable
         return 'slug';
     }
 
-    public static function getCacheListName()
+    public static function getCachePrefix()
     {
-        return 'categories';
+        return 'category:';
     }
 
     /*|==========| Serialization |==========|*/

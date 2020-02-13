@@ -11,9 +11,7 @@ class ProductService
 	{
 		if ($category->hasDescendants()) {
 			$products = Product::whereCategoriesIn(
-				$category->descendants()
-					->getQuery()
-					->pluck($category->getKeyName())
+				$category->descendants->pluck($category->getKeyName())
 			);
 		} else {
 			$products = Product::whereCategory($category->getKey());

@@ -37,13 +37,6 @@ class Cart implements Cacheable
 	protected $pk;
 
 	/**
-	 * Name of carts list from cache
-	 *
-	 * @var string
-	 **/
-	public const LIST_NAME = 'carts';
-
-	/**
 	 * Cart's items
 	 *
 	 * @var CartItem[]
@@ -75,9 +68,9 @@ class Cart implements Cacheable
 		return (new static)->cache->getArrayValue(static::getCacheListName(), $key);
 	}
 
-	public static function getCacheListName()
+	public static function getCachePrefix()
 	{
-		return static::LIST_NAME;
+		return 'user:cart:';
 	}
 
 	public function getItems()

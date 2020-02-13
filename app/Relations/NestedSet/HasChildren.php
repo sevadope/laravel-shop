@@ -48,4 +48,13 @@ class HasChildren extends NestedSetRelation
 
 		return $models;
 	}
+
+	public function getResults()
+	{
+        return ! is_null($this->parent->getKey())
+                ? array_key_exists('descendants', $this->parent->getRelations()) ?
+                	$this->parent->descendants->where('tree_depth', $this->parent->getTreeDepth())
+                	: $this->query->get()
+                : $this->related->newCollection();		
+	}
 }

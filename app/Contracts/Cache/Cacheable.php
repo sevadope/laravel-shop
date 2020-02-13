@@ -4,5 +4,5 @@ namespace App\Contracts\Cache;
 
 interface Cacheable 
 {
-	public static function getCacheListName();
+	public static function getCachePrefix();
 }

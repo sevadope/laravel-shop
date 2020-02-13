@@ -15,9 +15,9 @@ class RedisStore extends Store implements SupportsAssocArray, SupportsScores
 		return $this->connection()->hget($this->prefix.$name, $key);
 	}
 
-	public function getArrayValues($name, array $values)
+	public function getArrayValues($name, array $keys)
 	{
-		return $this->connection()->hmget($this->prefix.$name, $values);
+		return $this->connection()->hmget($this->prefix.$name, $keys);
 	}
 
 	public function putArrayValue($name, $key, $value)

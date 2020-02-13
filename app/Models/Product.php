@@ -75,9 +75,9 @@ class Product extends Model implements Cacheable, Serializable
 		return 'slug';
 	}
 
-	public static function getCacheListName()
+	public static function getCachePrefix()
 	{
-		return 'products';
+		return 'product:';
 	}
 
 	public function getImageUrl()

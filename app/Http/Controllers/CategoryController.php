@@ -34,8 +34,15 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category, FilterBoxRequest $request, ProductService $p_service)
+    public function show(
+        $key,
+        Service $service,
+        FilterBoxRequest $request,
+        ProductService $p_service
+    )
     {
+        $category = $service->get($key);
+
         $products_query = $p_service->getQueryForCategoryDescendants($category);
 
         $this->filterQuery($products_query, $request->validated());
