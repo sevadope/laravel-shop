@@ -32,12 +32,12 @@ class CacheCategories implements ShouldQueue
     public function handle(CacheManager $cache)
     {
         $categories = Category::with('descendants', 'ancestors')->get();
+        $prefix = Category::getCachePrefix();
         $key = $categories->first()->getRouteKeyName();
 
-        $keys = [];
         $arrs = [];
         foreach ($categories as $category) {
-            $arrs[$keys[] = Category::getCachePrefix().$category->{$key}] = array_merge(
+            $arrs[$prefix.$category->$key] = array_merge(
                 $category->getAttributes(),
                 ['relations' => serialize(
                     $this->relationsToKeysArray($category->getRelations())

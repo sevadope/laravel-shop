@@ -46,6 +46,11 @@ class Product extends Model implements Cacheable, Serializable
 		return $query->get(['id', 'name', 'slug', 'price', 'image',]);
 	}
 
+	public function scopeWhereRouteKey($query, $key)
+	{
+		return $query->where($this->getRouteKeyName(), $key);
+	}
+
 	/*|==========| Relationships |==========|*/
 
 	public function options()

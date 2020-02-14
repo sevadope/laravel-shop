@@ -32,15 +32,21 @@ class CacheProducts implements ShouldQueue
     public function handle(CacheManager $cache)
     {
         $products = Product::with('specifications', 'options')->get();
-        $name = Product::getCacheListName();
+        $prefix = Product::getCachePrefix();
+        $key = $products->first()->getRouteKeyName();
 
-        $strings = [];
+        $arrs = [];
         foreach ($products as $product) {
-            $strings[$product->getKey()] = serialize($product); 
+            $arrs[$prefix.$product->$key] = array_merge(
+                $product->getAttributes(),
+                ['relations' => serialize($product->getRelations())]
+            ); 
         }
-
-        $cache->forget($name);
-        $cache->putArrayValues($name, $strings);
+        
+        foreach ($arrs as $name => $fields) {
+            $cache->forget($name);
+            $cache->putArrayValues($name, $fields);
+        }
 
         info('Products successfully cached!');
     }
