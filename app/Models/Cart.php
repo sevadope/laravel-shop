@@ -68,9 +68,15 @@ class Cart implements Cacheable
 		return (new static)->cache->getArrayValue(static::getCacheListName(), $key);
 	}
 
+
 	public static function getCachePrefix()
 	{
 		return 'user:cart:';
+	}
+
+	public static function buildFromCache(array $data)
+	{
+		return $data;
 	}
 
 	public function getItems()

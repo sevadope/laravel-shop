@@ -98,6 +98,11 @@ class Category extends Model implements NestedSetNode, Cacheable, Serializable
         return 'category:';
     }
 
+    public static function buildFromCache(array $data)
+    {
+        return $data;
+    }
+
     /*|==========| Serialization |==========|*/
     
     public function serialize()

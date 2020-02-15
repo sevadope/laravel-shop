@@ -85,6 +85,11 @@ class Product extends Model implements Cacheable, Serializable
 		return 'product:';
 	}
 
+	public static function buildFromCache(array $data)
+	{
+		return $data;
+	}
+
 	public function getImageUrl()
 	{
 		return asset('storage/'.$this->image);
