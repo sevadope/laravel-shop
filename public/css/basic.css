@@ -98,3 +98,20 @@ main {
 	display: flex;
 	justify-content: center;
 }
+
+.product-slider {
+	display: flex;
+}
+
+.product-view {
+	display: flex;
+	flex-direction: row;
+}
+
+.spec {
+	background-color: transparent;
+}
+
+.product-actions {
+	padding: 2rem;
+}

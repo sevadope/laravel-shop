@@ -8,6 +8,8 @@ use App\Relations\NestedSet\HasChildren;
 use App\Relations\NestedSet\HasAncestors;
 use App\Contracts\NestedSetNode;
 use App\Contracts\Cache\Cacheable;
+use App\Cache\CacheManager;
+use Illuminate\Database\Eloquent\Collection;
 use Serializable;
 
 class Category extends Model implements NestedSetNode, Cacheable, Serializable
@@ -98,9 +100,31 @@ class Category extends Model implements NestedSetNode, Cacheable, Serializable
         return 'category:';
     }
 
-    public static function buildFromCache(array $data)
+    public function buildFromCache(array $data, $cache = null)
     {
-        return $data;
+        $cache = $cache ?? resolve(CacheManager::class);
+
+        $this->setRawAttributes(array_diff_key($data, ['relations' => 0]));
+
+        if (array_key_exists('relations', $data)) {
+            $rel_keys = unserialize($data['relations']);
+
+            $relations = [];
+            foreach ($rel_keys as $rel_name => $rel) {
+                if (!empty($rel)) {
+                    $values = $cache->getArrayValues(Category::CACHED_LIST_NAME, $rel);
+                    $relations[$rel_name] = new Collection(array_map(function ($value) {
+                        return unserialize($value);
+                    }, $values));
+                } else {
+                    $relations[$rel_name] = new Collection; 
+                }
+            }       
+            
+            $this->setRelations($relations);     
+        }
+        
+        return $this;
     }
 
     /*|==========| Serialization |==========|*/

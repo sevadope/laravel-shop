@@ -3,9 +3,17 @@
 namespace App\Models;
 
 use App\Models\Product;
+use \Serializable;
 
-class CartItem
+class CartItem implements Serializable
 {
+	/**
+	 * Primary key of item's product
+	 *
+	 * @var string
+	 **/
+	protected $product_key;
+
 	/**
 	 * Current item's product
 	 *
@@ -20,10 +28,26 @@ class CartItem
 	 **/
 	protected $count;
 
-	public function __construct(array $product_fields, int $count)
+	/**
+	 * Total price of item
+	 *
+	 * @var string
+	 **/
+	protected $total_price;
+
+	/**
+	 * Selected options of product
+	 *
+	 * @var string
+	 **/
+	protected $options;
+
+	public function __construct(Product $product, int $count, array $options = [])
 	{
-		$this->product = (new Product)->fill($product_fields);
+		$this->product = $product;
 		$this->count = $count;
+		$this->options = $options;
+		$this->product_key = $product->getRouteKey();
 	}
 
 	public static function makeFromArray(array $arr)
@@ -38,9 +62,26 @@ class CartItem
 		return $item;
 	}
 
+	public function addProducts(int $count)
+	{
+		$this->count += $count;
+	}
+
+	public function setProduct(Product $product)
+	{
+		$this->product = $product;
+
+		return $this;
+	}
+
 	public function getProduct()
 	{
 		return $this->product;
+	}
+
+	public function getProductKey()
+	{
+		return $this->product_key;
 	}
 
 	public function getCount()
@@ -48,8 +89,38 @@ class CartItem
 		return $this->count;
 	}
 
+	public function getOptions()
+	{
+		return $this->options;
+	}
+
 	public function getTotalPrice()
 	{
-		return $this->product->price * $this->count;
+		return $this->total_price ?? $this->total_price = $this->product->price * $this->count;
+	}
+
+	/*|==========| Serialization |==========|*/
+
+	public function serialize()
+	{
+		$data = [
+			'product_key' => $this->product_key,
+			'total_price' => $this->getTotalPrice(),
+			'count' => $this->count,
+			'options' => $this->options,
+
+		];
+
+		return serialize($data);
+	}
+
+	public function unserialize($data)
+	{
+		$data = unserialize($data);
+
+		$this->product_key = $data['product_key'];
+		$this->total_price = $data['total_price'];
+		$this->count = $data['count'];
+		$this->options = $data['options'];
 	}
 }

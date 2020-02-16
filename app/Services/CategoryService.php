@@ -59,7 +59,7 @@ class CategoryService
 
 			$fields = $cache->getAllArrayValues(Category::getCachePrefix().$key, $key);
 
-			$category = $this->makeCategory($fields, $cache);
+			$category = (new Category)->buildFromCache($fields, $cache);
 
 			return $category;
 
@@ -77,28 +77,5 @@ class CategoryService
 	private function cached(string $func)
 	{
 		return in_array($func, static::CACHED_ACTIONS);
-	}
-
-	private function makeCategory($fields, $cache)
-	{
-		$category = (new Category)->setRawAttributes(array_diff_key($fields, ['relations' => 0]));
-		$rel_keys = unserialize($fields['relations']);
-
-		$relations = [];
-		foreach ($rel_keys as $rel_name => $rel) {
-			if (!empty($rel)) {
-				$values = $cache->getArrayValues(Category::CACHED_LIST_NAME, $rel);
-				$relations[$rel_name] = new Collection(array_map(function ($value) {
-					return unserialize($value);
-				}, $values));
-			} else {
-				$relations[$rel_name] = new Collection;	
-			}
-
-		}
-
-		$category->setRelations($relations);
-
-		return $category;
 	}
 }

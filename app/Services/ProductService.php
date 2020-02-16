@@ -37,7 +37,7 @@ class ProductService
 
 			$fields = $cache->getAllArrayValues(Product::getCachePrefix().$key);
 
-			return $this->makeProduct($fields);
+			return (new Product)->buildFromCache($fields);
 
 		} else {
 			return Product::
@@ -58,17 +58,6 @@ class ProductService
 		}
 
 		return $products;
-	}
-
-	private function makeProduct(array $fields)
-	{
-		$product = (new Product)->setRawAttributes(array_diff_key($fields, ['relations' => 0]));
-
-		$relations = unserialize($fields['relations']);
-
-		$product->setRelations($relations);
-
-		return $product;
 	}
 
 	private function cached(string $func)

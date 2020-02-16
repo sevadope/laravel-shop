@@ -77,10 +77,11 @@ class CategoryController extends Controller
     protected function filterQueryCallbacks()
     {
         return [
-            'min_price'=> function ($query, $value) {
+            'min_price' => function ($query, $value) {
                 return $query->where('price', '>', $value);
             },
-            'max_price'=> function ($query, $value) {
+
+            'max_price' => function ($query, $value) {
                 return $query->where('price', '<', $value);
             },            
         ];

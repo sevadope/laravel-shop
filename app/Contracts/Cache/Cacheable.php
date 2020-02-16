@@ -5,5 +5,5 @@ namespace App\Contracts\Cache;
 interface Cacheable 
 {
 	public static function getCachePrefix();
-	public static function buildFromCache(array $data);
+	public function buildFromCache(array $data, $cache = null);
 }

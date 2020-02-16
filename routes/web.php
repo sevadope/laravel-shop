@@ -35,6 +35,7 @@ Route::group(
 	],
 	function () {
 		Route::get('cart', 'CartController@show')->name('cart.show');
+		Route::post('cart/add', 'CartController@add')->name('cart.add');
 	}
 );
 

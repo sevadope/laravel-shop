@@ -20,6 +20,7 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('product-filter-form', require('./components/ProductFilterForm.vue').default);
+Vue.component('add-to-cart-form', require('./components/AddToCartForm.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

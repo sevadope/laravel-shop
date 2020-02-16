@@ -50,6 +50,22 @@ class Cart implements Cacheable
 	 **/
 	public $cache;
 
+	/**
+	 * List of actions which support caching
+	 *
+	 * @var array
+	 **/
+	protected $cached_actions = [
+		'buildFromCache',
+	];
+
+	/**
+	 * Prefix for items
+	 *
+	 * @var string
+	 **/
+	protected $items_prefix;
+
 
 	function __construct(CacheManager $cache, $key)
 	{
@@ -58,35 +74,109 @@ class Cart implements Cacheable
 		$this->refresh($key);
 	}
 
-	public static function get($key)
+	public function add(Product $product, int $count = 1, array $options = [])
 	{
-		return new static($key);
+		$item_key = $this->buildCacheKey($product->getKey(), $options);
+
+		if (array_key_exists($item_key, $this->items)) {
+			$this->items[$item_key]->addProducts($count);
+		} else {
+			$this->items[$item_key] = new CartItem($product, $count, $options);
+			$this->items_count++;
+			$this->total_price += $product->price * $count;			
+		}
+
+		$this->size += $count;	
 	}
 
-	public static function getPlain($key)
+	public function save()
 	{
-		return (new static)->cache->getArrayValue(static::getCacheListName(), $key);
+		$plain_items = array_map(function ($item) {
+			return serialize($item);
+		}, $this->items);
+
+		$this->cache->putArrayValues(
+			static::getCachePrefix().$this->pk, 
+			array_merge(
+				$plain_items, 
+				$this->getSupportFields()
+			)
+		);
+	}
+
+	public static function buildCacheKey($key, array $options)
+	{
+		return $key.':options:'.implode(',', $options);
 	}
 
 
 	public static function getCachePrefix()
 	{
-		return 'user:cart:';
+		return 'user:cart:';	
 	}
 
-	public static function buildFromCache(array $data)
+	public function buildFromCache(array $data, $cache = null)
 	{
-		return $data;
+		$plain_items = array_diff_key(
+			$data, 
+			$this->getSupportFields()
+		);
+
+		$empty_items = array_map(function ($item) {
+			return unserialize($item);
+		}, $plain_items);
+
+		$items = [];
+
+		if ($this->cached(__FUNCTION__)) {
+			foreach ($empty_items as $e_item) {
+
+				// Load product from cache
+				$fields = $this->cache->getAllArrayValues(
+					Product::getCachePrefix().$e_item->getProductKey()
+				);
+
+				// Make product without relations
+				$product =(new Product)->buildFromCache(array_diff_key(
+					$fields,
+					['relations' => 0]
+				));
+
+				// Set product to item and set item to cart
+				$items[$this->buildCacheKey(
+					$product->getKey(),
+					$e_item->getOptions()
+				)] = $e_item->setProduct($product);
+			}	
+
+		} else {
+			// Get all products keys from empty items
+			$products_keys = array_map(function ($e_item) {
+				return $e_item->getProductKey();
+			}, $empty_items);
+
+			$products = Product::whereRouteKeyIn($products_keys)->get();
+
+			// Set products to items and set items to cart
+			foreach ($empty_items as $e_item) {
+				$items[$this->buildCacheKey(
+					$e_item->getProductKey(),
+					$e_item->getOptions()
+				)] = $e_item->setProduct(
+					$products->where(
+						$products->first()->getRouteKeyName(),
+						$e_item->getProductKey()
+					)->first()
+				);
+			}
+		}
+
+		return $items;
 	}
 
 	public function getItems()
 	{
 		return $this->items;
-	}
-
-	public function getItemsCount()
-	{
-		return $this->items_count ?? $this->items_count = count($this->items);
 	}
 
 	public function getSize()
@@ -101,33 +191,37 @@ class Cart implements Cacheable
 
 	protected function refresh($key = null)
 	{
-		// refresh pk
 		$key = $key ?? $this->pk;
 		
-		$response = $this->cache->getPlain($key);
-		$this->items = $this->parseCart($response);
+		$response = $this->cache->getAllArrayValues($this->getCachePrefix().$key);
 
-		// refresh size and total price
 		$size = 0;
 		$total_price = 0;
+		$items_count = 0;
 
-		array_walk($this->items, function ($item) use (&$size, &$total_price) {
+		$this->items = !empty($response) ? $this->buildFromCache($response) : [];
+
+		foreach ($this->items as $item) {
 			$size += $item->getCount();
 			$total_price += $item->getTotalPrice();
-		});
+		}
 
 		$this->size = $size;
 		$this->total_price = $total_price;
+		$this->items_count = count($this->items);
 	}
 
-	protected function parseCart($plain)
+	private function cached(string $func)
 	{
-		$arr = json_decode($plain, true);
-		
-		$items = array_map(function ($item) {
-			return CartItem::makeFromArray($item);
-		}, $arr);
+		return in_array($func, $this->cached_actions);
+	}
 
-		return $items;
-	}	
+	private function getSupportFields()
+	{
+		return [
+			'size' => $this->size,
+			'total_price' => $this->total_price,
+			'items_count' => $this->items_count,
+		];
+	}
 }

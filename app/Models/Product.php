@@ -51,6 +51,11 @@ class Product extends Model implements Cacheable, Serializable
 		return $query->where($this->getRouteKeyName(), $key);
 	}
 
+	public function scopeWhereRouteKeyIn($query, array $keys)
+	{
+		return $query->whereIn($this->getRouteKeyName(), $keys);
+	}
+
 	/*|==========| Relationships |==========|*/
 
 	public function options()
@@ -85,9 +90,16 @@ class Product extends Model implements Cacheable, Serializable
 		return 'product:';
 	}
 
-	public static function buildFromCache(array $data)
+	public function buildFromCache(array $data, $cache = null)
 	{
-		return $data;
+		$this->setRawAttributes(array_diff_key($data, ['relations' => 0]));
+
+		if (array_key_exists('relations', $data)) {
+			$relations = unserialize($data['relations']);
+			$this->setRelations($relations);				
+		}
+
+		return $this;
 	}
 
 	public function getImageUrl()
