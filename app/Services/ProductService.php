@@ -6,15 +6,18 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Cache\CacheManager;
 use Illuminate\Contracts\Foundation\Application;
+use App\Concerns\CanCacheActions;
 
 class ProductService
 {
+	use CanCacheActions;
+
 	/**
 	 * List of actions which support caching
 	 *
 	 * @var array
 	 **/
-	private const CACHED_ACTIONS = [
+	protected $cached_actions = [
 		'get',
 	];
 
@@ -60,8 +63,8 @@ class ProductService
 		return $products;
 	}
 
-	private function cached(string $func)
+	protected function getCachedActions()
 	{
-		return in_array($func, self::CACHED_ACTIONS);
+		return $this->cached_actions;
 	}
 }

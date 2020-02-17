@@ -5,9 +5,12 @@ namespace App\Models;
 use App\Cache\CacheManager;
 use App\Models\CartItem;
 use App\Contracts\Cache\Cacheable;
+use App\Concerns\CanCacheActions;
 
 class Cart implements Cacheable
 {
+	use CanCacheActions;
+
 	/**
 	 * cart items count
 	 *
@@ -211,17 +214,17 @@ class Cart implements Cacheable
 		$this->items_count = count($this->items);
 	}
 
-	private function cached(string $func)
-	{
-		return in_array($func, $this->cached_actions);
-	}
-
-	private function getSupportFields()
+	protected function getSupportFields()
 	{
 		return [
 			'size' => $this->size,
 			'total_price' => $this->total_price,
 			'items_count' => $this->items_count,
 		];
+	}
+
+	protected function getCachedActions()
+	{
+		return $this->cached_actions;
 	}
 }

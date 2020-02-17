@@ -6,15 +6,18 @@ use App\Cache\CacheManager;
 use Illuminate\Contracts\Foundation\Application;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Collection;
+use App\Concerns\CanCacheActions;
 
 class CategoryService
 {
+	use CanCacheActions;
+
 	/**
 	 * List of actions which support caching
 	 *
 	 * @var array
 	 **/
-	private const CACHED_ACTIONS = [
+	protected $cached_actions = [
 		'getList',
 		'get',
 	];
@@ -71,11 +74,8 @@ class CategoryService
 		}
 	}
 
-	/**
-	 * Check if action is support caching
-	 **/
-	private function cached(string $func)
+	protected function getCachedActions()
 	{
-		return in_array($func, static::CACHED_ACTIONS);
+		return $this->cached_actions;
 	}
 }
