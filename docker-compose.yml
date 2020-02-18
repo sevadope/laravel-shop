@@ -1,0 +1,73 @@
+version: "3.7"
+
+services:
+
+##########
+
+    php:
+        build:  docker/php-fpm/
+
+        volumes:
+            -  ./server:/var/www/server
+
+        depends_on:
+            -  postgres
+            -  redis
+
+        env_file:
+            - .env
+
+##########
+
+    nginx:            
+        build:  docker/nginx/
+
+        volumes:       
+            - ./server:/var/www/server
+            - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+            - ./docker/nginx/sites/:/etc/nginx/sites-available
+            - ./docker/nginx/conf.d/:/etc/nginx/conf.d
+
+        depends_on:
+            - php
+
+        ports:  
+            - "80:80"
+            - "443:443"
+
+##########
+
+    postgres:  
+        build: docker/postgres/
+
+        volumes:
+            - database:/var/lib/postgresql/data
+            - ./docker/dev/postgres/dumps/:/tmp/  
+
+        ports:  
+            - 54321:5432
+
+        environment:
+            - LC_ALL=C.UTF-8
+            - POSTGRES_DB=docker 
+            - POSTGRES_USER=docker
+            - POSTGRES_PASSWORD=docker
+
+##########
+
+    redis:
+        build: docker/redis/
+
+        volumes:  
+            - redis:/data
+
+        ports:
+            - 63791:6379
+
+########## Volumes ##########
+
+volumes:
+    database:
+        driver: local
+    redis:
+        driver: local
