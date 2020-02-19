@@ -5,10 +5,19 @@ services:
 ##########
 
     node:
-        build: docker/node/
+        build: 
+            context: docker/node/
+            cache_from:
+                - cached_nuxt
 
         volumes:
-            - ./client:/var/www/client
+            - $PWD/client:/var/www/client
+
+        ports: 
+            - 3000:3000
+
+        environment:
+            - HOST=0.0.0.0
 
 ##########
 
