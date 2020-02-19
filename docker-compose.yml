@@ -4,6 +4,14 @@ services:
 
 ##########
 
+    node:
+        build: docker/node/
+
+        volumes:
+            - ./client:/var/www/client
+
+##########
+
     php:
         build:  docker/php-fpm/
 
@@ -30,6 +38,7 @@ services:
 
         depends_on:
             - php
+            - node
 
         ports:  
             - "80:80"
