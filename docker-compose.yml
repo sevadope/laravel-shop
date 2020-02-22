@@ -5,6 +5,8 @@ services:
 ##########
 
     node:
+        container_name: eshop_node
+        
         build: 
             context: docker/node/
             cache_from:
@@ -22,6 +24,8 @@ services:
 ##########
 
     php:
+        container_name: eshop_php
+
         build:  docker/php-fpm/
 
         volumes:
@@ -36,7 +40,9 @@ services:
 
 ##########
 
-    nginx:            
+    nginx:    
+        container_name: eshop_nginx     
+
         build:  docker/nginx/
 
         volumes:       
@@ -56,6 +62,8 @@ services:
 ##########
 
     postgres:  
+        container_name: eshop_postgres
+
         build: docker/postgres/
 
         volumes:
@@ -74,6 +82,8 @@ services:
 ##########
 
     redis:
+        container_name: eshop_redis
+
         build: docker/redis/
 
         volumes:  

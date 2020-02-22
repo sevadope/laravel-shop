@@ -4,11 +4,29 @@
 	  	<nuxt-link class="navbar-brand" :to="{name:'index'}">
 	  		Shop
 	  	</nuxt-link>
+	  	<nuxt-link class="navbar-brand" 
+	  	v-if="isLoggedIn" :to="{name:'register'}">
+	  		Sign Up
+	  	</nuxt-link>
+	  	<a v-else class="navbar-brand" href="#"> 
+	  		You are logged in
+	  	</a>
 
 	</nav>
 	<nuxt />
 </div>
 </template>
+
+<script>
+export default {
+	computed: {
+      isLoggedIn() {
+        return this.$store.state.access_token;
+      }	
+	},
+}
+</script>
+
 <style lang="scss">
 	.main {
 		min-width: 100vw;

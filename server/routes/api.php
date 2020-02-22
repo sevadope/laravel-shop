@@ -12,3 +12,12 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::group(
+	[
+		'middleware' => 'guest',
+	],
+	function () {
+		Route::post('register', 'Api\AuthController@register')->name('register');
+	}
+);
