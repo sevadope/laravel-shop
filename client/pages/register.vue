@@ -50,7 +50,7 @@
 
 <script>
 export default {
-	// middleware: 'guest',
+	middleware: 'guest',
 	layout: 'basic',
 
 	data() {
