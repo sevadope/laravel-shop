@@ -29,6 +29,20 @@ class AuthController extends Controller
 		], 201);
 	}
 
+    public function login(LoginRequest $request)
+    {
+        $data = $request->validated();
+
+        $user = User::where('email', $data['email'])->first();
+
+        $resp = $this->requestAccessToken($user->email, $data['password']);
+
+        return response([
+            'access_token' => $resp->access_token,
+            'expires_in' => $resp->expires_in,
+        ], 200);
+    }
+
     private function requestAccessToken(string $email, string $password)
     {
         $params = [

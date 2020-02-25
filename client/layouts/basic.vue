@@ -4,10 +4,16 @@
 	  	<nuxt-link class="navbar-brand" :to="{name:'index'}">
 	  		Shop
 	  	</nuxt-link>
-	  	<nuxt-link class="navbar-brand" 
-	  	v-if="isLoggedIn" :to="{name:'register'}">
-	  		Sign Up
-	  	</nuxt-link>
+	  	<div v-if="!isLoggedIn">
+		  	<nuxt-link class="navbar-brand" :to="{name:'login'}">
+		  		Login
+		  	</nuxt-link>		
+
+		  	<nuxt-link class="navbar-brand" :to="{name:'register'}">
+		  		Sign Up
+		  	</nuxt-link>	
+	  	</div>
+
 	  	<a v-else class="navbar-brand" href="#"> 
 	  		You are logged in
 	  	</a>

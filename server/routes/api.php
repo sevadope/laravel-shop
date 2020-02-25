@@ -19,5 +19,6 @@ Route::group(
 	],
 	function () {
 		Route::post('register', 'Api\AuthController@register')->name('register');
+		Route::post('login', 'Api\AuthController@login')->name('login');
 	}
 );
