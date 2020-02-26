@@ -14,9 +14,11 @@
 		  	</nuxt-link>	
 	  	</div>
 
-	  	<a v-else class="navbar-brand" href="#"> 
-	  		You are logged in
-	  	</a>
+		<div v-else>
+		  	<a class="navbar-brand" href="#"> 
+		  		You are logged in
+		  	</a>			
+		</div>
 
 	</nav>
 	<nuxt />

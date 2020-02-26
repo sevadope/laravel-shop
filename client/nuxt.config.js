@@ -15,6 +15,11 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
+
+  router: {
+    middleware: 'refreshToken',
+  },
+
   /*
   ** Customize the progress-bar color
   */

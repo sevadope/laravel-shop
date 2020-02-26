@@ -43,6 +43,27 @@ class AuthController extends Controller
         ], 200);
     }
 
+    public function refreshToken()
+    {
+        info('refreshing');
+        $refresh_token = request()->cookie('refresh_token');
+
+        abort_unless($refresh_token, 403, 'Your refresh token is expired.');
+
+        $params = [
+            'grant_type' => 'refresh_token',
+            'refresh_token' => $refresh_token,
+        ];
+
+        $resp = $this->makePostRequest($params);
+
+        return response([
+            'access_token' => $resp->access_token,
+            'expires_in' => $resp->expires_in,
+            'message' => 'Token has been refreshed.',
+        ], 200);
+    }
+
     private function requestAccessToken(string $email, string $password)
     {
         $params = [
