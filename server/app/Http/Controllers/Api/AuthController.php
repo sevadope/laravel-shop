@@ -43,9 +43,20 @@ class AuthController extends Controller
         ], 200);
     }
 
+    public function logout()
+    {
+        $token = request()->user()->token();
+        $token->delete();
+
+        cookie()->queue(cookie()->forget('refresh_token'));
+
+        return response([
+            'message' => 'You have been successfully logout'
+        ], 200);
+    }
+
     public function refreshToken()
     {
-        info('refreshing');
         $refresh_token = request()->cookie('refresh_token');
 
         abort_unless($refresh_token, 403, 'Your refresh token is expired.');

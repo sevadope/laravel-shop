@@ -15,8 +15,8 @@
 	  	</div>
 
 		<div v-else>
-		  	<a class="navbar-brand" href="#"> 
-		  		You are logged in
+		  	<a class="navbar-brand" href="#"  @click="logout"> 
+		  		Logout	
 		  	</a>			
 		</div>
 
@@ -31,6 +31,24 @@ export default {
       isLoggedIn() {
         return this.$store.state.access_token;
       }	
+	},
+
+	methods: {
+		logout() {
+			let config = {
+				headers: {
+					Authorization: `Bearer ${this.$store.state.access_token}`,
+				}
+			};
+			this.$axios.post('logout', null, config)
+			.then(resp => {
+				this.$store.dispatch('logout');
+				this.$router.push('/');
+			})
+			.catch(errors => {
+				console.log(errors);
+			});
+		}
 	},
 }
 </script>

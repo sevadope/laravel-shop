@@ -23,3 +23,12 @@ Route::group(
 		Route::post('refresh-token', 'Api\AuthController@refreshToken')->name('refresh_token');
 	}
 );
+
+Route::group(
+	[
+		'middleware' => 'auth:api',
+	],
+	function () {
+		Route::post('logout', 'Api\AuthController@logout')->name('logout');
+	}
+);
