@@ -2,15 +2,18 @@ import cookies from 'js-cookie';
 
 export const state = () => ({
   access_token: null,
+  auth: false,
 });
 
 export const mutations = {
   SET_TOKEN(state, access_token) {
     state.access_token = access_token;
+    state.auth = true;
   },
 
   REMOVE_TOKEN(state) {
     state.access_token = null;
+    state.auth = false;
   }
 };
 

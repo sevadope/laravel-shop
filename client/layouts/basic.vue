@@ -29,7 +29,7 @@
 export default {
 	computed: {
       isLoggedIn() {
-        return this.$store.state.access_token;
+        return this.$store.state.auth;
       }	
 	},
 
