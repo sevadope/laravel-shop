@@ -7,7 +7,7 @@ use Closure;
 class Cors
 {
     private $allowed_origins = [
-        'http://localhost:3000',
+        'http://localhost',
     ];
 
     /**
@@ -20,8 +20,6 @@ class Cors
     public function handle($request, Closure $next)
     {
         $req_origin = $request->headers->get('origin');
-
-        info([$request]);
 
         if (in_array($req_origin, $this->allowed_origins)) {
             return $next($request)

@@ -161,6 +161,6 @@ class CategorySeeder extends Seeder
     {
         $imgs = $this->imgs ?? $this->imgs = Storage::files(self::IMAGES_PATH);
 
-        return $imgs[array_rand($imgs)];
+        return 'storage/'.$imgs[array_rand($imgs)];
     }
 }

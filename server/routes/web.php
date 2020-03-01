@@ -3,6 +3,7 @@
 /*|==========| Public |==========|*/
 
 /*|=====| Categories |=====|*/
+
 Route::group(
 	[
 		'as' => 'categories.',
@@ -14,6 +15,7 @@ Route::group(
 );
 
 /*|==========| Products |==========|*/
+
 Route::group(
 	[
 		'as' => 'products.',

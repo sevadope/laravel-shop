@@ -1,26 +1,31 @@
 <template>
 <div>
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-	  	<nuxt-link class="navbar-brand" :to="{name:'index'}">
-	  		Shop
-	  	</nuxt-link>
-	  	<div v-if="!isLoggedIn">
-		  	<nuxt-link class="navbar-brand" :to="{name:'login'}">
-		  		Login
-		  	</nuxt-link>		
+	<b-navbar type="dark" variant="dark">
+		<b-navbar-brand :to="{name:'index'}">
+			Shop
+		</b-navbar-brand>
 
-		  	<nuxt-link class="navbar-brand" :to="{name:'register'}">
-		  		Sign Up
-		  	</nuxt-link>	
-	  	</div>
+		<b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-		<div v-else>
-		  	<a class="navbar-brand" href="#"  @click="logout"> 
-		  		Logout	
-		  	</a>			
-		</div>
+		<b-collapse id="nav-collapse" is-nav>
 
-	</nav>
+			<b-navbar-nav v-if="isLoggedIn" class="ml-auto">
+				<b-nav-item @click="logout" href="#">
+					Logout
+				</b-nav-item>
+			</b-navbar-nav>
+
+			<b-navbar-nav v-else  class="ml-auto">
+				<b-nav-item :to="{name:'login'}">
+					Login
+				</b-nav-item>	
+				<b-nav-item :to="{name:'register'}">
+					Sign Up
+				</b-nav-item>
+			</b-navbar-nav>
+
+		</b-collapse>
+	</b-navbar>
 	<nuxt />
 </div>
 </template>

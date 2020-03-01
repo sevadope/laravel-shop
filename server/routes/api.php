@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 
+/*|==========| Auth |==========|*/
+
 Route::group(
 	[
 		'middleware' => 'guest',
@@ -30,5 +32,19 @@ Route::group(
 	],
 	function () {
 		Route::post('logout', 'Api\AuthController@logout')->name('logout');
+	}
+);
+
+/*|==========| Public |==========|*/
+
+/*|=====| Categories |=====|*/
+
+Route::group(
+	[
+		'as' => 'api.categories.',
+		'prefix' => 'categories',
+	],
+	function () {
+		Route::post('', 'Api\CategoryController@index')->name('index');
 	}
 );
