@@ -18,8 +18,15 @@ class CategoryResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'slug' => $this->slug,
+            'description' => $this->description,
             'image' => $this->image,
             'popularity' => $this->popularity,
+            'tree_depth' => $this->tree_depth,
+
+            'products' => new ProductCollection($this->whenLoaded('products')),
+            'ancestors' => new CategoryCollection($this->ancestors),
+            'children' => new CategoryCollection($this->whenLoaded('children')),
+            'descendants' => new CategoryCollection($this->descendants),
         ];
     }
 }

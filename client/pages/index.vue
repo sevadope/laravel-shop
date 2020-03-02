@@ -7,13 +7,14 @@
 			</b-col>
 			<b-col cols="10" class="main-content">
 				<div v-for="category in categories" class="group-item">
-					<a href="#">
+					<nuxt-link 
+					:to="{name: 'categories-slug', params: {slug: category.slug}}">
 						<img class="category-image"
 						:src="category.image" :alt="category.name">
 						</img>
 							
 						<div>{{ category.name }}</div>
-					</a>
+					</nuxt-link>
 				</div>
 			</b-col>
 		</b-row>
