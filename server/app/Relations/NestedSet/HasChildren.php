@@ -53,7 +53,8 @@ class HasChildren extends NestedSetRelation
 	{
         return ! is_null($this->parent->getKey())
                 ? array_key_exists('descendants', $this->parent->getRelations()) ?
-                	$this->parent->descendants->where('tree_depth', $this->parent->getTreeDepth())
+                	$this->parent->descendants
+                		->where('tree_depth', $this->parent->getTreeDepth() + 1)
                 	: $this->query->get()
                 : $this->related->newCollection();		
 	}

@@ -15,7 +15,7 @@ class CacheList implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private $cache_fields = [
-        'id', 'name', 'slug', 'image', 'popularity',
+        'id', 'name', 'slug', 'image', 'popularity', 'tree_depth',
     ];
 
     /**

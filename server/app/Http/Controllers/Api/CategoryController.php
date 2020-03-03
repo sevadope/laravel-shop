@@ -44,7 +44,6 @@ class CategoryController extends Controller
     )
     {
         $category = $service->get($key);
-        #return json_encode($category);  
 
         $products_query = $p_service->getQueryForCategoryDescendants($category);
 

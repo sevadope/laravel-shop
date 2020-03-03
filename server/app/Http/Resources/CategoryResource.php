@@ -25,8 +25,8 @@ class CategoryResource extends JsonResource
 
             'products' => new ProductCollection($this->whenLoaded('products')),
             'ancestors' => new CategoryCollection($this->ancestors),
-            'children' => new CategoryCollection($this->whenLoaded('children')),
             'descendants' => new CategoryCollection($this->descendants),
+            'children' => new CategoryCollection($this->children),
         ];
     }
 }

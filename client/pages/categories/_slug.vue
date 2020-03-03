@@ -2,19 +2,29 @@
 <div>
 	<b-container class="main">
 	  	<b-breadcrumb>
-	  		<b-breadcrumb-item :to="{name: 'index'}">
+	  		<b-breadcrumb-item :to="{name: 'index'}" id="home-breadcrumb">
 	  			Home
 	  		</b-breadcrumb-item>
-	  		<b-breadcrumb-item v-for="ancestor in category.ancestors"
-	  		:to="{name: 'categories-slug', params: {slug: ancestor.slug}}">
+	  		<b-breadcrumb-item 
+	  		v-for="ancestor in category.ancestors"
+	  		:to="{name: 'categories-slug', params: {slug: ancestor.slug}}"
+	  		:key="ancestor.slug">
 	  			{{ ancestor.name }}
 	  		</b-breadcrumb-item>
 	  	</b-breadcrumb>
 		<b-row>
 			<b-col class="left-sidebar">
-				
+				<b-nav vertical>
+					<b-nav-item v-for="child in category.children"
+					:to="{name: 'categories-slug', params: {slug: child.slug}}">
+						{{ child.name }}
+					</b-nav-item>
+				</b-nav>
+
 			</b-col>
+
 			<b-col cols="10" class="main-content">
+
 				<b-card
 				:title="category.name">
 					<b-card-text>
@@ -29,8 +39,8 @@
 							<div class="">{{ product.name }}</div>
 						</a>
 					</div>
-
 				</div>
+
 			</b-col>
 		</b-row>
 	</b-container>
