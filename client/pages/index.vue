@@ -39,8 +39,9 @@ export default {
 		})
 		.catch(errors => {
 			console.log(errors);
-		});
+		});	
 	},
+
 }
 </script>
 

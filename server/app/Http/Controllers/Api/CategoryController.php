@@ -13,6 +13,7 @@ use App\Cache\CacheManager;
 use App\Services\CategoryService as Service;
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\CategoryCollection;
+use App\Http\Resources\ProductCollection;
 
 class CategoryController extends Controller
 {
@@ -20,7 +21,7 @@ class CategoryController extends Controller
     private const PRODUCTS_LIST_SIZE = 50;
 
     /**
-     * Display a listing of the resource.
+     * Get a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
@@ -32,12 +33,22 @@ class CategoryController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Get the specified resource.
      *
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(
+    public function show($key, Service $service)
+    {
+        $category = $service->get($key);
+
+        return new CategoryResource($category);
+    }
+
+    /**
+     * Get products for category
+     **/
+    public function products(
         $key,
         Service $service,
         ProductService $p_service
@@ -52,9 +63,6 @@ class CategoryController extends Controller
             ->limit(self::PRODUCTS_LIST_SIZE)
             ->getForList();
 
-
-        $category->setRelation('products', $products);
-
-        return new CategoryResource($category);
+        return new ProductCollection($products);
     }
 }

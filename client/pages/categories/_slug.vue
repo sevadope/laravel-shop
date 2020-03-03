@@ -6,16 +6,15 @@
 	  			Home
 	  		</b-breadcrumb-item>
 	  		<b-breadcrumb-item 
-	  		v-for="ancestor in category.ancestors"
-	  		:to="{name: 'categories-slug', params: {slug: ancestor.slug}}"
-	  		:key="ancestor.slug">
+	  		v-for="ancestor in category.ancestors" :key="ancestor.id"
+	  		:to="{name: 'categories-slug', params: {slug: ancestor.slug}}">
 	  			{{ ancestor.name }}
 	  		</b-breadcrumb-item>
 	  	</b-breadcrumb>
 		<b-row>
 			<b-col class="left-sidebar">
 				<b-nav vertical>
-					<b-nav-item v-for="child in category.children"
+					<b-nav-item v-for="child in category.children" :key="child.id"
 					:to="{name: 'categories-slug', params: {slug: child.slug}}">
 						{{ child.name }}
 					</b-nav-item>
@@ -33,7 +32,7 @@
 				</b-card>
 
 				<div class="">
-					<div class="group-item" v-for="product in category.products">
+					<div class="group-item" v-for="product in products">
 						<a href="#">
 							<img class="product-image-sm" :src="product.image" :alt="product.name">
 							<div class="">{{ product.name }}</div>
@@ -55,19 +54,32 @@ export default {
 		return {
 			category_key: this.$route.params.slug,
 			category: {},
+			products: [],
 		}
 	},
 
 	mounted() {
-		console.log(this.category_key);
-
 		this.$axios.post(`categories/${this.category_key}`)
 		.then(resp => {
 			this.category = resp.data.data;
+			console.log("first");
 		});
 
-		console.log(this.category);
-	}
+		this.loadProducts();
+	},
+
+	methods: {
+		loadProducts() {
+			this.$axios.post(`categories/${this.category_key}/products`)
+			.then(resp => {
+				this.products = resp.data.data;
+				console.log('second');
+			})
+			.catch(errors => {
+				console.log(errors);
+			});
+		}
+	},	
 }	
 </script>
 

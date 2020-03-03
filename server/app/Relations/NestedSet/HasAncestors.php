@@ -39,7 +39,7 @@ class HasAncestors extends NestedSetRelation
 							&&
 						$result->getTreeRightKey() > $model->getTreeRightKey();
 
-				})->sortByDesc($this->left_key)
+				})->sortBy($this->depth)
 			);
 		}
 
@@ -49,7 +49,7 @@ class HasAncestors extends NestedSetRelation
 	public function getResults()
 	{
         return ! is_null($this->parent->getKey())
-                ? $this->query->get()->sortByDesc($this->left_key)
+                ? $this->query->orderBy($this->depth)->get()
                 : $this->related->newCollection();		
 	}
 }

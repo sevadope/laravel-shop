@@ -47,5 +47,6 @@ Route::group(
 	function () {
 		Route::post('', 'Api\CategoryController@index')->name('index');
 		Route::post('{category}', 'Api\CategoryController@show')->name('show');
+		Route::post('{category}/products', 'Api\CategoryController@products')->name('products');
 	}
 );

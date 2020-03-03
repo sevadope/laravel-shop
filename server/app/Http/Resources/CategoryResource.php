@@ -23,7 +23,6 @@ class CategoryResource extends JsonResource
             'popularity' => $this->popularity,
             'tree_depth' => $this->tree_depth,
 
-            'products' => new ProductCollection($this->whenLoaded('products')),
             'ancestors' => new CategoryCollection($this->ancestors),
             'descendants' => new CategoryCollection($this->descendants),
             'children' => new CategoryCollection($this->children),
