@@ -19,7 +19,27 @@
 						{{ child.name }}
 					</b-nav-item>
 				</b-nav>
+				<form @submit.prevent="loadProducts">
+					<div class="form-group row">
+						<div class="col">
+							<label for="min_price">Min price</label>
+							<input id="min_price" name="min_price" 
+							type="number" class="form-control"
+							v-model="filter.min_price">
+							</input>							
+						</div>
 
+						<div class="col">
+							<label for="max_price">Max price</label>
+							<input id="max_price" name="max_price" 
+							type="number" class="form-control"
+							v-model="filter.max_price">
+							</input>							
+						</div>
+					</div>
+
+					<b-button type="submit" variant="primary">Filter</b-button>
+				</form>
 			</b-col>
 
 			<b-col cols="10" class="main-content">
@@ -36,6 +56,7 @@
 						<a href="#">
 							<img class="product-image-sm" :src="product.image" :alt="product.name">
 							<div class="">{{ product.name }}</div>
+							<h5 class="price">{{ product.price }}</h5>
 						</a>
 					</div>
 				</div>
@@ -55,6 +76,10 @@ export default {
 			category_key: this.$route.params.slug,
 			category: {},
 			products: [],
+			filter: {
+				min_price: undefined,
+				max_price: undefined,
+			},
 		}
 	},
 
@@ -70,7 +95,12 @@ export default {
 
 	methods: {
 		loadProducts() {
-			this.$axios.post(`categories/${this.category_key}/products`)
+			let filter = this.prepareFilterArgs(this.filter);
+
+			this.$axios.post(
+				`categories/${this.category_key}/products`,
+				filter
+			)
 			.then(resp => {
 				this.products = resp.data.data;
 				console.log('second');
@@ -78,6 +108,18 @@ export default {
 			.catch(errors => {
 				console.log(errors);
 			});
+		},
+
+		prepareFilterArgs(filter) {
+			let result = {};
+
+			for (let key in filter) {
+				if (filter[key] !== '') {
+					result[key] = filter[key];
+				};
+			}
+
+			return result;
 		}
 	},	
 }	
@@ -90,4 +132,13 @@ export default {
 	width: 10rem;
 	height: 10rem;
 }	
+
+.price {
+	color: white;
+	font-weight: bolder;
+}
+
+.price:before {
+	content: '$';
+}
 </style>

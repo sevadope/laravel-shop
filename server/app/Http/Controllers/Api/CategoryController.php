@@ -51,18 +51,51 @@ class CategoryController extends Controller
     public function products(
         $key,
         Service $service,
-        ProductService $p_service
+        ProductService $p_service,
+        FilterBoxRequest $request
     )
     {
+        $data = $request->validated();
+        
         $category = $service->get($key);
 
-        $products_query = $p_service->getQueryForCategoryDescendants($category);
+        $query = $p_service->getQueryForCategoryDescendants($category);
 
-        $products = $products_query
+        $this->filterQuery($query, $data);
+
+        $products = $query
             ->orderByPopularity()
             ->limit(self::PRODUCTS_LIST_SIZE)
             ->getForList();
 
         return new ProductCollection($products);
+    }
+
+    protected function filterQuery(&$query, $data)
+    {
+        if (empty($data)) {
+            return $query;
+        }
+
+        $callbacks = $this->filterQueryCallbacks();
+
+        foreach ($data as $key => $value) {
+            $query = $callbacks[$key]($query, $value);
+        }
+
+        return $query;
+    }
+
+    protected function filterQueryCallbacks()
+    {
+        return [
+            'min_price' => function ($query, $value) {
+                return $query->where('price', '>', $value);
+            },
+
+            'max_price' => function ($query, $value) {
+                return $query->where('price', '<', $value);
+            },            
+        ];
     }
 }
