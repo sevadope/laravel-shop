@@ -50,3 +50,15 @@ Route::group(
 		Route::post('{category}/products', 'Api\CategoryController@products')->name('products');
 	}
 );
+
+/*|=====| Products |=====|*/
+
+Route::group(
+	[
+		'as' => 'api.products.',
+		'prefix' => 'products',
+	],
+	function () {
+		Route::post('{product}', 'Api\ProductController@show')->name('show');
+	}
+);

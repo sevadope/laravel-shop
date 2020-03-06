@@ -53,11 +53,12 @@
 
 				<div class="">
 					<div class="group-item" v-for="product in products">
-						<a href="#">
-							<img class="product-image-sm" :src="product.image" :alt="product.name">
+						<nuxt-link 
+						:to="{name: 'products-slug', params: {slug: product.slug}}">
+							<img class="product-img-sm" :src="product.image" :alt="product.name">
 							<div class="">{{ product.name }}</div>
 							<h5 class="price">{{ product.price }}</h5>
-						</a>
+						</nuxt-link>
 					</div>
 				</div>
 
@@ -126,7 +127,7 @@ export default {
 </script>
 
 <style lang="scss">
-.product-image-sm {
+.product-img-sm {
 	border: 2px solid #343a40;
 	border-radius: 10%;
 	width: 10rem;
