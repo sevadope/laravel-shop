@@ -6,8 +6,9 @@ use App\Cache\CacheManager;
 use App\Models\CartItem;
 use App\Contracts\Cache\Cacheable;
 use App\Concerns\CanCacheActions;
+use Illuminate\Contracts\Support\Arrayable;
 
-class Cart implements Cacheable
+class Cart implements Cacheable, Arrayable
 {
 	use CanCacheActions;
 
@@ -190,6 +191,20 @@ class Cart implements Cacheable
 	public function getTotalPrice()
 	{
 		return $this->total_price;
+	}
+
+	public function getItemsCount()
+	{
+		return $this->items_count;
+	}
+
+	public function toArray()
+	{
+		$items = array_map(function ($item) {
+			return $item->toArray();
+		}, $this->items);
+
+		return array_merge(['items' => array_values($items)], $this->getSupportFields());
 	}
 
 	protected function refresh($key = null)

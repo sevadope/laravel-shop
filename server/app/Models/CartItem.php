@@ -4,8 +4,9 @@ namespace App\Models;
 
 use App\Models\Product;
 use \Serializable;
+use Illuminate\Contracts\Support\Arrayable;
 
-class CartItem implements Serializable
+class CartItem implements Serializable, Arrayable
 {
 	/**
 	 * Primary key of item's product
@@ -97,6 +98,16 @@ class CartItem implements Serializable
 	public function getTotalPrice()
 	{
 		return $this->total_price ?? $this->total_price = $this->product->price * $this->count;
+	}
+
+	public function toArray()
+	{
+		return [
+			'product' => $this->product,
+			'count' => $this->count,
+			'options' => $this->options,
+			'total_price' => $this->total_price,
+		];
 	}
 
 	/*|==========| Serialization |==========|*/

@@ -9,13 +9,16 @@
 
 		<b-collapse id="nav-collapse" is-nav>
 
-			<b-navbar-nav v-if="isLoggedIn" class="ml-auto">
+			<b-navbar-nav v-if="isLoggedIn">
+				<b-nav-item :to="{name: 'cart'}">
+					Cart
+				</b-nav-item>
 				<b-nav-item @click="logout" href="#">
 					Logout
 				</b-nav-item>
 			</b-navbar-nav>
 
-			<b-navbar-nav v-else  class="ml-auto">
+			<b-navbar-nav v-else>
 				<b-nav-item :to="{name:'login'}">
 					Login
 				</b-nav-item>	

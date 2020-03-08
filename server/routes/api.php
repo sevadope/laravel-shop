@@ -62,3 +62,16 @@ Route::group(
 		Route::post('{product}', 'Api\ProductController@show')->name('show');
 	}
 );
+
+/*|=====| Cart |=====|*/
+
+Route::group(
+	[
+		'as' => 'api.cart.',
+		'prefix' => 'cart',
+		'middleware' => 'auth:api',
+	],
+	function () {
+		Route::post('', 'Api\CartController@show')->name('show');
+	}
+);

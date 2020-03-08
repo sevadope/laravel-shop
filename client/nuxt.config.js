@@ -34,6 +34,7 @@ export default {
   */
   plugins: [
     { src: '~/plugins/persistedState.js', ssr: false },
+    { src: '~/plugins/authAxios.js', mode: 'client' },
   ],
   /*
   ** Nuxt.js dev-modules

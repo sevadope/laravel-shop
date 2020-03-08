@@ -88,7 +88,6 @@ export default {
 		this.$axios.post(`categories/${this.category_key}`)
 		.then(resp => {
 			this.category = resp.data.data;
-			console.log("first");
 		});
 
 		this.loadProducts();
@@ -104,7 +103,6 @@ export default {
 			)
 			.then(resp => {
 				this.products = resp.data.data;
-				console.log('second');
 			})
 			.catch(errors => {
 				console.log(errors);

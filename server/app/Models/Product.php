@@ -13,6 +13,11 @@ use \Serializable;
 
 class Product extends Model implements Cacheable, Serializable
 {
+	protected $hidden = [
+		'created_at',
+		'updated_at',
+	];
+
 	protected $fillable = [
 		'id',	
 		'price',
