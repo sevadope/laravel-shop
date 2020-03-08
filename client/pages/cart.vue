@@ -31,7 +31,7 @@
 <script>
 export default {
 	layout: 'basic',
-	middleware: 'auth',
+	middleware: 'authed',
 
 	data() {
 		return {
@@ -40,7 +40,7 @@ export default {
 	},
 
 	mounted() {
-		this.$axiosAuthPost('cart', {})
+		this.$axiosAuthPost('cart')
 		.then(resp => {
 			this.cart = resp.data.data;
 		})

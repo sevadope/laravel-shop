@@ -32,7 +32,7 @@
 
 <script>
 export default {
-	middleware: 'guest',
+  middleware: 'is_guest',
 	layout: 'basic',
 
 	data() {
@@ -44,18 +44,8 @@ export default {
 	},
 
 	methods: {
-		login() {
-			this.$axios.post('login', this.form)
-	        .then((resp) => {
-	            this.$store.dispatch('setToken', {
-	            	access_token: resp.data.access_token,
-	            	expires_in: resp.data.expires_in
-	            });
-				this.$router.push({name: 'index'});
-			})
-	        .catch(errors => {
-	            console.dir(errors);
-	        });
+		async login() {
+      let resp = await this.$auth.loginWith('local', {data: this.form});
 		}
 	}
 }

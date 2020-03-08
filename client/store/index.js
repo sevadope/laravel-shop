@@ -1,38 +1,24 @@
 import cookies from 'js-cookie';
+import cookie from 'cookie';
 
 export const state = () => ({
-  access_token: null,
-  auth: false,
 });
 
 export const mutations = {
-  SET_TOKEN(state, access_token) {
-    state.access_token = access_token;
-    state.auth = true;
-  },
-
-  REMOVE_TOKEN(state) {
-    state.access_token = null;
-    state.auth = false;
-  }
+	SET_AUTH(state, auth) {
+		state.auth = auth;
+	},
 };
 
 export const actions = {
-  setToken({commit}, {access_token, expires_in}) {
-    this.$axios.setToken(access_token, 'Bearer');
-    const expiryTime = new Date(new Date().getTime() + expires_in * 1000);
-    cookies.set('x-access-token', access_token, {expires: expiryTime});
-    commit('SET_TOKEN', access_token);
-  },
+	async nuxtServerInit({ commit }, { app, req }) {
+    console.log('SERVER INIT');
+		let c = cookie.parse(req.headers.cookie);
 
-  async refreshToken({dispatch}) {
-    const {access_token, expires_in} = await this.$axios.$post('refresh-token');
-    dispatch('setToken', {access_token, expires_in});
-  },
+		if (c['vuex'] !== undefined) {
+			let auth = JSON.parse(c['vuex']).auth;
+			commit('SET_AUTH', auth);
+		};
+	},
 
-  logout({commit}) {
-    this.$axios.setToken(false);
-    cookies.remove('x-access-token');
-    commit('REMOVE_TOKEN');
-  }
 };

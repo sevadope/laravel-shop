@@ -7,6 +7,7 @@ use App\Http\Requests\Api\LoginRequest;
 use App\Http\Requests\Api\RegisterRequest;
 use App\Models\User;
 use \Request;
+use App\Http\Resources\UserResource;
 
 class AuthController extends Controller
 {
@@ -41,6 +42,11 @@ class AuthController extends Controller
             'access_token' => $resp->access_token,
             'expires_in' => $resp->expires_in,
         ], 200);
+    }
+
+    public function user()
+    {
+        return new UserResource(auth()->user());
     }
 
     public function logout()

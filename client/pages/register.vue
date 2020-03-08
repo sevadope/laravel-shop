@@ -50,7 +50,7 @@
 
 <script>
 export default {
-	middleware: 'guest',
+	middleware: 'is_guest',
 	layout: 'basic',
 
 	data() {
@@ -67,15 +67,12 @@ export default {
 		register() {
 			this.$axios.post('register', this.form)
 	        .then((resp) => {
-	            this.$store.dispatch('setToken', {
-	            	access_token: resp.data.access_token,
-	            	expires_in: resp.data.expires_in
-	            });
-				this.$router.push({name: 'index'});
-			})
-	        .catch(errors => {
-	            console.dir(errors);
-	        });
+			    this.$auth.setUserToken(resp.data.access_token);
+                this.$router.push('/');
+		    })
+	       .catch(errors => {
+	           console.dir(errors);
+	       });
 		}
 	}
 }

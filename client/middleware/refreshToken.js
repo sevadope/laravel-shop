@@ -1,13 +1,10 @@
 import cookies from 'js-cookie';
 
-export default function ({ store, redirect }) {
-  const token = cookies.get('x-access-token');
-  
-  if (store.state.auth && ! token) {
-    store.dispatch('refreshToken')
-    .catch(errors => {
-    	console.log(errors);
-    	store.dispatch('logout');
-    });
+export default function ({ app, store, redirect }) {
+
+  const token = app.$auth.getToken('local');
+
+  if (store.state.auth && store.state.auth.loggedIn && ! token) {
+    console.log('TOKEN EXPIRED');
   }
 }

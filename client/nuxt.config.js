@@ -17,6 +17,7 @@ export default {
   },
 
   router: {
+    auth: false,
     middleware: 'refreshToken',
   },
 
@@ -33,7 +34,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '~/plugins/persistedState.js', ssr: false },
+    { src: '~/plugins/persistedState.js', mode: 'client' },
     { src: '~/plugins/authAxios.js', mode: 'client' },
   ],
   /*
@@ -50,7 +51,30 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
+
+    '@nuxtjs/auth',
   ],
+
+  auth: {
+    redirect: {
+      login: '/',
+      logout: '/',
+    },
+    
+    strategies: {
+      local: {
+        token: {
+          property: 'access_token'
+        },
+
+        endpoints: {
+          login: { url: 'login', method: 'post', propertyName: 'access_token' },
+          logout: { url: 'logout', method: 'post'},
+          user: {url: 'user', method: 'post', propertyName: 'data'},
+        },
+      },
+    },
+  },
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options

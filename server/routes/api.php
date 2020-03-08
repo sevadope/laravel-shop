@@ -32,6 +32,7 @@ Route::group(
 	],
 	function () {
 		Route::post('logout', 'Api\AuthController@logout')->name('logout');
+		Route::post('user', 'Api\AuthController@user')->name('user');
 	}
 );
 
