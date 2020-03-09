@@ -21,4 +21,18 @@ class CartController extends Controller
     {
         return new CartResource($cart);
     }
+
+    /**
+     * Add item to cart
+     **/
+    public function add(AddToCartRequest $request, Cart $cart)
+    {
+        $data = $request->validated();
+        $product = Product::find($data['product_key']);
+        
+        $cart->add($product, $data['products_count'], $data['options']);
+        $cart->save();
+        
+        return $data;
+    }
 }

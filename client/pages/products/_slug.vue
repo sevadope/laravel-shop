@@ -1,5 +1,5 @@
 <template>
-<b-container class="mt-4">
+<b-container class="mt-4" fluid>
 	<b-row align-items="end">
 		<b-col>
 			<div class="">
@@ -7,7 +7,7 @@
 			</div>
 		</b-col>
 		<b-col>
-			<div class="">
+			<div>
 				<h3 class="product-title">{{ product.name }}</h3>
 				<ul>
 					<li v-for="spec in product.specifications" :key="spec.id">
@@ -28,7 +28,21 @@
 							{{ value.value }}
 						</label>							
 					</div>
-				</div>				
+				</div>
+			</div>
+		</b-col>
+		<b-col>
+			<b-form-group
+			label-cols-sm="4"
+			label-cols-lg="2"
+			:label="`Count: ${products_count}`"
+			label-for="products_count">
+				<b-form-input type="number" id="products_count"
+				v-model="products_count"
+				></b-form-input>
+			</b-form-group>
+			<div class="product-actions">
+				<b-button @click="addToCart" variant="warning">Add to cart</b-button>
 			</div>
 		</b-col>
 	</b-row>
@@ -43,7 +57,7 @@ export default {
 		return {
 			product_key: this.$route.params.slug,
 			product: {},
-
+			products_count: 1,
 			opt_values: {},
 		}
 	},
@@ -66,16 +80,37 @@ export default {
 	methods: {
 		toggleValue(opt_name, value) {
 			this.opt_values[opt_name] = value;
-		}
+		},
+
+		addToCart() {
+			if (this.$auth.loggedIn) {
+				this.$axiosAuthPost('cart/add', {
+					options: this.opt_values,
+					products_count: this.products_count,
+					product_key: this.product.id,
+				});
+				this.$router.push({name: 'cart'});		
+			} else {
+				this.$router.push({name: 'login'});
+			}
+		},
 	},
 }
 </script>
 
 <style lang="scss">
+.product-actions {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
 .product-img-lg {
 	border: 2px solid #343a40;
 	width: 25rem;
 }
+
 .product-title {
 	font-weight: bolder;
 }
