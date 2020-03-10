@@ -25,6 +25,11 @@ interface SupportsAssocArray
 	public function putArrayValues($name, array $values);
 
 	/**
+	 * Delete array value
+	 **/
+	public function delArrayValue($name, $key);
+
+	/**
 	 * Get array length
 	 **/
 	public function getArrayLength($name);

@@ -30,6 +30,11 @@ class RedisStore extends Store implements SupportsAssocArray, SupportsScores
 		return $this->connection()->hmset($this->prefix.$name, $values);
 	}
 
+	public function delArrayValue($name, $key)
+	{
+		return $this->connection()->hdel($this->prefix.$name, $key);
+	}
+
 	public function getArrayLength($name)
 	{
 		return $this->connection()->hlen($this->prefix.$name);	
