@@ -93,6 +93,22 @@ class Cart implements Cacheable, Arrayable
 		$this->size += $count;	
 	}
 
+	public function removeItem($key)
+	{
+		$rm = array_filter($this->items, function ($item) use ($key) {
+			return $item->getProduct()->getKey() === $key;
+		});
+
+		$item_key = array_keys($rm)[0];
+
+		$res = $this->cache->delArrayValue(
+			static::getCachePrefix().$this->pk,
+			$item_key
+		);
+
+		unset($this->items[$item_key]);
+	}
+
 	public function save()
 	{
 		$plain_items = array_map(function ($item) {

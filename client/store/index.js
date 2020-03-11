@@ -12,7 +12,6 @@ export const mutations = {
 
 export const actions = {
 	async nuxtServerInit({ commit }, { app, req }) {
-    console.log('SERVER INIT');
 		let c = cookie.parse(req.headers.cookie);
 
 		if (c['vuex'] !== undefined) {

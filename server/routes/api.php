@@ -75,5 +75,6 @@ Route::group(
 	function () {
 		Route::post('', 'Api\CartController@show')->name('show');
 		Route::post('add', 'Api\CartController@add')->name('add');
+		Route::post('remove', 'Api\CartController@remove')->name('remove');
 	}
 );

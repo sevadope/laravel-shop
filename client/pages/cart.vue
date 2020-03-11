@@ -6,7 +6,7 @@
 	</h1>
 
 	<b-table :items="cart.items" 
-	:fields="['product',  'options', 'count', 'total_price']">
+	:fields="fields">
 		<template v-slot:cell(product)="data">
 			<h4 class="">{{ data.item.product.name }}</h4>
 			<img :src="data.item.product.image" :alt="data.item.product.name" 
@@ -19,6 +19,13 @@
 					{{ `${opt_name}: ${opt_value}` }}
 				</li>
 			</ul>
+		</template>
+
+		<template v-slot:cell(remove)="data">
+			<b-button @click="removeItem(data.item.product.id, data.index)" 
+			pill variant="outline-secondary">
+				Remove
+			</b-button>
 		</template>
 	</b-table>
 
@@ -35,6 +42,14 @@ export default {
 
 	data() {
 		return {
+			fields: [
+				'product',
+				'options',
+				'count',
+				'total_price',
+				{key: 'remove', label: ''},
+			],
+
 			cart: {},
 		}
 	},
@@ -52,6 +67,20 @@ export default {
 	methods: {
 		goBack() {
 			this.$router.go(-1);
+		},
+
+		removeItem(key, index) {
+			this.$axiosAuthPost(`cart/remove`, {
+				product_key: key,
+			})
+			.then(resp => {
+				if (resp.status === 200) {
+					this.cart.items.splice(index, 1);
+				};
+			})
+			.catch(errors => {
+				console.log(errors);
+			});
 		}
 	},
 }

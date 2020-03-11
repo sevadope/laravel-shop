@@ -3,7 +3,6 @@ import createPersistedState from 'vuex-persistedstate'
 import cookie from 'cookie'
 
 export default ({store, req, isDev}) => {
-	console.log('PERSIST_STATE');
 
 	createPersistedState({
 	    storage: {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Cart;
 use Illuminate\Http\Request;
 use App\Http\Requests\AddToCartRequest;
+use App\Http\Requests\RemoveCartItemRequest;
 use App\Models\Product;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CartResource;
@@ -34,5 +35,20 @@ class CartController extends Controller
         $cart->save();
         
         return $data;
+    }
+
+    /**
+     * Remove item from cart
+     **/
+    public function remove(RemoveCartItemRequest $request, Cart $cart)
+    {
+        $key = $request->validated()['product_key'];
+
+        $cart->removeItem($key);
+        $cart->save();
+
+        return [
+            'message' => 'Item successfully removed.',   
+        ];
     }
 }
