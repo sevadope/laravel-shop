@@ -7,7 +7,7 @@ use Closure;
 class Cors
 {
     private $allowed_origins = [
-        'http://localhost',
+        'http://eshop.dev',
     ];
 
     /**
