@@ -14,21 +14,16 @@
 </head>
 <body>
 	<div id="app">
-		@section('first-navbar')
-			<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-			</nav>
-		@show
-		@section('second-navbar')
-			<nav class="navbar navbar-expand-lg navbar-white bg-white">
-			</nav>
-		@show
-		<main>
-			@yield('left_panel')	
-
-			<div class="main">
-				@yield('content')
+		<nav class="navbar navbar-dark bg-dark">
+			<a class="navbar-brand" href="#">Admin panel</a>
+		</nav>
+		<div class="container">
+			<div class="row justify-content-md-center">
+				<div class="col">
+					@yield('content')
+				</div>
 			</div>
-		</main>		
+		</div>
 	</div>
 </body>
 </html>

@@ -13,68 +13,77 @@ use Illuminate\Http\Request;
 |
 */
 
-/*|==========| Auth |==========|*/
-
 Route::group(
 	[
-		'middleware' => 'guest',
+		'as' => 'api.',
 	],
 	function () {
-		Route::post('register', 'Api\AuthController@register')->name('register');
-		Route::post('login', 'Api\AuthController@login')->name('login');
-		Route::post('refresh-token', 'Api\AuthController@refreshToken')->name('refresh_token');
-	}
-);
 
-Route::group(
-	[
-		'middleware' => 'auth:api',
-	],
-	function () {
-		Route::post('logout', 'Api\AuthController@logout')->name('logout');
-		Route::post('user', 'Api\AuthController@user')->name('user');
-	}
-);
+		/*|==========| Auth |==========|*/
 
-/*|==========| Public |==========|*/
+		Route::group(
+			[
+				'middleware' => 'guest',
+			],
+			function () {
+				Route::post('register', 'Api\AuthController@register')->name('register');
+				Route::post('login', 'Api\AuthController@login')->name('login');
+				Route::post('refresh-token', 'Api\AuthController@refreshToken')->name('refresh_token');
+			}
+		);
 
-/*|=====| Categories |=====|*/
+		Route::group(
+			[
+				'middleware' => 'auth:api',
+			],
+			function () {
+				Route::post('logout', 'Api\AuthController@logout')->name('logout');
+				Route::post('user', 'Api\AuthController@user')->name('user');
+			}
+		);
 
-Route::group(
-	[
-		'as' => 'api.categories.',
-		'prefix' => 'categories',
-	],
-	function () {
-		Route::post('', 'Api\CategoryController@index')->name('index');
-		Route::post('{category}', 'Api\CategoryController@show')->name('show');
-		Route::post('{category}/products', 'Api\CategoryController@products')->name('products');
-	}
-);
+		/*|==========| Public |==========|*/
 
-/*|=====| Products |=====|*/
+		/*|=====| Categories |=====|*/
 
-Route::group(
-	[
-		'as' => 'api.products.',
-		'prefix' => 'products',
-	],
-	function () {
-		Route::post('{product}', 'Api\ProductController@show')->name('show');
-	}
-);
+		Route::group(
+			[
+				'as' => 'categories.',
+				'prefix' => 'categories',
+			],
+			function () {
+				Route::post('', 'Api\CategoryController@index')->name('index');
+				Route::post('{category}', 'Api\CategoryController@show')->name('show');
+				Route::post('{category}/products', 'Api\CategoryController@products')->name('products');
+			}
+		);
 
-/*|=====| Cart |=====|*/
+		/*|=====| Products |=====|*/
 
-Route::group(
-	[
-		'as' => 'api.cart.',
-		'prefix' => 'cart',
-		'middleware' => 'auth:api',
-	],
-	function () {
-		Route::post('', 'Api\CartController@show')->name('show');
-		Route::post('add', 'Api\CartController@add')->name('add');
-		Route::post('remove', 'Api\CartController@remove')->name('remove');
+		Route::group(
+			[
+				'as' => 'products.',
+				'prefix' => 'products',
+			],
+			function () {
+				Route::post('{product}', 'Api\ProductController@show')->name('show');
+			}
+		);
+
+		/*|=====| Cart |=====|*/
+
+		Route::group(
+			[
+				'as' => 'cart.',
+				'prefix' => 'cart',
+				'middleware' => 'auth:api',
+			],
+			function () {
+				Route::post('', 'Api\CartController@show')->name('show');
+				Route::post('add', 'Api\CartController@add')->name('add');
+				Route::post('remove', 'Api\CartController@remove')->name('remove');
+			}
+		);
+
 	}
 );
