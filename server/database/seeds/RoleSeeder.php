@@ -4,13 +4,6 @@ use Illuminate\Database\Seeder;
 
 class RoleSeeder extends Seeder
 {
-	private const ROLES = [
-		'public',
-		'moderator',
-		'admin',
-		'super_admin'
-	];
-
     /**
      * Run the database seeds.
      *

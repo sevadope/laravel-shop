@@ -6,7 +6,7 @@ class AuthSeeder extends Seeder
 {
     public const ROLES = [
         'public',   //default
-        'moderator',
+        'manager',
         'admin',
         'super_admin'
     ];
@@ -41,7 +41,7 @@ class AuthSeeder extends Seeder
             ],
         ],
 
-        'moderator' => [
+        'manager' => [
             'product' => [
                 '#except:force_delete',
             ],

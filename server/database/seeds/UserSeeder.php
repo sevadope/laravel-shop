@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
     	$factory = app(Factory::class);
     	
 		$factory->of(User::class, 'public')->times(1000)->create();
-		$factory->of(User::class, 'moderator')->times(10)->create();
+		$factory->of(User::class, 'manager')->times(10)->create();
 		$factory->of(User::class, 'admin')->times(3)->create();
 		$factory->of(User::class, 'super_admin')->times(1)->create();
     }

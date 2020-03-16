@@ -31,7 +31,7 @@ $func = function ($role_id) {
 };
 
 $factory->define(User::class, $func(1), 'public');
-$factory->define(User::class, $func(2), 'moderator');
+$factory->define(User::class, $func(2), 'manager');
 $factory->define(User::class, $func(3), 'admin');
 $factory->define(User::class, $func(4), 'super_admin');
 
