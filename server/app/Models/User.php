@@ -45,36 +45,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    /*|==========| Relationships |==========|*/
-
-    public function role()
-    {
-        return $this->belongsTo(Role::class, 'role_id');
-    }
-
-    public function permissions()
-    {
-        return $this->belongsToMany(
-            Permission::class,
-            'role_permission',
-            'role_id',
-            'perm_id',
-            'role_id'
-        );
-    }
-
     /*|==========| Accessors |==========|*/
 
     public function getFullNameAttribute()
     {
         return $this->first_name . ' ' . $this->last_name;
     }
-    
-    /*|====================|*/
-
-    public function hasPermissionTo(string $action)
-    {
-        return $this->permissions()->where('action', $action)->exists();
-    }
-
 }
