@@ -16,10 +16,10 @@ use Illuminate\Support\Str;
 |
 */
 
-$func = function ($role_id) {
-    return function (Faker $faker) use ($role_id) {
+$func = function ($role) {
+    return function (Faker $faker) use ($role) {
             return [
-            'role_id' => $role_id,
+            'role' => $role,
             'first_name'  => $faker->firstName,
             'last_name' => $faker->lastName,
             'email' => $faker->unique()->safeEmail,
@@ -30,8 +30,8 @@ $func = function ($role_id) {
     };
 };
 
-$factory->define(User::class, $func(1), 'public');
-$factory->define(User::class, $func(2), 'manager');
-$factory->define(User::class, $func(3), 'admin');
-$factory->define(User::class, $func(4), 'super_admin');
+foreach ((new User)->getRoles() as $role) {
+    $factory->define(User::class, $func($role), $role);
+}
+
 

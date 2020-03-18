@@ -8,10 +8,11 @@ use Illuminate\Notifications\Notifiable;
 use App\Models\Auth\Role;
 use App\Models\Auth\Permission;
 use Laravel\Passport\HasApiTokens;
+use App\Concerns\HasRoles;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasApiTokens;
+    use Notifiable, HasApiTokens, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -45,10 +46,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    /*|==========| Accessors |==========|*/
-
-    public function getFullNameAttribute()
+    public function getRole()
     {
-        return $this->first_name . ' ' . $this->last_name;
+        return $this->getAttribute('role_id');
     }
 }
