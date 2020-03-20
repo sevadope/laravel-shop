@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\AppModelsProduct;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -21,7 +21,7 @@ class ProductPolicy
     }
 
     /**
-     * Determine whether the user can view any app models products.
+     * Determine whether the user can view any products.
      *
      * @param  \App\Models\User  $user
      * @return mixed
@@ -32,19 +32,19 @@ class ProductPolicy
     }
 
     /**
-     * Determine whether the user can view the app models product.
+     * Determine whether the user can view the product.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\AppModelsProduct  $appModelsProduct
+     * @param  \App\Models\Product  $product
      * @return mixed
      */
-    public function view(User $user, AppModelsProduct $appModelsProduct)
+    public function view(User $user, Product $product)
     {
         return true;
     }
 
     /**
-     * Determine whether the user can create app models products.
+     * Determine whether the user can create products.
      *
      * @param  \App\Models\User  $user
      * @return mixed
@@ -55,49 +55,49 @@ class ProductPolicy
     }
 
     /**
-     * Determine whether the user can update the app models product.
+     * Determine whether the user can update the product.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\AppModelsProduct  $appModelsProduct
+     * @param  \App\Models\Product  $product
      * @return mixed
      */
-    public function update(User $user, AppModelsProduct $appModelsProduct)
+    public function update(User $user, Product $product)
     {
         return $user->isManager() || $user->isAdmin();
     }
 
     /**
-     * Determine whether the user can delete the app models product.
+     * Determine whether the user can delete the product.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\AppModelsProduct  $appModelsProduct
+     * @param  \App\Models\Product  $product
      * @return mixed
      */
-    public function delete(User $user, AppModelsProduct $appModelsProduct)
+    public function delete(User $user, Product $product)
     {
-        return $user->isAdmin();
+        return $user->isManager() || $user->isAdmin();
     }
 
     /**
-     * Determine whether the user can restore the app models product.
+     * Determine whether the user can restore the product.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\AppModelsProduct  $appModelsProduct
+     * @param  \App\Models\Product  $product
      * @return mixed
      */
-    public function restore(User $user, AppModelsProduct $appModelsProduct)
+    public function restore(User $user, Product $product)
     {
-        return $user->isAdmin();
+        return $user->isManager() || $user->isAdmin();
     }
 
     /**
-     * Determine whether the user can permanently delete the app models product.
+     * Determine whether the user can permanently delete the product.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\AppModelsProduct  $appModelsProduct
+     * @param  \App\Models\Product  $product
      * @return mixed
      */
-    public function forceDelete(User $user, AppModelsProduct $appModelsProduct)
+    public function forceDelete(User $user, Product $product)
     {
         return $user->isAdmin();
     }
