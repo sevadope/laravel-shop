@@ -21,7 +21,7 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
-    protected $allowed_roles = [2, 3, 4];
+    protected $allowed_roles = ['manager', 'admin', 'super_admin'];
 
     /**
      * Where to redirect users after login.
@@ -55,7 +55,19 @@ class LoginController extends Controller
     {
         return array_merge(
         	$request->only($this->username(), 'password'),
-        	['role_id' => $this->allowed_roles]
+        	['role' => $this->allowed_roles]
     	);
     }
+
+    /**
+     * The user has logged out of the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return mixed
+     */
+    protected function loggedOut(Request $request)
+    {
+        return redirect('/login');
+    }
+
 }

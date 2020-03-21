@@ -48,9 +48,11 @@ class Category extends Model implements NestedSetNode, Cacheable, Serializable
 
     /*|==========| Scopes |==========|*/
 
-    public function scopeOrderByPopularity($query)
+    public function scopeOrderByPopularity($query, $asc = true)
     {
-        return $query->orderBy('popularity');
+        return $asc ? 
+            $query->orderBy('popularity')
+            : $query->orderByDesc('popularity');
     }
     
     public function scopeWhereRouteKey($query, $key)
