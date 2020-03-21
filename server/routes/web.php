@@ -34,6 +34,7 @@ Route::group(
 					],
 					function () {
 						Route::get('', 'CategoryController@index')->name('index');
+						Route::get('{category}', 'CategoryController@show')->name('show');
 					}
 				);
 			}

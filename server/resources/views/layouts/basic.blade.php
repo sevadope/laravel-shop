@@ -11,10 +11,9 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 </head>
-<body>
-	<div id="app">
+<body class="">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Admin panel</a>
+        <a class="navbar-brand" href="{{ route('admin.categories.index') }}">Admin panel</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -39,13 +38,8 @@
             </ul>
         </div>
     </nav>
-		<div class="container">
-			<div class="row justify-content-md-center align-items-center m-4">
-				<div class="col">
-					@yield('content')
-				</div>
-			</div>
-		</div>
+	<div class="container min-vh-80">
+		@yield('content')
 	</div>
 </body>
 </html>

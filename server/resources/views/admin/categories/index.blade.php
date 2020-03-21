@@ -16,7 +16,7 @@
 				<tr>
 					<th scope="row">{{ $category->getKey() }}</th>
 					<td>
-						<a href="#">
+						<a href="{{ route('admin.categories.show', $category->getRouteKey()) }}">
 						{{ $category->name }}
 						</a>
 					</td>
@@ -27,5 +27,6 @@
 			@endforeach
 		</tbody>
 	</table>
-		
+
+	{{ $categories->links() }}	
 @endsection
