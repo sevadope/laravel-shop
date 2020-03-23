@@ -1,5 +1,23 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
 
+.img-md {
+  display: -webkit-box;
+  display: flex;
+  border: 2px solid black;
+  border-radius: 10%;
+  margin: 2rem;
+  width: 10rem;
+}
+
+.img-lg {
+  display: -webkit-box;
+  display: flex;
+  border: 2px solid black;
+  border-radius: 10%;
+  margin: 2rem;
+  width: 20rem;
+}
+
 /*!
  * Bootstrap v4.4.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors

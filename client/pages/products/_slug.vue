@@ -3,7 +3,7 @@
 	<b-row align-items="end">
 		<b-col>
 			<div class="">
-				<img class="product-img-lg" :src="product.image" :alt="product.name">
+				<img class="product-img-lg" :src="$storageUrl(product.image)" :alt="product.name">
 			</div>
 		</b-col>
 		<b-col>

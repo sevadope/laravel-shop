@@ -10,7 +10,7 @@
 					<nuxt-link 
 					:to="{name: 'categories-slug', params: {slug: category.slug}}">
 						<img class="category-image"
-						:src="category.image" :alt="category.name">
+						:src="$storageUrl(category.image)" :alt="category.name">
 						</img>
 							
 						<div>{{ category.name }}</div>

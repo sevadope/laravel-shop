@@ -4,6 +4,9 @@
 	<meta charset="UTF-8">
 	<title>Electronics Store</title>
     
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 

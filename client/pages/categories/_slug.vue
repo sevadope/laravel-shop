@@ -55,7 +55,7 @@
 					<div class="group-item" v-for="product in products">
 						<nuxt-link 
 						:to="{name: 'products-slug', params: {slug: product.slug}}">
-							<img class="product-img-sm" :src="product.image" :alt="product.name">
+							<img class="product-img-sm" :src="$storageUrl(product.image)":alt="product.name">
 							<div class="">{{ product.name }}</div>
 							<h5 class="price">{{ product.price }}</h5>
 						</nuxt-link>

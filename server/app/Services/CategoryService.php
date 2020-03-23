@@ -7,10 +7,13 @@ use Illuminate\Contracts\Foundation\Application;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Collection;
 use App\Concerns\CanCacheActions;
+use Illuminate\Http\UploadedFile;
 
 class CategoryService
 {
 	use CanCacheActions;
+
+	public const IMAGES_PATH = 'categories/images';
 
 	/**
 	 * List of actions which support caching
@@ -72,6 +75,39 @@ class CategoryService
 				->whereRouteKey($key)
 				->first();
 		}
+	}
+
+	public function updateCategory(Category $category, array $fields)
+	{
+		if ($fields['image']) {
+			$fields['image'] = $this->storeImage($fields['image']);
+			$res = $this->removeImage($category->image);
+			info(['deleted', $res]);
+		}
+
+		return $category->update($fields);
+	}
+
+	protected function storeImage(
+		UploadedFile $img,
+		$path = self::IMAGES_PATH,
+		$name = null,
+		$disk = 'public'
+	)
+	{
+		$name = $name ?? $img->hashName();
+
+		$path = $img->storeAs($path, $name, $disk);
+		$full_path = \Storage::disk($disk)->path($path);
+
+		\Image::make($full_path)->fit(500, 500)->save();	
+
+		return $path;
+	}
+
+	protected function removeImage(string $path)
+	{
+		return \Storage::delete($path);
 	}
 
 	protected function getCachedActions()

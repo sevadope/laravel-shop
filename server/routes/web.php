@@ -35,6 +35,12 @@ Route::group(
 					function () {
 						Route::get('', 'CategoryController@index')->name('index');
 						Route::get('{category}', 'CategoryController@show')->name('show');
+
+						Route::get('{category}/edit', 'CategoryController@edit')
+							->middleware('can:update,category')->name('edit');
+
+						Route::put('{category}', 'CategoryController@update')
+							->middleware('can:update,category')->name('update');
 					}
 				);
 			}
