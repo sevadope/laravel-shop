@@ -42,6 +42,7 @@
         </div>
     </nav>
 	<div class="container min-vh-80">
+        @include('admin.components.msg_alert')
 		@yield('content')
 	</div>
 </body>

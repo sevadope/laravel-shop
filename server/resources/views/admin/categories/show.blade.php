@@ -20,7 +20,18 @@
 			class="btn btn-primary">
 				Edit
 			</a>
-			<a href="#" class="btn btn-danger">Delete</a>
+			<a href="#" class="btn btn-danger"
+			onclick="
+				event.preventDefault();
+				document.getElementById('delete-form').submit();
+			">
+				Delete
+			</a>
+			<form class="d-none" id="delete-form" name="delete-form" method="post" 
+			action="{{ route('admin.categories.delete', $category->getRouteKey()) }}">
+				@method('DELETE')
+				@csrf
+			</form>
 		</div>
 	</div>
 @endsection

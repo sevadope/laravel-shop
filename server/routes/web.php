@@ -41,6 +41,9 @@ Route::group(
 
 						Route::put('{category}', 'CategoryController@update')
 							->middleware('can:update,category')->name('update');
+
+						Route::delete('{category}', 'CategoryController@delete')
+							->middleware('can:delete,category')->name('delete');
 					}
 				);
 			}

@@ -11,9 +11,12 @@ use App\Contracts\Cache\Cacheable;
 use App\Cache\CacheManager;
 use Illuminate\Database\Eloquent\Collection;
 use Serializable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Category extends Model implements NestedSetNode, Cacheable, Serializable
 {
+    use SoftDeletes;
+
     public const CACHED_SCORE_NAME = 'categories:score';
     public const CACHED_LIST_NAME = 'categories:list';
 

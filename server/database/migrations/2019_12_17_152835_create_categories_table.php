@@ -28,6 +28,8 @@ class CreateCategoriesTable extends Migration
             $table->integer('tree_depth');
 
             $table->timestamps();
+
+            $table->softDeletes();
         });
     }
 

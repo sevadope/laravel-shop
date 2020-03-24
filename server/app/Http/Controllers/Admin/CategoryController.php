@@ -47,4 +47,16 @@ class CategoryController extends Controller
 				->withErrors(['msg' => 'Update error. Please try again.'])
 				->withInput();
 	}
+
+	public function delete(Category $category)
+	{
+		$deleted = $category->delete();
+
+		return $deleted ?
+			redirect()
+				->route('admin.categories.index')
+				->with(['msg' => 'Category deleted.'])
+			: back()
+				->withErrors(['msg' => 'Delete error. Please try again.']);
+	}
 }
