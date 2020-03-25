@@ -1,6 +1,9 @@
 @extends('admin.basic')
 
 @section('content')
+	<a href="{{ route('admin.categories.create') }}" class="btn btn-success">
+		New
+	</a>
 	<table class="table">
 		<thead>
 			<tr>

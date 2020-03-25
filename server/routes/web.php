@@ -34,6 +34,13 @@ Route::group(
 					],
 					function () {
 						Route::get('', 'CategoryController@index')->name('index');
+
+						Route::get('new', 'CategoryController@create')
+							->middleware('can:create,App\Models\Category')->name('create');
+
+						Route::post('new', 'CategoryController@store')
+							->middleware('can:create,App\Models\Category')->name('store');
+
 						Route::get('{category}', 'CategoryController@show')->name('show');
 
 						Route::get('{category}/edit', 'CategoryController@edit')

@@ -109,7 +109,6 @@ class CategorySeeder extends Seeder
         $side_values = $this->side_values[$name];
 
     	return [
-            'id' => $id,
     		'name' => $name,
     		'slug' => $slug,
     		'description' => str_repeat($name.' - ', 10),

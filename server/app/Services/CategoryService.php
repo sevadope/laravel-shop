@@ -37,9 +37,9 @@ class CategoryService
 		$this->app = $app;
 	}
 
-	public function getList($list_size)
+	public function getList($list_size, $use_cache = true)
 	{
-		if ($this->cached(__FUNCTION__)) {
+		if ($use_cache && $this->cached(__FUNCTION__)) {
 			$cache = $this->app->make(CacheManager::class);
 
 			$keys = $cache->getFirstScoreValues(Category::CACHED_SCORE_NAME, $list_size);
@@ -52,15 +52,14 @@ class CategoryService
 
 		} else {
 	        return Category::orderByPopularity()
-	            ->limit($list_size)
-	            ->get();
+	            ->paginate($list_size);
 		}
 		
 	}
 
-	public function get($key)
+	public function get($key, $use_cache = true)
 	{
-		if ($this->cached(__FUNCTION__)) {
+		if ($use_cache && $this->cached(__FUNCTION__)) {
 			$cache = $this->app->make(CacheManager::class);
 
 			$fields = $cache->getAllArrayValues(Category::getCachePrefix().$key, $key);
@@ -77,12 +76,21 @@ class CategoryService
 		}
 	}
 
+	public function createCategory(array $fields)
+	{
+		$fields['image'] = $this->storeImage($fields['image']);
+		$fields = $this->fillNestedSetKeys($fields);
+
+		$category = Category::create($fields);
+
+		return $category;
+	}	
+
 	public function updateCategory(Category $category, array $fields)
 	{
 		if ($fields['image']) {
 			$fields['image'] = $this->storeImage($fields['image']);
-			$res = $this->removeImage($category->image);
-			info(['deleted', $res]);
+			$this->removeImage($category->image);
 		}
 
 		return $category->update($fields);
@@ -113,5 +121,31 @@ class CategoryService
 	protected function getCachedActions()
 	{
 		return $this->cached_actions;
+	}
+
+	protected function fillNestedSetKeys($fields, $parent_key = 'parent')
+	{
+		$parent = $this->get($fields[$parent_key], false);
+
+		unset($fields[$parent_key]);
+
+		$fields['tree_left_key'] = $parent
+			->children
+			->sortByDesc('tree_right_key')
+			->first()
+			->getTreeRightKey() + 1;
+
+		$fields['tree_right_key'] = $fields['tree_left_key'] + 1;
+		$fields['tree_depth'] = $parent->getTreeDepth() + 1;
+
+		$query = Category::where('tree_left_key', '>=', $fields['tree_right_key']);
+
+		$query->increment('tree_left_key', 2);
+		$query->increment('tree_right_key', 2);
+
+		$parent->increment('tree_left_key', 2);
+		$parent->increment('tree_right_key', 2);
+
+		return $fields;
 	}
 }

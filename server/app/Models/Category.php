@@ -21,7 +21,6 @@ class Category extends Model implements NestedSetNode, Cacheable, Serializable
     public const CACHED_LIST_NAME = 'categories:list';
 
     protected $fillable = [
-        'id',
     	'name',
     	'slug',
     	'description',
@@ -72,7 +71,7 @@ class Category extends Model implements NestedSetNode, Cacheable, Serializable
 
     public function getImageUrl()
     {
-        return '/storage/'.$this->getAttribute('image');
+        return asset('storage/'.$this->image);
     }
 
     public function hasDescendants()
