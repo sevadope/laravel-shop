@@ -7,6 +7,7 @@ use App\Models\Product\OptionValue;
 use App\Models\Product\Option;
 use App\Models\Product\SpecificationValue;
 use App\Models\Product\Specification;
+use App\Models\Category;
 use App\Relations\HasOptions;
 use App\Contracts\Cache\Cacheable;
 use \Serializable;
@@ -23,6 +24,7 @@ class Product extends Model implements Cacheable, Serializable
 		'price',
 		'name',
 		'slug',
+		'category_id',
 		'options',
 		'description',
 		'popularity',
@@ -31,9 +33,11 @@ class Product extends Model implements Cacheable, Serializable
 
 	/*|==========| Scopes |==========|*/
 
-	public function scopeOrderByPopularity($query)
+	public function scopeOrderByPopularity($query, $desc = true)
 	{
-		return $query->orderBy('popularity');
+		return $desc ?
+			$query->orderByDesc('popularity')
+			: $query->orderBy('popularity');
 	}
 
 	public function scopeWhereCategory($query, $id)
@@ -62,6 +66,11 @@ class Product extends Model implements Cacheable, Serializable
 	}
 
 	/*|==========| Relationships |==========|*/
+
+	public function category()
+	{
+		return $this->belongsTo(Category::class, 'category_id', 'id');
+	}
 
 	public function options()
 	{

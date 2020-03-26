@@ -53,6 +53,17 @@ Route::group(
 							->middleware('can:delete,category')->name('delete');
 					}
 				);
+
+				Route::group(
+					[
+						'as' => 'products.',
+						'prefix' => 'products',
+					],
+					function () {
+						Route::get('', 'ProductController@index')->name('index');
+						Route::get('{product}', 'ProductController@show')->name('show');
+					}
+				);
 			}
 		);
 	}

@@ -13,6 +13,13 @@ class Specification extends Model implements Serializable
     	'name',
     ];
 
+    public function getValueAttribute()
+    {
+        return $this->pivot ?
+            $this->pivot->value
+            : false;   
+    }
+
     /*|==========| Relationships |==========|*/
 
     public function values()

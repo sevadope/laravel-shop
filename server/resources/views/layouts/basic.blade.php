@@ -21,8 +21,24 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="{{ route('admin.categories.index') }}"
+                    class="nav-link">
+                        Categories
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.products.index') }}"
+                    class="nav-link">
+                        Products
+                    </a>
+                </li>
+            </ul>
+
             <ul class="navbar-nav ml-auto">
                 @auth
+
                     <li class="nav-item">
                         <a class="nav-link" href="#">{{ auth()->user()->name }}</a>
                     </li>
