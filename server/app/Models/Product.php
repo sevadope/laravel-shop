@@ -31,6 +31,15 @@ class Product extends Model implements Cacheable, Serializable
 		'image',
 	];
 
+	/*|==========| Accessors |==========|*/
+
+	public function getSelectedOptionsAttribute()
+	{
+		return $this->pivot ?
+			$this->pivot->getAttributeFromArray('options')
+			: null;	
+	}
+
 	/*|==========| Scopes |==========|*/
 
 	public function scopeOrderByPopularity($query, $desc = true)
@@ -104,6 +113,11 @@ class Product extends Model implements Cacheable, Serializable
 		return 'product:';
 	}
 
+	public function getImageUrl()
+	{
+		return asset('storage/'.$this->image);
+	}
+
 	public function buildFromCache(array $data, $cache = null)
 	{
 		$this->setRawAttributes(array_diff_key($data, ['relations' => 0]));
@@ -114,11 +128,6 @@ class Product extends Model implements Cacheable, Serializable
 		}
 
 		return $this;
-	}
-
-	public function getImageUrl()
-	{
-		return asset('storage/'.$this->image);
 	}
 
 	/*|==========| Serialization |==========|*/

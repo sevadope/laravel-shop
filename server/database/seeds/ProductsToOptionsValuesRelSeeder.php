@@ -8,7 +8,7 @@ use App\Models\Product\OptionValue;
 class ProductsToOptionsValuesRelSeeder extends Seeder
 {
     private const OPTIONS_PER_PRODUCT_RANGE = [1, 2];
-    private const VALUES_PER_OPTION_RANGE = [2, 5];
+    private const VALUES_PER_OPTION_RANGE = [1, 3];
     /**
      * Run the database seeds.
      *
@@ -17,7 +17,7 @@ class ProductsToOptionsValuesRelSeeder extends Seeder
     public function run()
     {
     	$products_count = Product::count();
-    	$options = Option::with('values')->withCount('values')->get();
+    	$options = Option::with('all_values')->withCount('all_values')->get();
 
     	$relations = [];
 
@@ -28,7 +28,7 @@ class ProductsToOptionsValuesRelSeeder extends Seeder
             foreach ($options->random($options_count) as $option) {     
                 $values_count = $this->getRandomValuesCount();
 
-                foreach ($option->values->random($values_count) as $value) {
+                foreach ($option->all_values->random($values_count) as $value) {
                     $relations[] = $this->makeRow($value->id, $product_id);
                 }
             }

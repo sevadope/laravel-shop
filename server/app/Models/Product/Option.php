@@ -17,7 +17,7 @@ class Option extends Model implements Serializable
 
     /*|==========| Relationships |==========|*/
 
-    public function values()
+    public function all_values()
     {
     	return $this->hasMany(OptionValue::class, 'option_id');
     }

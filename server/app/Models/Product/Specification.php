@@ -17,7 +17,7 @@ class Specification extends Model implements Serializable
     {
         return $this->pivot ?
             $this->pivot->value
-            : false;   
+            : null;   
     }
 
     /*|==========| Relationships |==========|*/

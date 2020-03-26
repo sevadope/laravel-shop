@@ -66,7 +66,7 @@ class Category extends Model implements NestedSetNode, Cacheable, Serializable
 
     public function getSlug()
     {
-        return $this->getAttribute('slug');
+        return $this->getAttributeFromArray('slug');
     }
 
     public function getImageUrl()

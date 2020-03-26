@@ -9,6 +9,7 @@ use App\Models\Auth\Role;
 use App\Models\Auth\Permission;
 use Laravel\Passport\HasApiTokens;
 use App\Concerns\HasRoles;
+use App\Models\Order;
 
 class User extends Authenticatable
 {
@@ -53,6 +54,13 @@ class User extends Authenticatable
 
     public function getRole()
     {
-        return $this->getAttribute('role');
+        return $this->getAttributeFromArray('role');
+    }
+
+    /*|==========| Relationships |==========|*/
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'customer_id', 'id');
     }
 }
