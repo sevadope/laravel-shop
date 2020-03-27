@@ -16,6 +16,9 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('customer_id');
+            $table->decimal('total_price', 9, 2);
+            $table->string('payment_id');
+            $table->string('status')->default('pending');
 
             $table->foreign('customer_id')
                 ->references('id')

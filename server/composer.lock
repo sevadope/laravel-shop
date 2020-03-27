@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "34d404d997d91dd6f8300d2f1dc8f068",
+    "content-hash": "1c5e7b3f308c84a4ef755f599ef07458",
     "packages": [
         {
             "name": "defuse/php-encryption",
@@ -4166,6 +4166,44 @@
                 "environment"
             ],
             "time": "2020-03-12T13:44:00+00:00"
+        },
+        {
+            "name": "yandex-money/yandex-checkout-sdk-php",
+            "version": "1.5.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yandex-money/yandex-checkout-sdk-php.git",
+                "reference": "368e8a0bcfcc04e44c11f7c410fe14dc6427883c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yandex-money/yandex-checkout-sdk-php/zipball/368e8a0bcfcc04e44c11f7c410fe14dc6427883c",
+                "reference": "368e8a0bcfcc04e44c11f7c410fe14dc6427883c",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "php": ">=5.3.0",
+                "psr/log": "^1.0"
+            },
+            "require-dev": {
+                "ext-xml": "*",
+                "mockery/mockery": "^0.9.9",
+                "phpunit/phpunit": "^4.8.35 || ^5.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "YandexCheckout\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "time": "2020-03-17T12:26:21+00:00"
         }
     ],
     "packages-dev": [

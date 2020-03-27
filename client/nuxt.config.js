@@ -17,7 +17,6 @@ export default {
   },
 
   router: {
-    auth: false,
     middleware: 'refreshToken',
   },
 
@@ -36,6 +35,7 @@ export default {
   plugins: [
     { src: '~/plugins/persistedState.js', mode: 'client' },
     { src: '~/plugins/authAxios.js', mode: 'client' },
+    { src: '~/plugins/paymentWidgets.js' },
     { src: '~/plugins/storageUrl.js' },
   ],
   /*

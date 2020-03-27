@@ -31,6 +31,7 @@
 
 	<div class="cart-actions">
 		<b-button @click="goBack" variant="primary">Continue Shopping</b-button>
+		<b-button :to="{name: 'payment-init'}" variant="warning">Make payment</b-button>
 	</div>
 </div>
 </template>

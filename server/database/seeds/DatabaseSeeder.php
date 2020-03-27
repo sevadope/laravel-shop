@@ -22,5 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ProductsSpecificationValueSeeder::class);
         $this->call(ProductsToOptionsValuesRelSeeder::class);
         $this->call(OrderProductSeeder::class);
+
+        Artisan::call('cache:refresh');
     }
 }

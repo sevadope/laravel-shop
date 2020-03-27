@@ -16,6 +16,7 @@ class CreateOrderProductTable extends Migration
         Schema::create('order_product', function (Blueprint $table) {
             $table->bigInteger('order_id');
             $table->bigInteger('product_id');
+            $table->integer('count')->default(1);
             $table->jsonb('options');
 
             $table->foreign('order_id')

@@ -31,6 +31,9 @@ class OrderSeeder extends Seeder
     {
     	return [
     		'customer_id' => $user_id,
+            'total_price' => random_int(500, 20000),
+            'payment_id' => Str::random(20),
+            'status' => 'succeeded',
     		'created_at' => now(),
     		'updated_at' => now(),
     	];

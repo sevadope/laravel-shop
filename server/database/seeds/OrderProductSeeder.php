@@ -32,7 +32,7 @@ class OrderProductSeeder extends Seeder
 
     			$order_product[] = $this->makeRow(
     				$order->getKey(),
-    				$product->getKey(),
+    				$product,
     				$options
     			);
     		}
@@ -43,13 +43,14 @@ class OrderProductSeeder extends Seeder
 
     private function makeRow(
     	int $order_id,
-    	int $product_id,
+    	Product $product,
     	array $options
     )
     {
     	return [
     		'order_id' => $order_id,
-    		'product_id' => $product_id,
+            'count' => $count = $this->getRandCount(),
+    		'product_id' => $product->getKey(),
     		'options' => json_encode($options),
     	];
     }
@@ -63,5 +64,10 @@ class OrderProductSeeder extends Seeder
     	}
 
     	return $options;
+    }
+
+    private function getRandCount()
+    {
+        return random_int(1, 3);
     }
 }

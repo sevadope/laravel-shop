@@ -137,7 +137,7 @@ export default {
 	font-weight: bolder;
 }
 
-.price:before {
-	content: '$';
+.price:after {
+	content: ' RUB';
 }
 </style>

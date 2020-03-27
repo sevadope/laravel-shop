@@ -10,8 +10,8 @@
 	font-weight: bolder;
 }
 
-.price:before {
-	content: '$';
+.price:after {
+	content: ' RUB';
 }
 .img-lg {
 	display: flex;

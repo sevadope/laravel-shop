@@ -13,6 +13,9 @@
 				<b-nav-item :to="{name: 'cart'}">
 					Cart
 				</b-nav-item>
+				<b-nav-item :to="{name: 'orders'}">
+					Orders
+				</b-nav-item>
 				<b-nav-item @click="logout" href="#">
 					Logout
 				</b-nav-item>

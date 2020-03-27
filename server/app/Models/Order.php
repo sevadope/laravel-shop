@@ -8,6 +8,12 @@ use App\Models\Product;
 
 class Order extends Model
 {
+	protected $fillable = [
+		'customer_id',
+		'payment_id',
+		'total_price',
+	];
+
 	/*|==========| Relationships |==========|*/
 
 	public function customer()
@@ -23,5 +29,33 @@ class Order extends Model
 			'order_id',
 			'product_id'
 		)->withPivot('options');
+	}
+
+	/*|====================|*/
+
+	public function getTotalPrice()
+	{
+		return $this->getAttributeValue('total_price');
+	}
+
+	public static function createFromCart(Cart $cart, $payment_id)
+	{
+		$order = static::create([
+			'customer_id' => auth()->user()->getKey(),
+			'total_price' => $cart->getTotalPrice(),
+			'payment_id' => $payment_id,
+		]);
+
+		$products = [];
+		array_map(function ($item) use (&$products) {
+			$products[$item->getProduct()->getKey()] = [
+				'options' => json_encode($item->getOptions()),
+				'count' => $item->getCount(),
+			];
+		}, $cart->getItems());
+
+		$order->products()->attach($products);
+
+		return $order;
 	}
 }
