@@ -93,6 +93,22 @@ services:
         ports:
             - 63791:6379
 
+##########
+    
+    supervisor:
+        container_name: eshop_visor
+
+        build: docker/supervisor/
+
+        volumes:
+            - ./:/var/www/
+            - ./docker/supervisor/conf.d:/etc/supervisor/conf.d
+            - ./docker/supervisor/logs:/var/log
+
+        depends_on:
+            - postgres
+            - redis
+
 ########## Volumes ##########
 
 volumes:
