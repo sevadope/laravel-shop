@@ -29,6 +29,7 @@
         "webpack": "^4.41.6"
     },
     "dependencies": {
+        "@coreui/coreui": "^3.0.0",
         "less-loader": "^5.0.0"
     }
 }
