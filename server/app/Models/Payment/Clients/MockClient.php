@@ -11,7 +11,7 @@ class MockClient implements PaymentClientInterface
 	{
 		return [
 			'id' => \Str::random(20),
-			'status' => 'pending',
+			'status' => self::PENDING_STATUS,
 			'paid' => 'false',
 
 			'amount' => [
@@ -24,8 +24,13 @@ class MockClient implements PaymentClientInterface
 	public function getPaymentInfo($payment_id)
 	{
 		return [
-			'status' => 'succeeded',
+			'status' => self::SUCCESS_STATUS,
 			'paid' => 'true',			
 		];
+	}
+
+	public function paymentSucceeded($payment_id)
+	{
+		return true;
 	}
 }

@@ -8,11 +8,21 @@ use App\Models\Product;
 
 class Order extends Model
 {
+	public const SUCCEEDED = 'succeeded';
+	public const PENDING = 'pending';
+
 	protected $fillable = [
 		'customer_id',
 		'payment_id',
 		'total_price',
 	];
+
+	/*|==========| Accessors |==========|*/
+
+	public function scopeWherePayment($query, $payment_id)
+	{
+		return $query->where('payment_id', $payment_id);
+	}
 
 	/*|==========| Relationships |==========|*/
 

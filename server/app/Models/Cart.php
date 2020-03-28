@@ -109,6 +109,17 @@ class Cart implements Cacheable, Arrayable
 		unset($this->items[$item_key]);
 	}
 
+	public function clear()
+	{
+		$this->items = [];
+
+		$this->items_count = 0;
+		$this->total_price = 0;
+		$this->size = 0;
+
+		$this->cache->delete(static::getCachePrefix().$this->pk);
+	}
+
 	public function save()
 	{
 		$plain_items = array_map(function ($item) {

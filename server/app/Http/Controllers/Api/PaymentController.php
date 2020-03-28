@@ -8,6 +8,7 @@ use App\Http\Requests\Api\InitPaymentRequest;
 use App\Models\Cart;
 use App\Services\PaymentService;
 use App\Models\Order;
+use App\Jobs\CheckPaymentStatus;
 
 class PaymentController extends Controller
 {
@@ -24,6 +25,11 @@ class PaymentController extends Controller
         $resp = $client->createPayment($cart);
 
         $order = Order::createFromCart($cart, $resp['id']);
+
+        $cart->clear();
+
+        CheckPaymentStatus::dispatch($resp['id'], $client_name);
+
         return $resp;
     }
 }

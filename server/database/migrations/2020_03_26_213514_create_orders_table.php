@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Order;
 
 class CreateOrdersTable extends Migration
 {
@@ -18,7 +19,7 @@ class CreateOrdersTable extends Migration
             $table->bigInteger('customer_id');
             $table->decimal('total_price', 9, 2);
             $table->string('payment_id');
-            $table->string('status')->default('pending');
+            $table->string('status')->default(Order::PENDING);
 
             $table->foreign('customer_id')
                 ->references('id')

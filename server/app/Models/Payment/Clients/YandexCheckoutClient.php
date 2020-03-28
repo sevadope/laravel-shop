@@ -49,6 +49,13 @@ class YandexCheckoutClient implements PaymentClientInterface
 		return json_decode($json_resp, true);
 	}
 
+	public function paymentSucceeded($payment_id)
+	{
+		$resp = $this->getPaymentInfo($payment_id);
+
+		return $resp['status'] === self::SUCCESS_STATUS;
+	}
+
 	private function getClient()
 	{
 		if (isset($this->client)) {
