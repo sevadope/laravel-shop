@@ -1,8 +1,8 @@
-<div class="group-item">
-	<a href="#">
-		<img src="{{ $item->getImageUrl() }}" class="img-md" alt="">
+<div class="d-inline-flex card text-center m-4">
+		<img src="{{ $item->getImageUrl() }}" class="card-img-top img-md" alt="">
 
+	<a href="{{ route('admin.products.show', $item->getRouteKey()) }}">
 	   	{{ $item->name }}
-	    <h5 class="price">{{ $item->price }}</h5>		
 	</a>
+	    <h5 class="price">{{ $item->price }}</h5>		
 </div>

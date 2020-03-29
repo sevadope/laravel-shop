@@ -11,6 +11,9 @@ use Illuminate\Http\UploadedFile;
 
 class CategoryService
 {
+	public const IMAGE_WIDTH = 500;
+	public const IMAGE_HEIGHT = 500;
+
 	use CanCacheActions;
 
 	public const IMAGES_PATH = 'categories/images';
@@ -88,7 +91,7 @@ class CategoryService
 
 	public function updateCategory(Category $category, array $fields)
 	{
-		if ($fields['image']) {
+		if (isset($fields['image'])) {
 			$fields['image'] = $this->storeImage($fields['image']);
 			$this->removeImage($category->image);
 		}
@@ -108,7 +111,10 @@ class CategoryService
 		$path = $img->storeAs($path, $name, $disk);
 		$full_path = \Storage::disk($disk)->path($path);
 
-		\Image::make($full_path)->fit(500, 500)->save();	
+		\Image::make($full_path)->fit(
+			self::IMAGE_WIDTH,
+			self::IMAGE_HEIGHT
+		)->save();	
 
 		return $path;
 	}
@@ -129,11 +135,13 @@ class CategoryService
 
 		unset($fields[$parent_key]);
 
-		$fields['tree_left_key'] = $parent
-			->children
-			->sortByDesc('tree_right_key')
-			->first()
-			->getTreeRightKey() + 1;
+		$fields['tree_left_key'] = $parent->children->isEmpty() ?
+			$parent->getTreeLeftKey() + 1
+			: $parent
+				->children
+				->sortByDesc('tree_right_key')
+				->first()
+				->getTreeRightKey() + 1;
 
 		$fields['tree_right_key'] = $fields['tree_left_key'] + 1;
 		$fields['tree_depth'] = $parent->getTreeDepth() + 1;
@@ -143,7 +151,6 @@ class CategoryService
 		$query->increment('tree_left_key', 2);
 		$query->increment('tree_right_key', 2);
 
-		$parent->increment('tree_left_key', 2);
 		$parent->increment('tree_right_key', 2);
 
 		return $fields;

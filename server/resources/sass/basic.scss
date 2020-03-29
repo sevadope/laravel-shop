@@ -1,12 +1,10 @@
 .img-md {
-	border: 2px solid #343a40;
-	border-radius: 10%;
-	width: 10rem;
-	height: 10rem;
+	max-width: 15rem;
+	max-height: 15rem;
 }	
 
 .price {
-	color: white;
+	color: black;
 	font-weight: bolder;
 }
 
@@ -14,19 +12,20 @@
 	content: ' RUB';
 }
 .img-lg {
-	display: flex;
-	border: 2px solid black;
-	border-radius: 10%;
-	margin: 2rem;
 	width: 20rem;
+	height: 20rem;
 }
 
 .group-item {
 	display: inline-flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	text-align: center;
 	width: 12rem;
 	height: 12rem;
 	margin: 1.5rem 1rem;
+	border: 2px solid gray;
+	border-radius: 10%;
+
 }

@@ -1,65 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Electronics Store</title>
-    
+  <meta charset="UTF-8">
+
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    
+
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
+    
+    <title>@yield('title')</title>
 </head>
-<body class="">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="{{ route('admin.categories.index') }}">Admin panel</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a href="{{ route('admin.categories.index') }}"
-                    class="nav-link">
-                        Categories
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('admin.products.index') }}"
-                    class="nav-link">
-                        Products
-                    </a>
-                </li>
+<body class="c-app">
+   <div class="c-sidebar c-sidebar-dark c-sidebar-lg-show c-sidebar-fixed">
+       <div class="c-sidebar-brand">
+           <h2>Admin panel</h2>
+       </div>
+        <ul class="c-sidebar-nav">
+            @yield('sidebar')
+        </ul>
+    </div>
+    <div class="c-wrapper">
+        <header class="c-header c-header-light bg-light px-3">
+            <button class="c-header-toggler c-class-toggler mfs-3 d-md-down-none"
+                type="button"
+                data-toggle="#sidebar" data-class="c-sidebar-lg-show">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <ul class="c-header-nav mfs-auto">
+                @yield('header-right-nav')
             </ul>
 
-            <ul class="navbar-nav ml-auto">
-                @auth
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">{{ auth()->user()->name }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin.logout') }}"
-                           onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                        </a>
-
-                        <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>          
-                    </li>
-                @endauth
-            </ul>
+        </header>
+        <div class="c-body bg-gray-200">
+            <main class="c-main">
+                <div class="container-fluid">
+                    @yield('content')
+                </div>
+            </main>
         </div>
-    </nav>
-	<div class="container min-vh-80">
-        @include('admin.components.msg_alert')
-		@yield('content')
-	</div>
+        <footer class="c-footer">
+            @yield('footer')
+        </footer>
+    </div>
 </body>
 </html>
