@@ -9,7 +9,7 @@
 
 		<b-collapse id="nav-collapse" is-nav>
 
-			<b-navbar-nav v-if="isLoggedIn">
+			<b-navbar-nav class="ml-auto" v-show="isLoggedIn">
 				<b-nav-item :to="{name: 'cart'}">
 					Cart
 				</b-nav-item>
@@ -21,7 +21,7 @@
 				</b-nav-item>
 			</b-navbar-nav>
 
-			<b-navbar-nav v-else>
+			<b-navbar-nav class="ml-auto" v-show="!isLoggedIn">
 				<b-nav-item :to="{name:'login'}">
 					Login
 				</b-nav-item>	
@@ -53,21 +53,43 @@ export default {
 </script>
 
 <style lang="scss">
+	$card-width: 10rem;
+	$img-lg-width: 20rem;
+	$status-succeeded: 'success';
+	$status-pending: 'warning';
+
+	.card-list-item {
+		display: inline-flex;
+		max-width: $card-width;
+		text-align: center;
+	}
+
+	.card-list {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+	}
+	.img-md {
+		max-width: $card-width;
+		height: $card-width;
+	}
+
+	.img-lg {
+		max-width: $img-lg-width;
+		height: $img-lg-width;
+	}
+
 	.main {
 		min-width: 100vw;
 		min-height: 90vh;
-		border: 5px dotted white;		
 	}
 
-	.left-sidebar {
-		@extend .collumn;
+	.price {
+		color: black;
+		font-weight: bolder;
 	}
 
-	.main-content {
-		@extend .collumn;
-	}
-
-	.collumn {
-		border: 3px dotted red;
+	.price:after {
+		content: ' RUB';
 	}
 </style>

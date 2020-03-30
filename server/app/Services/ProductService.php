@@ -33,9 +33,9 @@ class ProductService
 		$this->app = $app;
 	}
 
-	public function get($key)
+	public function get($key, $use_cache = true)
 	{
-		if ($this->cached(__FUNCTION__)) {
+		if ($this->cached(__FUNCTION__) && $use_cache) {
 			$cache = $this->app->make(CacheManager::class);
 
 			$fields = $cache->getAllArrayValues(Product::getCachePrefix().$key);

@@ -4,13 +4,15 @@ namespace App\Models\Product;
 
 use Illuminate\Database\Eloquent\Model;
 use \Serializable;
+use Illuminate\Contracts\Support\Arrayable;
 
-class Specification extends Model implements Serializable
+class Specification extends Model implements Serializable, Arrayable
 {
     protected $table = 'products_specifications';
 
     protected $fillable = [
     	'name',
+        'value'
     ];
 
     public function getValueAttribute()
@@ -18,6 +20,14 @@ class Specification extends Model implements Serializable
         return $this->pivot ?
             $this->pivot->value
             : null;   
+    }
+
+    public function toArray()
+    {
+        $attrs = $this->getAttributes();
+        $attrs['value'] = $attrs['value'] ?? $this->pivot->value;
+
+        return $attrs;
     }
 
     /*|==========| Relationships |==========|*/

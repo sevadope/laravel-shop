@@ -10,7 +10,7 @@
 		<template v-slot:cell(product)="data">
 			<h4 class="">{{ data.item.product.name }}</h4>
 			<img :src="$storageUrl(data.item.product.image)" :alt="data.item.product.name" 
-			class="product-img-sm">
+			class="img-md">
 		</template>
 
 		<template v-slot:cell(options)="data"> 

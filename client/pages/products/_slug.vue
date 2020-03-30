@@ -2,7 +2,7 @@
 <b-container class="mt-4" fluid>
 	<b-row align-items="end">
 		<b-col>
-			<div class="">
+			<div class="m-3">
 				<img class="product-img-lg" :src="$storageUrl(product.image)" :alt="product.name">
 			</div>
 		</b-col>
@@ -107,7 +107,7 @@ export default {
 }
 
 .product-img-lg {
-	border: 2px solid #343a40;
+	border: 2px solid gray;
 	width: 25rem;
 }
 

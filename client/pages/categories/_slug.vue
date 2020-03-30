@@ -51,13 +51,20 @@
 					</b-card-text>
 				</b-card>
 
-				<div class="">
-					<div class="group-item" v-for="product in products">
+				<div class="card-list">
+					<div class="card-list-item card m-3"
+					v-for="product in products"
+					>
 						<nuxt-link 
-						:to="{name: 'products-slug', params: {slug: product.slug}}">
-							<img class="product-img-sm" :src="$storageUrl(product.image)":alt="product.name">
-							<div class="">{{ product.name }}</div>
-							<h5 class="price">{{ product.price }}</h5>
+						:to="{name: 'products-slug', params:{slug: product.slug}}">
+							<img :src="$storageUrl(product.image)" alt="" class="card-img-top img-md">
+
+							<div class="card-footer">
+								{{ product.name }} <br>
+								<span class="price">
+									{{ product.price }}
+								</span>
+							</div>
 						</nuxt-link>
 					</div>
 				</div>
@@ -132,12 +139,5 @@ export default {
 	height: 10rem;
 }	
 
-.price {
-	color: white;
-	font-weight: bolder;
-}
 
-.price:after {
-	content: ' RUB';
-}
 </style>

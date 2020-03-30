@@ -1,12 +1,16 @@
 <template>
 	<b-container class="main">
 		<b-row>
-			<b-col class="left-sidebar">
-				
-			</b-col>
-			<b-col cols="10" class="main-content">
+			<b-col cols="12" class="main-content">
+				<h1 class="m-3">Orders:</h1>
 				<b-table :items="orders" :fields="fields">
-					
+					<template v-slot:cell(total_price)="data">
+						<span class="price">{{ data.item.total_price }}</span>
+					</template>
+					<template v-slot:cell(status)="data">					
+						<b-badge pill :variant="$statusVariant(data.item.status)">{{ data.item.status }}
+						</b-badge>
+					</template>
 				</b-table>
 			</b-col>
 		</b-row>

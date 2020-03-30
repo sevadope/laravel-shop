@@ -1,4 +1,4 @@
-
+  
 export default {
   mode: 'universal',
   /*
@@ -33,6 +33,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    { src: '~/plugins/helpers.js', mode: 'client' },
     { src: '~/plugins/persistedState.js', mode: 'client' },
     { src: '~/plugins/authAxios.js', mode: 'client' },
     { src: '~/plugins/paymentWidgets.js' },
