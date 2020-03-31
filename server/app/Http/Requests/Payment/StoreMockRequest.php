@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Api;
+namespace App\Http\Requests\Payment;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class InitPaymentRequest extends FormRequest
+class StoreMockRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,7 @@ class InitPaymentRequest extends FormRequest
     public function rules()
     {
         return [
-            'client' => 'required|string',
-            'type' => 'string',
+            'field' => 'required|string',
         ];
     }
 }

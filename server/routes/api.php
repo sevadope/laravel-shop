@@ -88,7 +88,10 @@ Route::group(
 		'middleware' => 'auth:api',
 	],
 	function () {
-		Route::post('init', 'PaymentController@init')->name('init');
+		Route::post('widgets/init', 'PaymentController@initWidget')
+			->name('initWidget');
+		Route::post('mock/store', 'PaymentController@storeMock')
+			->name('storeMock');
 	}
 );
 

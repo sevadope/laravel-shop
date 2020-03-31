@@ -28,6 +28,8 @@ export default {
   ** Global CSS
   */
   css: [
+    '~/assets/fonts/fonts.css',
+    '~/assets/css/styles.css',
   ],
   /*
   ** Plugins to load before mounting the App
@@ -36,7 +38,6 @@ export default {
     { src: '~/plugins/helpers.js', mode: 'client' },
     { src: '~/plugins/persistedState.js', mode: 'client' },
     { src: '~/plugins/authAxios.js', mode: 'client' },
-    { src: '~/plugins/paymentWidgets.js' },
     { src: '~/plugins/storageUrl.js' },
   ],
   /*
@@ -82,7 +83,7 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    baseURL: 'http://eshop.dev/api/',
+    baseURL: 'http://online-shop.ru/api/',
     credentials: true,
   },
   /*

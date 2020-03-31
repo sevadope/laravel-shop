@@ -15,16 +15,16 @@ class CheckPaymentStatus implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $payment_id;
-    protected $payment_client;
+    protected $widget_name;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct( $payment_id,  $payment_client)
+    public function __construct( $payment_id,  $widget_name)
     {
-        $this->payment_client = $payment_client;
+        $this->widget_name = $widget_name;
         $this->payment_id = $payment_id;
     }
 
@@ -35,7 +35,7 @@ class CheckPaymentStatus implements ShouldQueue
      */
     public function handle(PaymentService $service)
     {
-        $client = $service->getClient($this->payment_client);
+        $client = $service->getWidget($this->widget_name);
 
         if ($client->paymentSucceeded($this->payment_id)) {
             $order = Order::wherePayment($this->payment_id)->first();
@@ -44,7 +44,7 @@ class CheckPaymentStatus implements ShouldQueue
             $order->save();
         } else {
             sleep(2);
-            static::dispatch($this->payment_id, $this->payment_client)
+            static::dispatch($this->payment_id, $this->widget_name)
                 ->delay(now()->addSeconds(5));
         }
 

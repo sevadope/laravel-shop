@@ -1,39 +1,47 @@
 <template>
-<div class="">
-	<h1>
-		{{ `Your cart(${cart.size} items):` }} 
-		<span class="price">{{ cart.total_price }}</span>
-	</h1>
+	<b-row class="m-3">
+		<b-col cols="12">
+			<h1>
+				{{ `Your cart(${cart.size} items):` }} 
+				<span class="price">{{ cart.total_price }}</span>
+			</h1>
 
-	<b-table :items="cart.items" 
-	:fields="fields">
-		<template v-slot:cell(product)="data">
-			<h4 class="">{{ data.item.product.name }}</h4>
-			<img :src="$storageUrl(data.item.product.image)" :alt="data.item.product.name" 
-			class="img-md">
-		</template>
+			<b-table :items="cart.items" 
+			:fields="fields">
 
-		<template v-slot:cell(options)="data"> 
-			<ul>
-				<li v-for="(opt_value, opt_name) in data.item.options">
-					{{ `${opt_name}: ${opt_value}` }}
-				</li>
-			</ul>
-		</template>
+				<template v-slot:cell(image)="data">	
+					<img :src="$storageUrl(data.item.product.image)"
+					:alt="data.item.product.name" 
+					class="img-md">
+				</template>
 
-		<template v-slot:cell(remove)="data">
-			<b-button @click="removeItem(data.item.product.id, data.index)" 
-			pill variant="outline-secondary">
-				Remove
-			</b-button>
-		</template>
-	</b-table>
+				<template v-slot:cell(name)="data"> 
+					<h3>{{ data.item.product.name }}</h3>
+						<b-button pill variant="outline-secondary" disabled
+						v-for="(opt_value, opt_name) in data.item.options">
+							{{ `${opt_name}: ${opt_value}` }}
+						</b-button>
+				</template>
 
-	<div class="cart-actions">
-		<b-button @click="goBack" variant="primary">Continue Shopping</b-button>
-		<b-button :to="{name: 'payment-init'}" variant="warning">Make payment</b-button>
-	</div>
-</div>
+				<template v-slot:cell(total_price)="data"> 
+					<div class="price">{{ data.item.total_price }}</div>
+				</template>
+
+				<template v-slot:cell(remove)="data">
+					<b-button pill variant="outline-secondary"
+					@click="removeItem(data.item.product.id, data.index)">
+						Remove
+					</b-button>
+				</template>
+
+			</b-table>	
+
+			<div class="cart-actions">
+				<b-button @click="goBack" variant="primary">Continue Shopping</b-button>
+				<b-button :to="{name: 'payment-init'}" variant="warning">Make payment</b-button>
+			</div>				
+		</b-col>
+	</b-row>
 </template>
 
 <script>
@@ -44,11 +52,11 @@ export default {
 	data() {
 		return {
 			fields: [
-				'product',
-				'options',
+				{key: 'image', label: ''},
+				'name',
 				'count',
 				'total_price',
-				{key: 'remove', label: ''},
+				{key: 'remove', label: ''},	
 			],
 
 			cart: {},

@@ -5,7 +5,6 @@ export default ({app}, inject) => {
 	};
 
 	inject('statusVariant', (status) => {
-		console.log(status_variants[status])
 		return status_variants[status];
 	})
 }

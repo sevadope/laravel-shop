@@ -15,6 +15,7 @@ class Order extends Model
 		'customer_id',
 		'payment_id',
 		'total_price',
+		'status',
 	];
 
 	/*|==========| Accessors |==========|*/
@@ -48,12 +49,17 @@ class Order extends Model
 		return $this->getAttributeValue('total_price');
 	}
 
-	public static function createFromCart(Cart $cart, $payment_id)
+	public static function createFromCart(
+		Cart $cart,
+		$payment_id,
+		$status = self::PENDING
+	)
 	{
 		$order = static::create([
 			'customer_id' => auth()->user()->getKey(),
 			'total_price' => $cart->getTotalPrice(),
 			'payment_id' => $payment_id,
+			'status' => $status,
 		]);
 
 		$products = [];

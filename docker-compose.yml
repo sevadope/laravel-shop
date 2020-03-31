@@ -5,7 +5,7 @@ services:
 ##########
 
     node:
-        container_name: eshop_node
+        container_name: shop_node
         
         build: 
             context: docker/node/
@@ -24,7 +24,7 @@ services:
 ##########
 
     php:
-        container_name: eshop_php
+        container_name: shop_php
 
         build:  docker/php-fpm/
 
@@ -41,7 +41,7 @@ services:
 ##########
 
     nginx:    
-        container_name: eshop_nginx     
+        container_name: shop_nginx     
 
         build:  docker/nginx/
 
@@ -63,7 +63,7 @@ services:
 ##########
 
     postgres:  
-        container_name: eshop_postgres
+        container_name: shop_postgres
 
         build: docker/postgres/
 
@@ -83,7 +83,7 @@ services:
 ##########
 
     redis:
-        container_name: eshop_redis
+        container_name: shop_redis
 
         build: docker/redis/
 
@@ -96,7 +96,7 @@ services:
 ##########
     
     supervisor:
-        container_name: eshop_visor
+        container_name: shop_visor
 
         build: docker/supervisor/
 

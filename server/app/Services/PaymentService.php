@@ -2,25 +2,22 @@
 
 namespace App\Services;
 
-use YandexCheckout\Client as YxClient;
-use App\Models\Cart;
-use App\Models\Order;
-use App\Models\Payment\Clients\YandexCheckoutClient;
-use App\Models\Payment\Clients\MockClient;
+use App\Models\Payment\Widgets\YandexCheckoutWidget;
+use App\Models\Payment\Widgets\MockWidget;
 
 class PaymentService
 {
-	private $payment_clients = [
-		'yandex_checkout' => YandexCheckoutClient::class,
-		'mock' => MockClient::class,
+	private $payment_widgets = [
+		'yandex_checkout' => YandexCheckoutWidget::class,
+		'mock_widget' => MockWidget::class,
 	];
 
-	public function getClient($client)
+	public function getWidget($widget_name)
 	{
-		if (array_key_exists($client, $this->payment_clients)) {
-			return new $this->payment_clients[$client];
+		if (array_key_exists($widget_name, $this->payment_widgets)) {
+			return new $this->payment_widgets[$widget_name];
 		}
 
-		throw new \LogicException("Undefined payment client: '$client'", 1);
-	}	
+		throw new \LogicException("Undefined payment widget: '$widget'", 1);
+	}
 }

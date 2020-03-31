@@ -32,7 +32,9 @@
 
 		</b-collapse>
 	</b-navbar>
-	<nuxt />
+	<b-container class="main" fluid>
+		<nuxt />	
+	</b-container>
 </div>
 </template>
 
@@ -90,6 +92,12 @@ export default {
 	}
 
 	.price:after {
-		content: ' RUB';
+		content: ' ₽';
+	}
+
+	.cart-actions {
+		display:flex;
+		flex-direction: row;
+		justify-content: center;
 	}
 </style>
