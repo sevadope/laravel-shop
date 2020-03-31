@@ -55,24 +55,6 @@
 					</b-button-group>
 						<component v-bind:is="current_form"></component>
 				</div>
-				<!--
-				<div>
-					<h3>Choose payment client:</h3>
-				  	<b-button v-b-toggle.form variant="warning" 
-				  	@click="initPayment('yandex_checkout')">
-				  		Yandex.Kassa
-				  	</b-button>
-				  	<b-button v-b-toggle.form variant="primary" 
-				  	@click="initPayment('mock')">
-				  		Mock
-				  	</b-button>
-				  	<b-collapse id="form">
-				     <div id="widget-form">
-				     	
-				     </div>  		
-				  	</b-collapse>
-				</div>
-			-->
 			</b-col>
 		</b-row>
 	</div>

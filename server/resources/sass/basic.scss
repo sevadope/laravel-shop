@@ -9,7 +9,7 @@
 }
 
 .price:after {
-	content: ' RUB';
+	content: ' ₽';
 }
 .img-lg {
 	width: 20rem;
@@ -29,3 +29,21 @@
 	border-radius: 10%;
 
 }
+
+.badge-succeeded {
+	@extend .badge-success;
+	padding: 1rem;
+}
+
+.badge-pending {
+	@extend .badge-warning;
+	padding: 1rem;
+}
+
+.badge-processing {
+	@extend .badge-primary;
+	padding: 1rem;
+}
+
+
+

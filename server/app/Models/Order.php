@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Product;
+use App\Models\Pivots\OrderProductPivot;
 
 class Order extends Model
 {
 	public const SUCCEEDED = 'succeeded';
 	public const PENDING = 'pending';
-	public const PROCCESSING = 'processing';
+	public const PROCESSING = 'processing';
 	
 	protected $fillable = [
 		'customer_id',
@@ -40,7 +41,7 @@ class Order extends Model
 			'order_product',
 			'order_id',
 			'product_id'
-		)->withPivot('options');
+		)->using(OrderProductPivot::class)->withPivot(['options', 'count']);
 	}
 
 	/*|====================|*/

@@ -31,6 +31,9 @@
     "dependencies": {
         "@coreui/coreui": "^3.0.0",
         "@coreui/icons": "^1.0.1",
-        "less-loader": "^5.0.0"
+        "@popperjs/core": "^2.1.1",
+        "less": "^3.11.1",
+        "less-loader": "^5.0.0",
+        "perfect-scrollbar": "^1.5.0"
     }
 }

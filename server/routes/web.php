@@ -4,7 +4,7 @@
 
 Route::group(
 	[
-		'domain' => 'admin.eshop.dev',
+		'domain' => 'admin.online-shop.ru',
 		'as' => 'admin.',
 		'namespace' => 'Admin',
 	],
@@ -26,7 +26,10 @@ Route::group(
 			function () {
         		Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 				
+				/*|=====| Categories |=====|*/
+
 				Route::get('', 'CategoryController@index')->name('home');
+
 				Route::group(
 					[
 						'as' => 'categories.',
@@ -54,6 +57,8 @@ Route::group(
 					}
 				);
 
+				/*|=====| Products |=====|*/
+
 				Route::group(
 					[
 						'as' => 'products.',
@@ -62,6 +67,32 @@ Route::group(
 					function () {
 						Route::get('', 'ProductController@index')->name('index');
 						Route::get('{product}', 'ProductController@show')->name('show');
+					}
+				);
+
+				/*|=====| Orders |=====|*/
+
+				Route::group(
+					[
+						'as' => 'orders.',
+						'prefix' => 'orders',
+					],
+					function () {
+						Route::get('', 'OrderController@index')
+							->name('index');
+
+						Route::get('processing', 'OrderController@processingList')
+							->name('list.processing');
+
+						Route::get('pending', 'OrderController@pendingList')
+							->name('list.pending');
+
+						Route::get('succeeded', 'OrderController@succeededList')
+							->name('list.succeeded');
+
+						Route::get('{order}', 'OrderController@show')
+							->name('show');
+
 					}
 				);
 			}

@@ -47,7 +47,7 @@ class PaymentController extends Controller
         $order = Order::createFromCart(
             $cart,
             \Str::random(20),
-            Order::PROCCESSING
+            Order::PROCESSING
         );
 
         $cart->clear();

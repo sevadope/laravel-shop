@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\User;
+use App\Models\Order;
 
 class OrderSeeder extends Seeder
 {
@@ -33,9 +34,18 @@ class OrderSeeder extends Seeder
     		'customer_id' => $user_id,
             'total_price' => random_int(500, 20000),
             'payment_id' => Str::random(20),
-            'status' => 'succeeded',
+            'status' => $this->getRandStatus(),
     		'created_at' => now(),
     		'updated_at' => now(),
     	];
+    }
+
+    private function getRandStatus()
+    {
+        return ($this->states ?? $this->states = [
+                Order::PENDING,
+                Order::PROCESSING,
+                Order::SUCCEEDED
+            ])[array_rand($this->states)];
     }
 }
