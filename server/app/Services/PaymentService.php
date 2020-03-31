@@ -3,13 +3,13 @@
 namespace App\Services;
 
 use App\Models\Payment\Widgets\YandexCheckoutWidget;
-use App\Models\Payment\Widgets\MockWidget;
+use App\Models\Payment\Widgets\WidgetMock;
 
 class PaymentService
 {
 	private $payment_widgets = [
 		'yandex_checkout' => YandexCheckoutWidget::class,
-		'mock_widget' => MockWidget::class,
+		'widget_mock' => WidgetMock::class,
 	];
 
 	public function getWidget($widget_name)

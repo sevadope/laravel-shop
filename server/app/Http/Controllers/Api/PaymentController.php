@@ -19,25 +19,24 @@ class PaymentController extends Controller
         Cart $cart
     )
     {
-        // Get payment client for chosen widget
+        # Get payment client for chosen widget
     	$widget_name = $req->validated()['name'];
         $widget = $service->getWidget($widget_name);
 
-
-        // Create payment by user cart
+        # Create payment by user cart
         $resp = $widget->createPayment($cart);
 
-        // If widget does not support redirects after succeeded payment
-        // we need to check it manually
+        # If widget does not support redirects after succeeded payment
+        # we need to check it manually
         if ($widget->usesRedirectForSubmit()) {
         } else {
             CheckPaymentStatus::dispatch($resp['id'], $widget_name);
         }
 
-        // Create order by cart and payment id
+        # Create order by cart and payment id
         $order = Order::createFromCart($cart, $resp['id']);
 
-        // Remove user cart from cache
+        # Remove user cart from cache
         $cart->clear();
 
         return $resp;
@@ -45,9 +44,14 @@ class PaymentController extends Controller
 
     public function storeMock(StoreMockRequest $req, Cart $cart)
     {
-        $order = Order::createFromCart($cart, \Str::random(20), Order::SUCCEEDED);
+        $order = Order::createFromCart(
+            $cart,
+            \Str::random(20),
+            Order::PROCCESSING
+        );
+
         $cart->clear();
 
-        return response('Order successfully created.'.Order::SUCCEEDED, 200);
+        return response('Order successfully created.', 200);
     }
 }

@@ -39,7 +39,7 @@
 					<b-button-group block size="lg"
 					class="d-flex">
 				    	<b-button block	variant="warning"
-				    	@click="initPayment('Mock')">
+				    	@click="initPayment('YandexCheckout')">
 				    		Yandex.Checkout
 				    	</b-button>
 						<div></div>
@@ -49,8 +49,8 @@
 				    	</b-button>
 						<div></div>
 				    	<b-button block	variant="danger"
-				    	@click="initPayment('MockWidget')">
-				    		Mock Widget
+				    	@click="initPayment('WidgetMock')">
+				    		Widget Mock
 				    	</b-button>
 					</b-button-group>
 						<component v-bind:is="current_form"></component>
@@ -80,7 +80,7 @@
 
 <script>
 import Mock from '~/components/payment_forms/Mock.vue';
-import MockWidget from '~/components/payment_forms/MockWidget.vue';
+import WidgetMock from '~/components/payment_forms/WidgetMock.vue';
 import YandexCheckout from '~/components/payment_forms/YandexCheckout.vue';
 
 export default {
@@ -89,7 +89,7 @@ export default {
 
 	components: {
 		Mock,
-		MockWidget,
+		WidgetMock,
 		YandexCheckout,
 	},
 

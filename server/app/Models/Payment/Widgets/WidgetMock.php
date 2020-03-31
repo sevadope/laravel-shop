@@ -5,7 +5,7 @@ namespace App\Models\Payment\Widgets;
 use App\Contracts\PaymentWidgetInterface;
 use App\Models\Cart;
 
-class MockWidget implements PaymentWidgetInterface
+class WidgetMock implements PaymentWidgetInterface
 {
 	public function createPayment(Cart $cart, $type = null)
 	{

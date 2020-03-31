@@ -40,7 +40,7 @@ class CheckPaymentStatus implements ShouldQueue
         if ($client->paymentSucceeded($this->payment_id)) {
             $order = Order::wherePayment($this->payment_id)->first();
 
-            $order->setAttribute('status', $order::SUCCEEDED);
+            $order->setAttribute('status', $order::PROCCESSING);
             $order->save();
         } else {
             sleep(2);

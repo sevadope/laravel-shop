@@ -48,7 +48,7 @@ export default {
     async mounted() {
         this.data = await this.$axiosAuthPost(
             'payment/widgets/init',
-            {name: 'mock_widget'}
+            {name: 'widget_mock'}
         );
     },
 

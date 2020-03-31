@@ -10,7 +10,8 @@ class Order extends Model
 {
 	public const SUCCEEDED = 'succeeded';
 	public const PENDING = 'pending';
-
+	public const PROCCESSING = 'processing';
+	
 	protected $fillable = [
 		'customer_id',
 		'payment_id',
