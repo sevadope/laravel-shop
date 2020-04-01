@@ -1,4 +1,5 @@
 <div class="">
+
 	@error('msg')
 		<div class="alert alert-danger">
 			{{ $message }}
@@ -10,4 +11,5 @@
 			{{ session('msg') }}
 		</div>
 	@endisset
+	
 </div>

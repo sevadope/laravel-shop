@@ -38,6 +38,7 @@
         <div class="c-body bg-gray-200">
             <main class="c-main">
                 <div class="container-fluid">
+                    @include('admin.components.msg_alert')
                     @yield('content')
                 </div>
             </main>

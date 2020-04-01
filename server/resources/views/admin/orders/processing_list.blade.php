@@ -49,8 +49,12 @@
 										">
 											Complete order
 										</a>
-										<form action="#" id="complete-{{ $key }}-form" 
-										method="post" class="d-none">
+										<form method="post" class="d-none"
+										action="{{ 
+											route(
+												'admin.orders.complete',
+												$order->getRouteKey()) 
+										}}" id="complete-{{ $key }}-form">
 											@csrf
 										</form>
 								</div>

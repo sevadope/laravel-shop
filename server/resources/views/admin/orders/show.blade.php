@@ -13,17 +13,20 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
+				<div class="row mt-3 text-center">
 					<div class="col">
-						<div class="card-body">
-							<h2>
-								Total Price: 
-								<span class="price">
-									{{ $order->total_price }}
-								</span>
-							</h2>	
-						</div>
+						<h2>
+							Total Price: 
+							<span class="price">
+								{{ $order->total_price }}
+							</span>
+						</h2>	
 					</div>
+					<div class="col">
+						<h2>
+							Total Count: {{ $order->total_count }}
+						</h2>
+					</div>						
 				</div>
 				<div class="row">
 					<div class="col-12">

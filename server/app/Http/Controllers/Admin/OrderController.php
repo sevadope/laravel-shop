@@ -51,4 +51,17 @@ class OrderController extends Controller
 
     	return view('admin.orders.succeeded_list', compact('orders'));
     }
+
+    public function complete(Order $order)
+    {
+        if ($order->status !== Order::SUCCEEDED) {
+            $order->setAttribute('status', Order::SUCCEEDED);
+            $order->save();
+
+            return back()->with(['msg' => "Order {$order->getKey()} completed."]);
+        } 
+
+        throw new \LogicException("Order already completed.", 1);
+        
+    }
 }

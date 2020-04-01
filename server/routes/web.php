@@ -93,6 +93,9 @@ Route::group(
 						Route::get('{order}', 'OrderController@show')
 							->name('show');
 
+						Route::post('{order}/complete', 'OrderController@complete')
+							->name('complete');
+
 					}
 				);
 			}

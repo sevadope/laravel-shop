@@ -23,6 +23,7 @@
 @endsection
 
 @section('sidebar')
+
 	<li class="c-sidebar-nav-item">
 	    <a href="{{ route('admin.categories.index') }}" class="c-sidebar-nav-link">
 	        <h5>Categories</h5>

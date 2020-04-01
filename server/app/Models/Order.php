@@ -20,7 +20,21 @@ class Order extends Model
 		'status',
 	];
 
-	/*|==========| Accessors |==========|*/
+	/*|=====| Accessors |=====|*/
+
+	public function getTotalCountAttribute()
+	{
+		return ($count = $this->getAttributeFromArray('total_count')) ?	
+			$count
+			:
+			$this->setAttribute('total_count', $this->products->sum(
+				function ($product) {
+					return $product->pivot->count;
+				}	
+			))->getAttributeFromArray('total_count');
+	}
+
+	/*|==========| Scopes |==========|*/
 
 	public function scopeWherePayment($query, $payment_id)
 	{
