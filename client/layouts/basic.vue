@@ -2,7 +2,7 @@
 <div>
 	<b-navbar type="dark" variant="dark">
 		<b-navbar-brand :to="{name:'index'}">
-			Shop
+			<h3>Shop</h3>
 		</b-navbar-brand>
 
 		<b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -11,13 +11,13 @@
 
 			<b-navbar-nav class="ml-auto" v-show="isLoggedIn">
 				<b-nav-item :to="{name: 'cart'}">
-					Cart
+					<h5>Cart</h5>
 				</b-nav-item>
 				<b-nav-item :to="{name: 'orders'}">
-					Orders
+					<h5>Orders</h5>
 				</b-nav-item>
 				<b-nav-item @click="logout" href="#">
-					Logout
+					<h5>Logout</h5>
 				</b-nav-item>
 			</b-navbar-nav>
 

@@ -12,8 +12,35 @@ class ProductSeeder extends Seeder
 	public const PRODUCTS_COUNT = 1000;
     private const IMAGES_PATH = 'products/images';
 
+    private const BRANDS = [
+        'LG', 'Samsung', 'Asus',
+        'Apple', 'Blackberry', 'ZTE',
+        'Sony', 'Nokia', 'Huawei',
+    ];
+
+    private const TYPES = [
+        ['Phone', 'Cell Phone', 'Smartphone'],
+        ['Phone', 'Cell Phone', 'Smartphone'],
+        ['Power Bank', 'Charge', 'Battery'],
+        ['Battery'],
+        ['Power Bank'],
+        ['Battery', 'Charge'],
+        ['USB Charge'],
+        ['Headset', 'Headphones'],
+        ['Bluetooth Headset', 'Bluetooth Headphones'],
+        ['Wired Headset', 'Wired Headphones'],
+        ['Case', 'Cover'],
+        ['Charge', 'Cable'],
+        ['Holder'],
+        ['Tablet'],
+        ['Tablet'],
+        ['Tablet'],
+        ['IPad'],
+    ];
+
 	private $options;
 	private $categories;
+
     /**
      * Run the database seeds.
      *
@@ -49,7 +76,7 @@ class ProductSeeder extends Seeder
     	return [
     		'category_id' => $category_id,
     		'name' => $name,
-    		'slug' => Str::slug($name),
+    		'slug' => Str::slug($name).Str::random(5),
     		'description' => str_repeat($name, 10),
             'popularity' => random_int(1, 1000),
             'price' => $this->getRandPrice(),
@@ -75,15 +102,14 @@ class ProductSeeder extends Seeder
 
     private function generateNameByCategory($category)
     {
-    	$category_name = $category->name;
+        $brand = self::BRANDS[array_rand(self::BRANDS)];
+        $types = self::TYPES[$category->getKey() - 1];
 
-    	$name = $category_name[-1] == 's' ? 
-    		str_split($category_name, strlen($category_name) - 1)[0]
-    		: $category_name;
+        $model = strtoupper(Str::random(4)); 
 
-    	$name .= ' ' . random_int(1, 1000000);
+        $type = $types[array_rand($types)];
 
-    	return $name; 
+        return "$brand $type $model";
     }
 
     private function getRandImgPath()
@@ -97,7 +123,7 @@ class ProductSeeder extends Seeder
     {
         $mul = pow(10, $precision);
         $range = random_int(1, 4) == 4 ?
-            [1000, 5000] : [10, 1000];
+            [3000, 5000] : [300, 3000];
 
         return random_int($range[0] * $mul, $range[1] * $mul) / $mul;
     }

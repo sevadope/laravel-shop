@@ -29,15 +29,13 @@ class PaymentController extends Controller
         # If widget does not support redirects after succeeded payment
         # we need to check it manually
         if ($widget->usesRedirectForSubmit()) {
+            
         } else {
             CheckPaymentStatus::dispatch($resp['id'], $widget_name);
         }
 
         # Create order by cart and payment id
         $order = Order::createFromCart($cart, $resp['id']);
-
-        # Remove user cart from cache
-        $cart->clear();
 
         return $resp;
     }

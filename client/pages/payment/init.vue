@@ -19,6 +19,11 @@
 							</b-button>
 					</template>
 
+					<template v-slot:cell(price)="data"> 
+						<div class="price">{{ data.item.product.price }}</div>
+					</template>
+
+
 					<template v-slot:cell(total_price)="data"> 
 						<div class="price">{{ data.item.total_price }}</div>
 					</template>
@@ -29,13 +34,19 @@
 							Remove
 						</b-button>
 					</template>
-				</b-table>				
+				</b-table>	
+				<h1>
+					Total Price: 
+					<span class="price">
+						{{ cart.total_price }}
+					</span>
+				</h1>			
 			</b-col>
 		</b-row>
 		<b-row class="m-5">
 			<b-col cols="12">
 				<div>
-					<h1 class="m-3">Select payment type</h1>
+					<h1 class="">Select payment type</h1>
 					<b-button-group block size="lg"
 					class="d-flex">
 				    	<b-button block	variant="warning"
@@ -84,6 +95,7 @@ export default {
 			cart_fields: [
 				{key: 'image', label: ''},
 				'name',
+				'price',
 				'count',
 				'total_price',
 				{key: 'remove', label: ''},	

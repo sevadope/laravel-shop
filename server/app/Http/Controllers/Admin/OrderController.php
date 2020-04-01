@@ -27,6 +27,7 @@ class OrderController extends Controller
     	$orders = Order::
     		with('customer', 'products')
     		->where('status', Order::PROCESSING)
+            ->orderByDesc('created_at')
     		->paginate(self::PER_PAGE);
 
     	return view('admin.orders.processing_list', compact('orders'));
@@ -61,7 +62,7 @@ class OrderController extends Controller
             return back()->with(['msg' => "Order {$order->getKey()} completed."]);
         } 
 
-        throw new \LogicException("Order already completed.", 1);
+        throw new \LogicException("Order is already completed.", 1);
         
     }
 }

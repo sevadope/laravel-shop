@@ -34,37 +34,10 @@ class CategorySeeder extends Seeder
                 'Chargers & Cables',
                 'Mounts & Holders',
             ],
-
             'Tablets' => [
                 'Android Tablets',
-                'Window Tablets',
+                'Windows Tablets',
                 'iPad',
-            ],
-            'TV & Home Theater' => [
-                'TV & Video',
-                'Home Audio & Home Theater',
-                'Home Video Accessories',
-                'Audio / Video Cables',
-                'HDMI Cables',
-                'TV Mounts',
-            ],
-            'Portable Electronics' => [
-                'Headphones & Accessories' => [
-                    'Headphones',
-                    'Headphone Accessories'
-                ],
-                'Portable Speakers',
-                'Gadgets & Wearables',
-                'Portable Electronic Devices',
-                'Digital Cameras & Accessories' => [
-                    'Digital Cameras',
-                    'Digital Camera Accessories',
-                ],
-            ],
-            'Speciality Electronics' => [
-                'Drones',
-                'Musical Instruments',
-                'Alternative Energy',
             ],
         ];
 

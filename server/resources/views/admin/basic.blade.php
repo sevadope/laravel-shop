@@ -53,7 +53,7 @@
 	    	<li class="c-sidebar-nav-item">
 	    		<a href="{{ route('admin.orders.list.processing') }}" 
 	    		class="c-sidebar-nav-link">
-	    			Processing orders
+	    			Orders in progress
 	    		</a>
 	    	</li>
 	    	<li class="c-sidebar-nav-item">
@@ -62,6 +62,11 @@
 	    		</a>
 	    	</li>
 	    </ul>
+	</li>	
+	<li class="c-sidebar-nav-item">
+	    <a href="#" class="c-sidebar-nav-link">
+	        <h5>Customers</h5>
+	    </a>                
 	</li>	
 @endsection
 
