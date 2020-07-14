@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM node:14.2.0
 
 # Set up work directory
 WORKDIR /var/www/client

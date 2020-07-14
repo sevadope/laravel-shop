@@ -69,7 +69,7 @@ services:
 
         volumes:
             - database:/var/lib/postgresql/data
-            - ./docker/dev/postgres/dumps/:/tmp/  
+            - ./docker/postgres/dumps/:/tmp/  
 
         ports:  
             - 54321:5432

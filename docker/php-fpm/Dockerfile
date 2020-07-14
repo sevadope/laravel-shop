@@ -1,4 +1,4 @@
-FROM php:fpm
+FROM php:7.4.6-fpm
 
 ENV USER_ID=1000
 #ENV GROUP_ID=998
