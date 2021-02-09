@@ -5,7 +5,7 @@
       <div v-for="(error, name) in errors">
         <b-alert v-for="message in error" variant="danger" show>
           {{ message }}
-        </b-alert>     
+        </b-alert>
       </div>
 
       <b-form-group
@@ -51,7 +51,7 @@
       </b-form-group>
 
       <b-button type="submit" variant="primary">Submit</b-button>
-    </b-form>	
+    </b-form>
 </div>
 </template>
 
@@ -80,6 +80,7 @@ export default {
           this.$router.push('/');
 		    })
 	      .catch(errors => {
+	        console.log(errors);
           this.errors = errors.response.data.errors;
           console.log(errors.response.data.errors);
 	      });

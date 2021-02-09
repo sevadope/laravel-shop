@@ -97,7 +97,7 @@ class CartItem implements Serializable, Arrayable
 
 	public function getTotalPrice()
 	{
-		return $this->total_price ?? $this->total_price = $this->product->price * $this->count;
+		return $this->total_price ?? $this->total_price = round($this->product->price * $this->count, 2);
 	}
 
 	public function toArray()

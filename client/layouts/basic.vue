@@ -24,7 +24,7 @@
 			<b-navbar-nav class="ml-auto" v-show="!isLoggedIn">
 				<b-nav-item :to="{name:'login'}">
 					Login
-				</b-nav-item>	
+				</b-nav-item>
 				<b-nav-item :to="{name:'register'}">
 					Sign Up
 				</b-nav-item>
@@ -33,7 +33,7 @@
 		</b-collapse>
 	</b-navbar>
 	<b-container class="main" fluid>
-		<nuxt />	
+		<nuxt />
 	</b-container>
 </div>
 </template>
@@ -43,7 +43,7 @@ export default {
 	computed: {
       isLoggedIn() {
         return this.$auth.loggedIn;
-      }	
+      }
 	},
 
 	methods: {
@@ -92,7 +92,7 @@ export default {
 	}
 
 	.price:after {
-		content: ' ₽';
+		content: ' $';
 	}
 
 	.cart-actions {

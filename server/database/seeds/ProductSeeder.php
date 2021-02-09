@@ -54,7 +54,7 @@ class ProductSeeder extends Seeder
 
     	$products = [];
 
-    	for ($i=0; $i < self::PRODUCTS_COUNT; $i++) { 
+    	for ($i=0; $i < self::PRODUCTS_COUNT; $i++) {
 
     		$cur_category = $this->getRandomCategory();
 
@@ -86,7 +86,7 @@ class ProductSeeder extends Seeder
 
     private function getLastCategoriesIDs()
     {
-    	return [ 
+    	return [
     		2, 4, 5, 6, 7, 9, 10,
             11, 12, 13, 15,16, 17,
             19, 20, 21, 22, 23, 24,
@@ -105,7 +105,7 @@ class ProductSeeder extends Seeder
         $brand = self::BRANDS[array_rand(self::BRANDS)];
         $types = self::TYPES[$category->getKey() - 1];
 
-        $model = strtoupper(Str::random(4)); 
+        $model = strtoupper(Str::random(4));
 
         $type = $types[array_rand($types)];
 
@@ -123,7 +123,7 @@ class ProductSeeder extends Seeder
     {
         $mul = pow(10, $precision);
         $range = random_int(1, 4) == 4 ?
-            [3000, 5000] : [300, 3000];
+            [100, 300] : [10, 100];
 
         return random_int($range[0] * $mul, $range[1] * $mul) / $mul;
     }

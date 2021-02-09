@@ -15,6 +15,7 @@
         "laravel/framework": "^6.2",
         "laravel/passport": "^8.4",
         "laravel/tinker": "^1.0",
+        "lcobucci/jwt": "^3.4",
         "yandex-money/yandex-checkout-sdk-php": "^1.5"
     },
     "require-dev": {

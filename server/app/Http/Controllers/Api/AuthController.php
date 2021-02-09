@@ -23,7 +23,7 @@ class AuthController extends Controller
 		]);
 
 		$resp = $this->requestAccessToken($user->email, $data['password']);
-        
+
 		return response([
 			'access_token' => $resp->access_token,
 			'expires_in' => $resp->expires_in,

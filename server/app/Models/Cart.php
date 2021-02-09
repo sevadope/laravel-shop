@@ -48,7 +48,7 @@ class Cart implements Cacheable, Arrayable
 	protected $items;
 
 	/**
-	 * Cart manager implements App\Cache\CacheManager  
+	 * Cart manager implements App\Cache\CacheManager
 	 *
 	 * @var obj
 	 **/
@@ -87,10 +87,10 @@ class Cart implements Cacheable, Arrayable
 		} else {
 			$this->items[$item_key] = new CartItem($product, $count, $options);
 			$this->items_count++;
-			$this->total_price += $product->price * $count;			
+			$this->total_price += $product->price * $count;
 		}
 
-		$this->size += $count;	
+		$this->size += $count;
 	}
 
 	public function removeItem($key)
@@ -127,9 +127,9 @@ class Cart implements Cacheable, Arrayable
 		}, $this->items);
 
 		$this->cache->putArrayValues(
-			static::getCachePrefix().$this->pk, 
+			static::getCachePrefix().$this->pk,
 			array_merge(
-				$plain_items, 
+				$plain_items,
 				$this->getSupportFields()
 			)
 		);
@@ -143,13 +143,13 @@ class Cart implements Cacheable, Arrayable
 
 	public static function getCachePrefix()
 	{
-		return 'user:cart:';	
+		return 'user:cart:';
 	}
 
 	public function buildFromCache(array $data, $cache = null)
 	{
 		$plain_items = array_diff_key(
-			$data, 
+			$data,
 			$this->getSupportFields()
 		);
 
@@ -178,7 +178,7 @@ class Cart implements Cacheable, Arrayable
 					$product->getKey(),
 					$e_item->getOptions()
 				)] = $e_item->setProduct($product);
-			}	
+			}
 
 		} else {
 			// Get all products keys from empty items
@@ -237,7 +237,7 @@ class Cart implements Cacheable, Arrayable
 	protected function refresh($key = null)
 	{
 		$key = $key ?? $this->pk;
-		
+
 		$response = $this->cache->getAllArrayValues($this->getCachePrefix().$key);
 
 		$size = 0;
